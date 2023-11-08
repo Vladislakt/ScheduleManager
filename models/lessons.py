@@ -12,6 +12,7 @@ class Lessons(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     teach_id = Column(Integer, ForeignKey('teachers.teach_id'))
     group_name = Column(Integer, ForeignKey('groups.group_name'))
+    quantity = Column(Integer, nullable=False)
     lesson_name = Column(String, nullable=False)
     projector = Column(Boolean, nullable=False)
     computers = Column(Boolean, nullable=False)
