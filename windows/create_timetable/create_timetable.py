@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QVBoxLayout
 
 from buttons import Buttons
 from table import Table
@@ -13,13 +13,9 @@ class CreateTimetable(QWidget):
         self.setWindowTitle("Составление расписания")
         self.setBaseSize(1024, 768)
         self.table = Table(groups, days, number_of_classes_per_day)
-        self.vertical_line = QVLine()
-        self.courses = Courses(courses)
-        self.courses.setFixedWidth(300)
         self.buttons = Buttons()
-        layout = QHBoxLayout()
+        layout = QVBoxLayout()
         layout.addWidget(self.table)
-        layout.addWidget(self.vertical_line)
-        layout.addWidget(self.courses)
+        layout.addWidget(self.buttons)
         layout.setAlignment(Qt.AlignRight)
         self.setLayout(layout)
