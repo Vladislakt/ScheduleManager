@@ -11,7 +11,6 @@ class CreateTimetable(QWidget):
     def __init__(self, courses, groups, days, number_of_classes_per_day):
         super().__init__()
         self.setWindowTitle("Составление расписания")
-        self.setBaseSize(1024, 768)
         self.table = Table(groups, days, number_of_classes_per_day)
         self.buttons = Buttons()
         layout = QVBoxLayout()

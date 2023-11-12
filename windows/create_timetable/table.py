@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QWidget, QFrame, QGridLayout, QLabel, QScrollArea, \
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QScrollArea, \
     QVBoxLayout, QComboBox
 
 from horizontal_line import QHLine
@@ -39,18 +40,20 @@ class Table(QWidget):
                 self.layout.addWidget(label, 2 + i * (self.number_of_classes_per_day + 1) + j, 1, 1, 1)
 
     def add_groups(self):
-        columns_width = 150
+        columns_width = 200
         for i in range(len(self.groups)):
             group_name = QLabel(self.groups[i])
             group_name.setFixedWidth(columns_width)
+            group_name.setAlignment(Qt.AlignCenter)
             self.layout.addWidget(group_name, 0, 3 + i * 3, 1, 2)
             for j in range(len(self.days)):
                 for k in range(self.number_of_classes_per_day):
-                    courses = QComboBox()
-                    courses.setFixedWidth(columns_width - 30)
+                    course = QComboBox()
+                    course.addItems(["a", "b", "c"])
+                    course.setFixedWidth(columns_width - 50)
                     classroom = QComboBox()
-                    classroom.setFixedWidth(30)
-                    self.layout.addWidget(courses, 2 + j * (self.number_of_classes_per_day + 1) + k, 3 + i * 3, 1, 1)
+                    classroom.setFixedWidth(50)
+                    self.layout.addWidget(course, 2 + j * (self.number_of_classes_per_day + 1) + k, 3 + i * 3, 1, 1)
                     self.layout.addWidget(classroom, 2 + j * (self.number_of_classes_per_day + 1) + k, 4 + i * 3, 1, 1)
 
     def add_horizontal_lines(self):
@@ -62,5 +65,6 @@ class Table(QWidget):
     def add_vertical_lines(self):
         for i in range(len(self.groups)):
             vertical_line = QVLine()
+            vertical_line.setFixedWidth(30)
             self.layout.addWidget(vertical_line, 0, 2 + i * 3,
                                   len(self.days) * (self.number_of_classes_per_day + 1) + 1, 1)

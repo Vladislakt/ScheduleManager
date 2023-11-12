@@ -11,5 +11,6 @@ if __name__ == '__main__':
     number_of_classes_per_day = 4
     app = QApplication([])
     window = CreateTimetable(courses, groups, days, number_of_classes_per_day)
+    window.showMaximized()
     window.show()
     app.exec()
