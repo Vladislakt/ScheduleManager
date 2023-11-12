@@ -58,8 +58,7 @@ class LineMassive(QWidget):
 class TestWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setMinimumSize(1200, 700)
-        self.setMaximumSize(1200, 700)
+        self.setFixedSize(1200, 700)
         self.setWindowTitle("Тестовый вариант вставки данных")
 
         title = QLabel("Заголовок")
