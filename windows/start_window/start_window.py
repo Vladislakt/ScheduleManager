@@ -56,7 +56,6 @@ class Start_window(QMainWindow):
         button_exit.clicked.connect(self.close)
 
         # При нажатии кнопки создать -> Скрывается это окно -> Переходит на окно создания
-        # button_create.clicked.connect(self.hide)
         button_create.clicked.connect(self.open_create_start_window)
 
     def open_create_start_window(self):
