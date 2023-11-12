@@ -56,8 +56,6 @@ class Create_start_window(QMainWindow):
         button_back.clicked.connect(self.open_start_window)
 
         # При нажатии кнопки создать -> Открывает окно заполнения преподавателей и скрывает это окно
-        # button_create_bd.clicked.connect(self.hide)
-        # button_create_bd.clicked.connect(self.creatorbd)
 
     def open_start_window(self):
         # self.switch_start_window = Start_window()
