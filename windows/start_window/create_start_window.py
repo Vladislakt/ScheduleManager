@@ -63,7 +63,3 @@ class Create_start_window(QMainWindow):
         self.hide()
 
 
-
-    # def creatorbd(self):
-    #     self.switch_creatorbd = CreatBd_teatcher()
-    #     self.switch_creatorbd.showMaximized()
