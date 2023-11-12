@@ -8,9 +8,9 @@ class LineMassive(QWidget):
         super().__init__()
         self.massive = []
         self.layout = QVBoxLayout()
-
+        self.layout.setAlignment(Qt.AlignTop)
+        self.setLayout(self.layout)
         self.addLine()
-        self.setFixedSize(1000, 600)
 
     def addLine(self):
         line = QWidget()
@@ -22,11 +22,11 @@ class LineMassive(QWidget):
         line.button.clicked.connect(self.addLine)
         line.cancel_button.clicked.connect(lambda: self.delLine(self.massive.index(line)))
 
-        layout = QGridLayout()
-        layout.addWidget(line.button, 0, 0)
-        layout.addWidget(line.line, 0, 1)
-        layout.addWidget(line.cancel_button, 0, 2)
-        line.setLayout(layout)
+        line_layout = QGridLayout()
+        line_layout.addWidget(line.button, 0, 0)
+        line_layout.addWidget(line.line, 0, 1)
+        line_layout.addWidget(line.cancel_button, 0, 2)
+        line.setLayout(line_layout)
 
         self.massive.append(line)
         self.updateLayout()
@@ -37,10 +37,7 @@ class LineMassive(QWidget):
 
     def clearLayout(self):
         for i in reversed(range(self.layout.count())):
-            if self.layout.itemAt(i).widget() is None:
-                self.layout.removeItem(self.layout.itemAt(i))
-            else:
-                self.layout.itemAt(i).widget().setParent(None)
+            self.layout.itemAt(i).widget().setParent(None)
 
     def updateLayout(self):
         self.clearLayout()
@@ -56,8 +53,6 @@ class LineMassive(QWidget):
                     self.massive[index].button.setVisible(True)
                 self.massive[index].cancel_button.setVisible(True)
                 self.layout.addWidget(self.massive[index])
-        self.layout.addStretch()
-        self.setLayout(self.layout)
 
 
 class TestWindow(QWidget):
@@ -74,11 +69,11 @@ class TestWindow(QWidget):
 
         m = LineMassive()
 
+        scroll_area = QScrollArea()
+        scroll_area.setWidget(m)
+        scroll_area.setWidgetResizable(True)
 
-
-        mainLayout.addWidget(m)
-
-        # mainLayout.addWidget(m)
+        mainLayout.addWidget(scroll_area)
 
         self.setLayout(mainLayout)
 
