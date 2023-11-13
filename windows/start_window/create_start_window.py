@@ -18,8 +18,11 @@ class Create_start_window(QMainWindow):
 
         # Кнопки в окне
         button_create_bd = QPushButton("Создать расписание")
+        button_create_bd.setObjectName("baseButton")
         button_import_my_bd = QPushButton("Импортировать расписание")
+        button_import_my_bd.setObjectName("baseButton")
         button_back = QPushButton("Назад в главное меню")
+        button_back.setObjectName("baseButton")
 
         # Стиль кнопок
         button_create_bd.setFont(QFont("Georgia", 40))

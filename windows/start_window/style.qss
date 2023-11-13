@@ -1,6 +1,6 @@
-QPushButton {
+QPushButton#baseButton{
   background-color: #8B4513;
-  color: #F5F5DC;
+  color: black;
   font-weight: 600;
   border-radius: 8px;
   border: 1px solid #8B4513;
