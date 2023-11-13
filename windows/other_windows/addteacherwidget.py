@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout
 
-
+# Создание окна для добавления преподоавтелей
 class AddingTeacherWidget(QWidget):
     def __init__(self):
         super().__init__()
