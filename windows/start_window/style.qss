@@ -1,9 +1,9 @@
 QPushButton#baseButton{
-  background-color: #8B4513;
-  color: black;
+  background-color: #8673A1;
+  color: #f7f7c1;
   font-weight: 600;
   border-radius: 8px;
-  border: 1px solid #8B4513;
+  border: 1px solid #46394B;
   padding: 5px 15px;
   margin-top: 10px;
   outline: 0px;
