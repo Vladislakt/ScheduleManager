@@ -6,7 +6,10 @@ import sys
 from start_window import Start_window
 
 app = QApplication([])
-app.setStyleSheet(Path('style.qss').read_text())
+qss_file = QFile("style.qss")
+qss_file.open(QFile.ReadOnly | QFile.Text)
+stream = QTextStream(qss_file)
+app.setStyleSheet(stream.readAll())
 window = Start_window()
 window.showMaximized()
 app.exec()

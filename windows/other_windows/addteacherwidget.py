@@ -15,6 +15,7 @@ class AddingTeacherWidget(QWidget):
         line = QWidget()
         line.plus_button = QPushButton("+")
         line.name = QLineEdit()
+        line.name.setStyleSheet("background-color: #ffffff;")
         line.cancel_button = QPushButton("X")
 
         line.plus_button.clicked.connect(self.addLine)
