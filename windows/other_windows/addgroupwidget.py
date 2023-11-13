@@ -1,6 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout
 
+#Создание окна для назавание группы и её количества студентов/учеников
 
 class AddingGroupWidget(QWidget):
     def __init__(self):
