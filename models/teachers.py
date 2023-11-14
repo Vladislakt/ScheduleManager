@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from database.database import Base
+from DataBase.database import Base
 
 
 # Класс представления отношения teachers
@@ -14,3 +14,6 @@ class Teachers(Base):
 
     # Создание зависимости
     lesson = relationship('Lessons')
+
+    def __repr__(self):
+        return f'Teachers [ID: {self.teach_id}, ФИО: {self.fullname}]'
