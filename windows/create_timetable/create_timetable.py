@@ -6,10 +6,10 @@ from table import Table
 
 
 class CreateTimetable(QWidget):
-    def __init__(self, courses, groups, days, number_of_classes_per_day):
+    def __init__(self, days, number_of_classes_per_day):
         super().__init__()
         self.setWindowTitle("Составление расписания")
-        self.table = Table(courses, groups, days, number_of_classes_per_day)
+        self.table = Table(days, number_of_classes_per_day)
         self.buttons = Buttons()
         layout = QVBoxLayout()
         layout.addWidget(self.table)

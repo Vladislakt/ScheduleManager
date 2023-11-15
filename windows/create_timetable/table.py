@@ -2,17 +2,34 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QScrollArea, \
     QVBoxLayout, QComboBox
 
+from DataBase.get_list_from_db import getLessonsByGroup, getGroupNameList
+from DataBase.select_queries import getTeacherName
 from horizontal_line import QHLine
 from vertical_line import QVLine
 from windows.create_timetable.modified_combobox import ModifiedQComboBox
 
+db = "test"
+
+groups = getGroupNameList(db)
+
+
+def get_data_from_database():
+    courses = []
+    for group in groups:
+        lessons = getLessonsByGroup(db, group)
+        courses_for_one_group = []
+        for i in range(len(lessons)):
+            courses_for_one_group.append(f"{lessons[i].lesson_name} ({getTeacherName(db, lessons[i].teach_id)})")
+        courses.append(courses_for_one_group)
+    return courses
+
 
 class Table(QWidget):
-    def __init__(self, courses, groups, days, number_of_classes_per_day):
+    def __init__(self, days, number_of_classes_per_day):
         super().__init__()
         # self.setStyleSheet("background-color: rgb(255,200,0); ")
         self.columns_width = 300
-        self.courses = courses
+        self.courses = get_data_from_database()
         self.groups = groups
         self.len_groups = len(self.groups)
         self.days = days
@@ -64,8 +81,8 @@ class Table(QWidget):
     def add_course_choice(self, i, j, k):
         course = ModifiedQComboBox(2 + j * (self.number_of_classes_per_day + 1) + k, 3 + i * 3, self.scroll_area_widget)
         course.addItem("")
-        course.addItems(self.courses)
-        course.view().setMinimumWidth(300)
+        course.addItems(self.courses[i])
+        course.view().setMinimumWidth(400)
         course.setFixedWidth(self.columns_width - 50)
         self.scroll_area_layout.addWidget(course, 2 + j * (self.number_of_classes_per_day + 1) + k,
                                           3 + i * 3, 1, 1)
@@ -78,13 +95,24 @@ class Table(QWidget):
     def check_lessons_in_row(self, row):
         teacher_ids = []
         for i in range(self.len_groups):
-            current_combobox_item_index = self.scroll_area_layout.itemAtPosition(row, 3 + i * 3).widget().currentIndex()
-            
+            self.scroll_area_layout.itemAtPosition(row, 3 + i * 3). \
+                widget().setStyleSheet("background-color: rgb(255,255,255); ")
+        for i in range(self.len_groups):
+            current_index = self.scroll_area_layout.itemAtPosition(row, 3 + i * 3).widget().currentIndex()-1
+            lessons = getLessonsByGroup(db, groups[i])
+            if current_index >= 0:
+                id = lessons[current_index].teach_id
+            else:
+                id = 0
+                teacher_ids.append(id)
+                continue
             if id in teacher_ids:
                 teacher_ids.append(id)
-                teacher_ids.index(id)
+                same_teacher = teacher_ids.index(id)
+                self.scroll_area_layout.itemAtPosition(row, 3 + same_teacher * 3). \
+                    widget().setStyleSheet("background-color: rgb(255,76,91); ")
                 self.scroll_area_layout.itemAtPosition(row, 3 + i * 3). \
-                    widget().setStyleSheet("background-color: rgb(255,255,255); ")
+                    widget().setStyleSheet("background-color: rgb(255,76,91); ")
             else:
                 teacher_ids.append(id)
 
