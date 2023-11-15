@@ -34,3 +34,11 @@ def getLessonsByGroup(filename, group_name):
     session = create_session(filename)
     list = session.query(Lessons).filter(Lessons.group_name == group_name).all()
     return list
+
+
+def getGroupNameList(filename):
+    session = create_session(filename)
+    list = []
+    for group in session.query(Groups).all():
+        list.append(group.group_name)
+    return list
