@@ -9,20 +9,20 @@ from domain.operations import ListGroupOperation, ListClassroomOperation, ListTe
 from domain.operations import AddGroupOperation, AddClassroomOperation, AddTeacherOperation, AddLessonOperation, AddFinalDataOperation
 
 class OperationStorage:
-    def init(self, storage: Storage):
-        self.fetchClassroomOperation = FetchClassroomOperation(ClassroomRepository)
-        self.fetchFinalDataOperation = FetchFinalDataOperation(FinalDataRepository)
-        self.fetchGroupOperation = FetchGroupOperation(GroupRepository)
-        self.fetchLessonOperation = FetchLessonOperation(LessonRepository)
-        self.fetchTeacherOperation = FetchTeacherOperation(TeacherRepository)
-        self.listClassroomOperation = ListClassroomOperation(ClassroomRepository)
-        self.listFinalDataOperation = ListFinalDataOperation(FinalDataRepository)
-        self.listGroupOperation = ListGroupOperation(GroupRepository)
-        self.listLessonOperation = ListLessonOperation(LessonRepository)
-        self.listTeacherOperation = ListTeacherOperation(TeacherRepository)
-        self.addClassroomOperation = AddClassroomOperation(ClassroomRepository)
-        self.addFinalDataOperation = AddDataOperation(FinalDataRepository)
-        self.addGroupOperation = AddGroupOperation(GroupRepository)
-        self.addLessonOperation = AddLessonOperation(LessonRepository)
-        self.addTeacherOperation = AddTeacherOperation(TeacherRepository)
+    def __init__(self, storage: Storage):
+        self.fetchClassroomOperation = FetchClassroomOperation(storage.classroom_repository)
+        self.fetchFinalDataOperation = FetchFinalDataOperation(storage.finaldata_repository)
+        self.fetchGroupOperation = FetchGroupOperation(storage.group_repository)
+        self.fetchLessonOperation = FetchLessonOperation(storage.lesson_repository)
+        self.fetchTeacherOperation = FetchTeacherOperation(storage.teacher_repository)
+        self.listClassroomOperation = ListClassroomOperation(storage.classroom_repository)
+        self.listFinalDataOperation = ListFinalDataOperation(storage.finaldata_repository)
+        self.listGroupOperation = ListGroupOperation(storage.group_repository)
+        self.listLessonOperation = ListLessonOperation(storage.lesson_repository)
+        self.listTeacherOperation = ListTeacherOperation(storage.teacher_repository)
+        self.addClassroomOperation = AddClassroomOperation(storage.classroom_repository)
+        self.addFinalDataOperation = AddFinalDataOperation(storage.finaldata_repository)
+        self.addGroupOperation = AddGroupOperation(storage.group_repository)
+        self.addLessonOperation = AddLessonOperation(storage.lesson_repository)
+        self.addTeacherOperation = AddTeacherOperation(storage.teacher_repository)
 
