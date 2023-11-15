@@ -3,6 +3,7 @@ from models.classrooms import Classrooms
 from models.groups import Groups
 from models.lessons import Lessons
 from models.teachers import Teachers
+from models.finaldata import FinalData
 
 
 def getTeacherList(filename):
