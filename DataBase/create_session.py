@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Функция для открытия сессии для работы с бд
 def create_session(filename):
-    database_name = f"finaldata/{filename}.sqlite"
+    database_name = f"finaldata/{filename}.rsp"
     while True:
         if os.path.isfile(database_name):
             break
