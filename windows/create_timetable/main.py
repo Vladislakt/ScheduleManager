@@ -8,7 +8,7 @@ if __name__ == '__main__':
     groups = ["ИВТ-31", "ИВТ-32", "ИТ-31", "ИТ-32", "ПИЭ-31", "ПИЭ-32", "kfgjkdkgdkgk",
               "jgkjdkgjgkn"]
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
-    number_of_classes_per_day = 7
+    number_of_classes_per_day = 4
     app = QApplication([])
     window = CreateTimetable(courses, groups, days, number_of_classes_per_day)
     window.show()

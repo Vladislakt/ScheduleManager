@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey
 
-from database.database import Base
+from DataBase.database import Base
 
 
 # Класс представления отношения finaldata
@@ -10,4 +10,7 @@ class FinalData(Base):
     # Поля
     day_and_num = Column(Integer, primary_key=True, nullable=False)
     lesson_id = Column(Integer, ForeignKey('lessons.id'))
-    class_number = Column(Integer, ForeignKey('classrooms.class_number'))
+    class_number = Column(String, ForeignKey('classrooms.class_number'))
+
+    def __repr__(self):
+        return f'FinalData [День/Пара: {self.day_and_num}, Пара: {self.lesson_id}, Кабинет: {self.class_number}]'

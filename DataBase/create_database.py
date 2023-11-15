@@ -1,4 +1,4 @@
-from database.database import create_db
+from DataBase.database import create_db
 from models.teachers import Teachers
 from models.groups import Groups
 from models.lessons import Lessons
