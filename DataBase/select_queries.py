@@ -8,5 +8,5 @@ from models.finaldata import FinalData
 
 def getTeacherName(filename, teach_id):
     session = create_session(filename)
-    name = session.query(Teachers.fullname).filter(Teachers.teach_id == teach_id).first().fullname
+    name = session.query(Teachers.fullname).filter(Teachers.teach_id == teach_id).first()
     return name
