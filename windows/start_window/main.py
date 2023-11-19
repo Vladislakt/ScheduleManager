@@ -5,6 +5,7 @@ from PySide6.QtWidgets import *
 import sys
 from start_window import Start_window
 
+# main -> start_window -> create_start_window -> addTeacher -> addGroup -> addLeson -> addClassroom
 app = QApplication([])
 qss_file = QFile("style.qss")
 qss_file.open(QFile.ReadOnly | QFile.Text)
