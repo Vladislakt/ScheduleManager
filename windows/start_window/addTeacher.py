@@ -5,10 +5,12 @@ from PySide6.QtWidgets import *
 
 from windows.other_windows.addteacherwidget import AddingTeacherWidget
 
-class AddTeacher(QMainWindow):
-    def __init__(self):
-        super().__init__()
 
+class AddTeacher(QMainWindow):
+    def __init__(self, pre_window):
+        super().__init__()
+        #Создание объекта предыдущего окна
+        self.pre_window = pre_window
         # Настройка окна
         self.setMinimumSize(900, 800)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
@@ -20,7 +22,6 @@ class AddTeacher(QMainWindow):
 
         # label -> Виджет добавления -> Кнопки
         # 1)
-
         # Виджет нужен для того, чтобы поделить экран
         widget_label = QWidget()
 
@@ -48,11 +49,6 @@ class AddTeacher(QMainWindow):
 
         # Добавляем скрол бар
         widget_add = QScrollArea()
-        # ?
-        widget_add.setWidget(pattern)
-        widget_add.setWidgetResizable(True)
-
-        widget_add.setMinimumSize(500, 500)
 
         # 3)
         widget_button = QWidget()
@@ -87,8 +83,6 @@ class AddTeacher(QMainWindow):
         # Запихиваем вниз кнопки
         widget_button_layout.setAlignment(Qt.AlignBottom)
 
-
-
         # Добавляем виджеты в главный виджет
         main_layout.addWidget(widget_label)
         main_layout.addWidget(widget_add)
@@ -100,8 +94,22 @@ class AddTeacher(QMainWindow):
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
 
+        # Функционал кнопок
 
-app = QApplication([])
-window = AddTeacher()
-window.showMaximized()
-app.exec()
+        # При нажатии кнопки назад -> Открывает стартовое окно создания и закрывает это окно
+        button_back.clicked.connect(self.open_create_start_window)
+
+        # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
+        button_next.clicked.connect(self.open_add_group)
+
+    # Открытие стартового окна создания (предыдущее окно)
+    def open_create_start_window(self):
+        self.pre_window.showMaximized()
+        self.close()
+
+    # Открытие окна заполнения учебных групп (следующее окно)
+    def open_add_group(self):
+        from addGroup import AddGroup
+        self.addGroup = AddGroup(self)
+        self.addGroup.showMaximized()
+        self.close()

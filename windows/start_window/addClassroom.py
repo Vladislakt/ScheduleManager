@@ -5,9 +5,12 @@ from PySide6.QtWidgets import *
 
 from windows.other_windows.addclassroomwidget import AddingClassroomWidget
 
-class AddTeacher(QMainWindow):
-    def __init__(self):
+class AddClassroom(QMainWindow):
+    def __init__(self, pre_window):
         super().__init__()
+
+        # Создание объекта предыдущего окна
+        self.pre_window = pre_window
 
         # Настройка окна
         self.setMinimumSize(900, 800)
@@ -48,11 +51,6 @@ class AddTeacher(QMainWindow):
 
         # Добавляем скрол бар
         widget_add = QScrollArea()
-        # ?
-        widget_add.setWidget(pattern)
-        widget_add.setWidgetResizable(True)
-
-        widget_add.setMinimumSize(500, 500)
 
         # 3)
         widget_button = QWidget()
@@ -99,9 +97,3 @@ class AddTeacher(QMainWindow):
 
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
-
-
-app = QApplication([])
-window = AddTeacher()
-window.showMaximized()
-app.exec()

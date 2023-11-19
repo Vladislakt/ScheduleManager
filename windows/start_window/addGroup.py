@@ -5,9 +5,12 @@ from PySide6.QtWidgets import *
 
 from windows.other_windows.addgroupwidget import AddingGroupWidget
 
+
 class AddGroup(QMainWindow):
-    def __init__(self):
+    def __init__(self, pre_window):
         super().__init__()
+        # Создание объекта предыдущего окна
+        self.pre_window = pre_window
 
         # Настройка окна
         self.setMinimumSize(900, 800)
@@ -48,11 +51,6 @@ class AddGroup(QMainWindow):
 
         # Добавляем скрол бар
         widget_add = QScrollArea()
-        # ?
-        widget_add.setWidget(pattern)
-        widget_add.setWidgetResizable(True)
-
-        widget_add.setMinimumSize(500, 500)
 
         # 3)
         widget_button = QWidget()
@@ -87,8 +85,6 @@ class AddGroup(QMainWindow):
         # Запихиваем вниз кнопки
         widget_button_layout.setAlignment(Qt.AlignBottom)
 
-
-
         # Добавляем виджеты в главный виджет
         main_layout.addWidget(widget_label)
         main_layout.addWidget(widget_add)
@@ -100,8 +96,22 @@ class AddGroup(QMainWindow):
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
 
+        # Функционал кнопок
 
-app = QApplication([])
-window = AddGroup()
-window.showMaximized()
-app.exec()
+        # При нажатии кнопки назад -> Возвращает на окно заполнения преподавателей и закрывает это окно
+        button_back.clicked.connect(self.open_add_teacher)
+
+        # При нажатии кнопки создать -> Открывает окно заполнения предметов и преподавателей и закрывает это окно
+        button_next.clicked.connect(self.open_add_lesson)
+
+    # Открытие окна заполнения преподавателей (предыдущее окно)
+    def open_add_teacher(self):
+        self.pre_window.showMaximized()
+        self.close
+
+    # Открытие окна заполнение предметов и преподавателей (следующее окно)
+    def open_add_lesson(self):
+        from addLeson import AddLeson
+        self.addLesson = AddLeson(self)
+        self.addLesson.showMaximized()
+        self.close()

@@ -6,8 +6,11 @@ from PySide6.QtWidgets import *
 from windows.other_windows.addlessonwidget import AddingLessonWidget
 
 class AddLeson(QMainWindow):
-    def __init__(self):
+    def __init__(self, pre_window):
         super().__init__()
+
+        # Создание объекта предыдущего окна
+        self.pre_window = pre_window
 
         # Настройка окна
         self.setMinimumSize(900, 800)
@@ -48,11 +51,6 @@ class AddLeson(QMainWindow):
 
         # Добавляем скрол бар
         widget_add = QScrollArea()
-        # ?
-        widget_add.setWidget(pattern)
-        widget_add.setWidgetResizable(True)
-
-        widget_add.setMinimumSize(500, 500)
 
         # 3)
         widget_button = QWidget()
@@ -100,8 +98,22 @@ class AddLeson(QMainWindow):
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
 
+        # Функционал кнопок
 
-app = QApplication([])
-window = AddLeson()
-window.showMaximized()
-app.exec()
+        # При нажатии кнопки назад -> Возвращает на окно заполнения учебных групп и закрывает это окно
+        button_back.clicked.connect(self.open_add_group)
+
+        # При нажатии кнопки создать -> Открывает окно заполнения классов и закрывает это окно
+        button_next.clicked.connect(self.open_add_classroom)
+
+    # Открытие окна заполнения учебных групп (предыдущее окно)
+    def open_add_group(self):
+        self.pre_window.showMaximized()
+        self.close()
+
+    # Открытие окна заполнение классов (следующее окно)
+    def open_add_classroom(self):
+        from addClassroom import AddClassroom
+        self.addClassroom = AddClassroom(self)
+        self.addClassroom.showMaximized()
+        self.close()
