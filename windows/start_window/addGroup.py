@@ -107,7 +107,7 @@ class AddGroup(QMainWindow):
     # Открытие окна заполнения преподавателей (предыдущее окно)
     def open_add_teacher(self):
         self.pre_window.showMaximized()
-        self.close
+        self.close()
 
     # Открытие окна заполнение предметов и преподавателей (следующее окно)
     def open_add_lesson(self):

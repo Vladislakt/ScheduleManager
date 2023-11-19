@@ -97,3 +97,11 @@ class AddClassroom(QMainWindow):
 
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
+
+        # Функционал кнопок
+
+        # При нажатии кнопки назад -> Возвращает на окно заполнения уроков и закрывает это окно
+        button_back.clicked.connect(self.open_add_lesson)
+    def open_add_lesson(self):
+        self.pre_window.showMaximized()
+        self.close()
