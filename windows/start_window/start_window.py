@@ -3,7 +3,6 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
-from create_start_window import Create_start_window
 
 
 # Стартовое окно
@@ -62,5 +61,7 @@ class Start_window(QMainWindow):
         button_create.clicked.connect(self.open_create_start_window)
 
     def open_create_start_window(self):
-        self.switch_create_start_window = Create_start_window()
+        from create_start_window import Create_start_window
+        self.switch_create_start_window = Create_start_window(self)
         self.switch_create_start_window.showMaximized()
+        self.close()

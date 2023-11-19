@@ -7,8 +7,11 @@ import sys
 
 # Окно создания БД с выбором (создать своё бд / импортировать существующее)
 class Create_start_window(QMainWindow):
-    def __init__(self):
+    def __init__(self, pre_window):
         super().__init__()
+
+        # Создание объекта предыдущего окна
+        self.pre_window = pre_window
 
         # Настройка окна
         self.setMinimumHeight(800)
@@ -54,15 +57,23 @@ class Create_start_window(QMainWindow):
 
         self.setCentralWidget(widget)
 
-        # При нажатии кнопки назад -> Возвращает на стартовое окно и скрывает это окно
-        button_back.clicked.connect(self.hide)
+        # Функционал кнопок
+
+        # При нажатии кнопки назад -> Возвращает на стартовое окно и закрывает это окно
         button_back.clicked.connect(self.open_start_window)
 
-        # При нажатии кнопки создать -> Открывает окно заполнения преподавателей и скрывает это окно
+        # При нажатии кнопки создать -> Открывает окно заполнения преподавателей и закрывает это окно
+        button_create_bd.clicked.connect(self.open_add_teacher)
 
+    # Открытие стартового окна (предыдущее окно)
     def open_start_window(self):
-        # self.switch_start_window = Start_window()
-        # self.switch_start_window.showMaximized()
-        self.hide()
+        self.pre_window.showMaximized()
+        self.close()
 
+    # Открытие окна заполнение преподавателей (следующее окно)
+    def open_add_teacher(self):
+        from addTeacher import AddTeacher
+        self.addTeacher = AddTeacher(self)
+        self.addTeacher.showMaximized()
+        self.close()
 
