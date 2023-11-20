@@ -41,6 +41,7 @@ class Table(QWidget):
                     self.add_horizontal_lines(j)
                     self.add_vertical_lines(i)
                     self.connect_to_courses_comboboxes(i, j, k)
+                    self.connect_to_classroom_comboboxes(i, j, k)
 
     def add_days(self, j):
         day = QLabel(self.days[j])
@@ -84,11 +85,12 @@ class Table(QWidget):
 
     def fill_classroom_combobox(self, scroll_area_layout, row, column):
         scroll_area_layout.itemAtPosition(row, column + 1).widget().clear()
+        scroll_area_layout.itemAtPosition(row, column + 1).widget().addItem("")
         current_index = scroll_area_layout.itemAtPosition(row, column).widget().currentIndex()
         if current_index != 0:
-            group_size = groups[int((column-3)/3)].size
-            course_projector = courses[int((column-3)/3)][current_index-1].projector
-            if not courses[int((column-3)/3)][current_index-1].computers:
+            group_size = groups[int((column - 3) / 3)].size
+            course_projector = courses[int((column - 3) / 3)][current_index - 1].projector
+            if not courses[int((column - 3) / 3)][current_index - 1].computers:
                 course_computers = 1000
             else:
                 course_computers = group_size
