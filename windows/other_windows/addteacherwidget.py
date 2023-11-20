@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBo
 
 
 # Виджет для добавления преподователей
+# мы тут что то пишем для Жени
 class AddingTeacherWidget(QWidget):
     def __init__(self):
         super().__init__()
