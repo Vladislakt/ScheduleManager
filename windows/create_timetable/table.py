@@ -6,7 +6,7 @@ from vertical_line import QVLine
 from windows.create_timetable.modified_combobox import ModifiedQComboBox
 from windows.create_timetable.operations_with_database import group_names, courses_with_teachers, len_group_names, \
     courses, classrooms, groups
-from windows.create_timetable.table_check import check_teachers_in_row, check_classrooms_in_row
+from windows.create_timetable.table_check import check_teachers_in_row, check_classrooms_in_row, stylesheet
 
 
 class Table(QWidget):
@@ -60,9 +60,12 @@ class Table(QWidget):
 
     def add_course_choice(self, i, j, k):
         course = ModifiedQComboBox(2 + j * (self.number_of_classes_per_day + 1) + k, 3 + i * 3, self.scroll_area_widget)
+        course.setObjectName("regular")
+        course.setStyleSheet(stylesheet)
+        course.setPlaceholderText("Предмет")
         course.addItem("")
         course.addItems(courses_with_teachers[i])
-        course.view().setMinimumWidth(410)
+        course.view().setMinimumWidth(415)
         course.setFixedWidth(self.columns_width - 50)
         self.scroll_area_layout.addWidget(course, 2 + j * (self.number_of_classes_per_day + 1) + k,
                                           3 + i * 3, 1, 1)
@@ -79,7 +82,10 @@ class Table(QWidget):
     def add_classroom_choise(self, i, j, k):
         classroom = ModifiedQComboBox(
             2 + j * (self.number_of_classes_per_day + 1) + k, 4 + i * 3, self.scroll_area_widget)
-        classroom.setFixedWidth(60)
+        classroom.setObjectName("regular")
+        classroom.setStyleSheet(stylesheet)
+        classroom.setPlaceholderText("Кабинет")
+        classroom.setFixedWidth(65)
         self.scroll_area_layout.addWidget(classroom, 2 + j * (self.number_of_classes_per_day + 1) + k,
                                           4 + i * 3, 1, 1)
 
