@@ -13,7 +13,6 @@ class Start_window(QMainWindow):
         # Настройка окна
         self.setMinimumHeight(800)
         self.setMinimumWidth(900)
-        self.setStyleSheet("background-color: #876C99;")
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Кнопки в окне
@@ -26,13 +25,10 @@ class Start_window(QMainWindow):
 
         # Стиль кнопок
         button_create.setFont(QFont("Georgia", 40))
-        button_create.setStyleSheet("background-color: #543964;")
 
         button_edit.setFont(QFont("Georgia", 40))
-        button_edit.setStyleSheet("background-color: #543964;")
 
         button_exit.setFont(QFont("Georgia", 40))
-        button_exit.setStyleSheet("background-color: #543964;")
 
         # Размер кнопок
         button_create.setMinimumSize(350, 100)
