@@ -4,6 +4,8 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 from windows.other_windows.addteacherwidget import AddingTeacherWidget
+from  windows.other_windows.addgroupwidget import AddingGroupWidget
+from  windows.other_windows.addclassroomwidget import AddingClassroomWidget
 
 
 class AddTeacher(QMainWindow):
@@ -32,9 +34,9 @@ class AddTeacher(QMainWindow):
         widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
         label = QLabel("Введите преподавателей")
-        id = QFontDatabase.addApplicationFont("Fonts/SF-Pro-Display-Light.otf")
+        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
         families = QFontDatabase.applicationFontFamilies(id)
-        label.setFont(QFont("Georgia", 20))
+        label.setFont(QFont(families, 20))
 
         # Центрую label
         label.setAlignment(Qt.AlignCenter)
@@ -48,13 +50,18 @@ class AddTeacher(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern = AddingTeacherWidget()
+        pattern_teacher = AddingTeacherWidget()
+        pattern_group = AddingGroupWidget()
+        pattern_classroom = AddingClassroomWidget()
 
-        # widget_add = QWidget()
-        # widget_add_layout = QVBoxLayout()
-        # widget_add_layout.addWidget(pattern)
-        # widget_add_layout.setAlignment(Qt.AlignCenter)
-        # widget_add.setLayout(widget_add_layout)
+
+        widget_add = QWidget()
+        widget_add_layout = QHBoxLayout()
+        widget_add_layout.addWidget(pattern_teacher)
+        widget_add_layout.addWidget(pattern_group)
+        widget_add_layout.addWidget(pattern_classroom)
+        widget_add_layout.setAlignment(Qt.AlignCenter)
+        widget_add.setLayout(widget_add_layout)
 
         # 3)
         widget_button = QWidget()
@@ -93,7 +100,7 @@ class AddTeacher(QMainWindow):
 
         # Добавляем виджеты в главный виджет
         main_layout.addWidget(widget_label)
-        main_layout.addWidget(pattern)
+        main_layout.addWidget(widget_add)
         main_layout.addWidget(widget_button)
 
         # Добавляем layout
