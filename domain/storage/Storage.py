@@ -18,7 +18,7 @@ class Storage:
     teacher_repository: TeacherRepository
     finaldata_repository: FinalDataRepository
 
-    def initRepositoryStorage():
+    def initRepositoryStorage(self):
         classroom212 = Classroom(
             classroom_id = "212",
             max_size = 60,

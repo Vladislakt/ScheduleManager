@@ -7,6 +7,6 @@ Base = declarative_base()
 
 # Фунция создания бд по соединению
 def create_db(filename):
-    database_name = f'finaldata/{filename}.sqlite'
+    database_name = f'finaldata/{filename}.rsp'
     engine = create_engine(f'sqlite:///{database_name}')
     Base.metadata.create_all(engine)
