@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout
 
-# Создание окна для добавления преподоавтелей
+
 class AddingTeacherWidget(QWidget):
     def __init__(self):
         super().__init__()
@@ -15,7 +15,6 @@ class AddingTeacherWidget(QWidget):
         line = QWidget()
         line.plus_button = QPushButton("+")
         line.name = QLineEdit()
-        line.name.setStyleSheet("background-color: #ffffff;")
         line.cancel_button = QPushButton("X")
 
         line.plus_button.clicked.connect(self.addLine)

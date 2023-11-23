@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
 
-from database.database import Base
+from DataBase.database import Base
 
 
 # Класс представления отношения classrooms
@@ -16,3 +16,6 @@ class Classrooms(Base):
 
     # Создание зависимости
     finaldata = relationship('FinalData')
+
+    def __repr__(self):
+        return f'Classrooms [Кабинет: {self.class_number}, Размер: {self.max_size}, Проектор: {self.projector}, Компьютеры: {self.computers}]'

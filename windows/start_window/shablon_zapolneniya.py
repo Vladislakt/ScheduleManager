@@ -4,7 +4,6 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 from windows.other_windows.addteacherwidget import AddingTeacherWidget
-from windows.other_windows.pattern import LineMassive
 
 
 class Shablon_zapolnenia(QMainWindow):
