@@ -1,60 +1,90 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout
+from PySide6.QtGui import QIntValidator
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea, QCheckBox
 
 
-# Создание окна для аудитории
-
+# Виджет для добавления аудитории
 class AddingClassroomWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.massive = []
-        self.layout = QVBoxLayout()
-        self.layout.setAlignment(Qt.AlignTop)
-        self.setLayout(self.layout)
+        self.data_masive = []
+        title =QWidget()
+        self.column_size = [70,74,60,77,55]
+        title_layout = QHBoxLayout()
+        title_layout.setAlignment(Qt.AlignLeft)
+        t1 = QLabel("№ Кабинета")
+        t1.setFixedWidth(self.column_size [0])
+        t2 = QLabel("Вместимость")
+        t2.setFixedWidth(self.column_size[1])
+        t3 = QLabel("Проектор")
+        t3.setFixedWidth(self.column_size[2])
+        t4 = QLabel("Кол-во\nкомпьютеров")
+        t4.setFixedWidth(self.column_size[3])
+        t5 = QLabel("Удаление")
+        t5.setFixedWidth(self.column_size[4])
+        title_layout.addWidget(t1)
+        title_layout.addWidget(t2)
+        title_layout.addWidget(t3)
+        title_layout.addWidget(t4)
+        title_layout.addWidget(t5)
+        title.setLayout(title_layout)
+        self.data_masive.append(title)
+        main_layout = QVBoxLayout()
+        self.plus_button = QPushButton("Добавить строчку")
+        self.plus_button.setFixedWidth(120)
+        self.plus_button.clicked.connect(self.addLine)
+        scroll_area = QScrollArea()
+        scroll_area.setFixedSize(416,460)
+        self.scroll_vidget = QWidget()
+        scroll_area.setWidget(self.scroll_vidget)
+        scroll_area.setWidgetResizable(True)
+        self.scroll_layout = QVBoxLayout()
+        self.scroll_layout.setAlignment(Qt.AlignTop)
+        self.scroll_layout.setSpacing(0)
+        self.scroll_vidget.setLayout(self.scroll_layout)
+        main_layout.addWidget(scroll_area)
+        main_layout.addWidget(self.plus_button)
+        self.setLayout(main_layout)
         self.addLine()
-
+        self.setFixedSize(436,510)
     def addLine(self):
         line = QWidget()
-        line.plus_button = QPushButton("+")
-        line.classroom = QLineEdit()
-        line.classroom.setMaximumWidth(150)
-
-        line.size = QLineEdit()
-        line.size.setFixedWidth(50)
-        line.cancel_button = QPushButton("X")
-
-        line.plus_button.clicked.connect(self.addLine)
-        line.cancel_button.clicked.connect(lambda: self.delLine(self.massive.index(line)))
+        classroom = QLineEdit()
+        classroom.setFixedWidth(self.column_size[0])
+        size = QLineEdit()
+        size.setFixedWidth(self.column_size[1])
+        size.setValidator(QIntValidator())
+        projector = QCheckBox()
+        projector.setStyleSheet("padding: 22; ")
+        projector.setFixedWidth(self.column_size[2])
+        computer = QLineEdit()
+        computer.setFixedWidth(self.column_size[3])
+        computer.setValidator(QIntValidator())
+        cancel_button = QPushButton("X")
+        cancel_button.setFixedWidth(self.column_size[4])
 
         line_layout = QHBoxLayout()
-        line_layout.addWidget(line.plus_button)
-        line_layout.addWidget(line.classroom)
-        line_layout.addWidget(line.size)
-        line_layout.addWidget(line.cancel_button)
+        line_layout.setAlignment(Qt.AlignLeft)
+        line_layout.addWidget(classroom)
+        line_layout.addWidget(size)
+        line_layout.addWidget(projector)
+        line_layout.addWidget(computer)
+        line_layout.addWidget(cancel_button)
         line.setLayout(line_layout)
-
-        self.massive.append(line)
+        line.setFixedHeight(40)
+        self.data_masive.append(line)
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
         self.updateLayout()
 
     def delLine(self, num_in_list):
-        self.massive.pop(num_in_list)
+        self.data_masive.pop(num_in_list)
         self.updateLayout()
 
     def clearLayout(self):
-        for i in reversed(range(self.layout.count())):
-            self.layout.itemAt(i).widget().setParent(None)
+        for i in reversed(range(self.scroll_layout.count())):
+            self.scroll_layout.itemAt(i).widget().setParent(None)
 
     def updateLayout(self):
         self.clearLayout()
-        if len(self.massive) == 1:
-            self.massive[0].cancel_button.setVisible(False)
-            self.massive[0].plus_button.setVisible(True)
-            self.layout.addWidget(self.massive[0])
-        else:
-            for index in range(len(self.massive)):
-                if index < len(self.massive) - 1:
-                    self.massive[index].plus_button.setVisible(False)
-                else:
-                    self.massive[index].plus_button.setVisible(True)
-                self.massive[index].cancel_button.setVisible(True)
-                self.layout.addWidget(self.massive[index])
+        for index in range(len(self.data_masive)):
+            self.scroll_layout.addWidget(self.data_masive[index])

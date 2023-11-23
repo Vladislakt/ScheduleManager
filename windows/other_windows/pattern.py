@@ -14,7 +14,7 @@ class LineMassive(QWidget):
 
     def addLine(self):
         line = QWidget()
-        line.setFixedSize(500, 40)
+        # line.setFixedSize(500, 40)
         line.button = QPushButton("+")
         line.line = QLineEdit()
         line.cancel_button = QPushButton("X")
@@ -77,7 +77,7 @@ class TestWindow(QWidget):
         self.setLayout(mainLayout)
 
 
-app = QApplication([])
-window = TestWindow()
-window.show()
-app.exec()
+# app = QApplication([])
+# window = TestWindow()
+# window.show()
+# app.exec()
