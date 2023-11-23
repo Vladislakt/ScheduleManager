@@ -49,8 +49,11 @@ class AddGroup(QMainWindow):
         # В патерн записываем функция добавления
         pattern = AddingGroupWidget()
 
-        # Добавляем скрол бар
-        widget_add = QScrollArea()
+        widget_add = pattern
+        widget_add_layout = QHBoxLayout()
+        widget_add_layout.setAlignment(Qt.AlignVCenter)
+        widget_add_layout.addWidget(widget_add)
+        widget_add.setLayout(widget_add_layout)
 
         # 3)
         widget_button = QWidget()
@@ -62,9 +65,11 @@ class AddGroup(QMainWindow):
         # Создаю кнопки и задаю размер
         # Кнопка назад
         button_back = QPushButton("Назад")
+        button_back.setObjectName("baseButton")
         button_back.setFixedSize(120, 50)
         # Кнопка далее
         button_next = QPushButton("Далее")
+        button_next.setObjectName("baseButton")
         button_next.setFixedSize(120, 50)
 
         # Создаю layout для кнопок

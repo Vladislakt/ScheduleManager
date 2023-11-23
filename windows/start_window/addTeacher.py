@@ -32,6 +32,9 @@ class AddTeacher(QMainWindow):
         widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
         label = QLabel("Введите преподавателей")
+        id = QFontDatabase.addApplicationFont("Fonts/SF-Pro-Display-Light.otf")
+        families = QFontDatabase.applicationFontFamilies(id)
+        label.setFont(QFont("Georgia", 20))
 
         # Центрую label
         label.setAlignment(Qt.AlignCenter)
@@ -47,8 +50,11 @@ class AddTeacher(QMainWindow):
         # В патерн записываем функция добавления
         pattern = AddingTeacherWidget()
 
-        # Добавляем скрол бар
-        widget_add = QScrollArea()
+        # widget_add = QWidget()
+        # widget_add_layout = QVBoxLayout()
+        # widget_add_layout.addWidget(pattern)
+        # widget_add_layout.setAlignment(Qt.AlignCenter)
+        # widget_add.setLayout(widget_add_layout)
 
         # 3)
         widget_button = QWidget()
@@ -60,9 +66,11 @@ class AddTeacher(QMainWindow):
         # Создаю кнопки и задаю размер
         # Кнопка назад
         button_back = QPushButton("Назад")
+        button_back.setObjectName("baseButton")
         button_back.setFixedSize(120, 50)
         # Кнопка далее
         button_next = QPushButton("Далее")
+        button_next.setObjectName("baseButton")
         button_next.setFixedSize(120, 50)
 
         # Создаю layout для кнопок
@@ -85,11 +93,13 @@ class AddTeacher(QMainWindow):
 
         # Добавляем виджеты в главный виджет
         main_layout.addWidget(widget_label)
-        main_layout.addWidget(widget_add)
+        main_layout.addWidget(pattern)
         main_layout.addWidget(widget_button)
 
         # Добавляем layout
         main_widget.setLayout(main_layout)
+
+        main_layout.setAlignment(Qt.AlignHCenter)
 
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
