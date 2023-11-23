@@ -1,4 +1,3 @@
-from DataBase.SelectTest import SELECTING
 from DataBase.create_database import create_database
 from DataBase.insert_classrooms import insert_classrooms
 from DataBase.insert_groups import insert_groups
