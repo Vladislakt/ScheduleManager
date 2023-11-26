@@ -2,6 +2,7 @@ from DataBase.create_session import create_session
 from models.classrooms import Classrooms
 from models.groups import Groups
 from models.lessons import Lessons
+from models.name import Name
 from models.teachers import Teachers
 from models.finaldata import FinalData
 
@@ -42,3 +43,7 @@ def getGroupNameList(filename):
     for group in session.query(Groups).all():
         list.append(group.group_name)
     return list
+
+def getDBName(filename):
+    session = create_session(filename)
+    return session.query(Name).first().name

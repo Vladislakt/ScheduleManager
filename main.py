@@ -2,11 +2,14 @@ from DataBase.create_database import create_database
 from DataBase.insert_classrooms import insert_classrooms
 from DataBase.insert_groups import insert_groups
 from DataBase.insert_lessons import insert_lessons
+from DataBase.insert_name import insert_name
 from DataBase.insert_teachers import insert_teachers
 
 current_database = "test"
 
 create_database(current_database)
+
+insert_name(current_database, "Тестовая")
 
 teachers = ["Васильчиков В", "Васильев А", "Сажин С", "Бондаренко В", "Николаев А", "Шовгенов Д", "Мусин М",
             "Волчёнков В",
