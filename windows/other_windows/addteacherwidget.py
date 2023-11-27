@@ -2,11 +2,12 @@ from PySide6.QtCore import Qt, QRegularExpression
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea
 
+from DataBase.get_list_from_db import getTeacherList
+
 
 # Виджет для добавления преподователей
-# мы тут что то пишем для Жени
 class AddingTeacherWidget(QWidget):
-    def __init__(self):
+    def __init__(self, current_database):
         super().__init__()
         self.data_masive = []
         title = QWidget()
@@ -37,9 +38,33 @@ class AddingTeacherWidget(QWidget):
         main_layout.addWidget(scroll_area)
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
-        self.addLine()
+        # self.addLine()
         self.setFixedSize(350, 530)
 
+        list = getTeacherList(current_database)
+        if len(list) > 0:
+            for item in list:
+                self.getFromItem(item)
+            self.updateLayout()
+        else:
+            self.addLine()
+
+    def getFromItem(self, item):
+        line = QWidget()
+        teacher = QLineEdit()
+        teacher.setText(item.fullname)
+        teacher.setFixedWidth(self.column_size[0])
+        teacher.setValidator(QRegularExpressionValidator(QRegularExpression("[^0-9]*")))
+        cancel_button = QPushButton("X")
+        cancel_button.setFixedWidth(self.column_size[1])
+        line_layout = QHBoxLayout()
+        line_layout.setAlignment(Qt.AlignLeft)
+        line_layout.addWidget(teacher)
+        line_layout.addWidget(cancel_button)
+        line.setLayout(line_layout)
+        line.setFixedHeight(40)
+        self.data_masive.append(line)
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
     def addLine(self):
         line = QWidget()
         teacher = QLineEdit()

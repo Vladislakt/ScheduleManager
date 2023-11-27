@@ -9,7 +9,7 @@ from  windows.other_windows.addclassroomwidget import AddingClassroomWidget
 
 
 class AddTeacher(QMainWindow):
-    def __init__(self, pre_window):
+    def __init__(self, pre_window, current_database = "test"):
         super().__init__()
         #Создание объекта предыдущего окна
         self.pre_window = pre_window
@@ -30,19 +30,26 @@ class AddTeacher(QMainWindow):
         # Создаём layout
         widget_label_layout = QHBoxLayout()
 
-        # Запихиваем layout наверх
-        widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
-        label = QLabel("Введите преподавателей")
+        label = QLabel()
+        label_teacher = QLabel("Заполните учителей")
+        label_group = QLabel("Заполните группы")
+        label_classroom = QLabel("Заполните классы")
+
         id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
         families = QFontDatabase.applicationFontFamilies(id)
-        label.setFont(QFont(families, 20))
+
+        label_teacher.setFont(QFont(families, 20))
+        label_group.setFont(QFont(families, 20))
+        label_classroom.setFont(QFont(families, 20))
+
+        # Запихиваем в layout label
+        widget_label_layout.addWidget(label_teacher)
+        widget_label_layout.addWidget(label_group)
+        widget_label_layout.addWidget(label_classroom)
 
         # Центрую label
         label.setAlignment(Qt.AlignCenter)
-
-        # Запихиваем в layout label
-        widget_label_layout.addWidget(label)
 
         # Задаём виджету layout
         widget_label.setLayout(widget_label_layout)
@@ -50,9 +57,9 @@ class AddTeacher(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern_teacher = AddingTeacherWidget()
-        pattern_group = AddingGroupWidget()
-        pattern_classroom = AddingClassroomWidget()
+        pattern_teacher = AddingTeacherWidget(current_database)
+        pattern_group = AddingGroupWidget(current_database)
+        pattern_classroom = AddingClassroomWidget(current_database)
 
 
         widget_add = QWidget()

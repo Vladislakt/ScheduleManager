@@ -2,10 +2,12 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QIntValidator
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea, QCheckBox
 
+from DataBase.get_list_from_db import getGroupList
+
 
 # Виджет для добавления группы
 class AddingGroupWidget(QWidget):
-    def __init__(self):
+    def __init__(self, current_database):
         super().__init__()
         self.data_masive = []
         title =QWidget()
@@ -39,8 +41,36 @@ class AddingGroupWidget(QWidget):
         main_layout.addWidget(scroll_area)
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
-        self.addLine()
+        #self.addLine()
         self.setFixedSize(275,520)
+        list = getGroupList(current_database)
+        if len(list) > 0:
+            for item in list:
+                self.getFromItem(item)
+            self.updateLayout()
+        else:
+            self.addLine()
+    def getFromItem(self, item):
+        line = QWidget()
+        group = QLineEdit()
+        group.setText(item.group_name)
+        group.setFixedWidth(self.column_size[0])
+        size = QLineEdit()
+        size.setText(str(item.size))
+        size.setFixedWidth(self.column_size[1])
+        size.setValidator(QIntValidator())
+        cancel_button = QPushButton("X")
+        cancel_button.setFixedWidth(self.column_size[2])
+
+        line_layout = QHBoxLayout()
+        line_layout.setAlignment(Qt.AlignLeft)
+        line_layout.addWidget(group)
+        line_layout.addWidget(size)
+        line_layout.addWidget(cancel_button)
+        line.setLayout(line_layout)
+        line.setFixedHeight(40)
+        self.data_masive.append(line)
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
     def addLine(self):
         line = QWidget()
         group = QLineEdit()
