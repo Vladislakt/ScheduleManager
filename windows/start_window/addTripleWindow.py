@@ -126,14 +126,7 @@ class AddTripleWindow(QMainWindow):
         # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
         button_next.clicked.connect(self.open_add_group)
 
-    # Открытие стартового окна создания (предыдущее окно)
-    def open_create_start_window(self):
+    # Открытие предыдущего окна
+    def open_name_bd(self):
         self.pre_window.showMaximized()
-        self.close()
-
-    # Открытие окна заполнения учебных групп (следующее окно)
-    def open_add_group(self):
-        from addGroup import AddGroup
-        self.addGroup = AddGroup(self)
-        self.addGroup.showMaximized()
         self.close()

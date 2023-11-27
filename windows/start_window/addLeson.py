@@ -114,9 +114,3 @@ class AddLeson(QMainWindow):
         self.pre_window.showMaximized()
         self.close()
 
-    # Открытие окна заполнение классов (следующее окно)
-    def open_add_classroom(self):
-        from addClassroom import AddClassroom
-        self.addClassroom = AddClassroom(self)
-        self.addClassroom.showMaximized()
-        self.close()
