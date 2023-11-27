@@ -2,10 +2,12 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QIntValidator
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea, QCheckBox
 
+from DataBase.get_list_from_db import getClassroomList
+
 
 # Виджет для добавления аудитории
 class AddingClassroomWidget(QWidget):
-    def __init__(self):
+    def __init__(self, current_database):
         super().__init__()
         self.data_masive = []
         title =QWidget()
@@ -45,8 +47,47 @@ class AddingClassroomWidget(QWidget):
         main_layout.addWidget(scroll_area)
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
-        self.addLine()
-        self.setFixedSize(436,510)
+        #self.addLine()
+        self.setFixedSize(436, 510)
+        list = getClassroomList(current_database)
+        if len(list) > 0:
+            for item in list:
+                self.getFromItem(item)
+            self.updateLayout()
+        else:
+            self.addLine()
+
+    def getFromItem(self, item):
+        line = QWidget()
+        classroom = QLineEdit()
+        classroom.setText(item.class_number)
+        classroom.setFixedWidth(self.column_size[0])
+        size = QLineEdit()
+        size.setText(str(item.max_size))
+        size.setFixedWidth(self.column_size[1])
+        size.setValidator(QIntValidator())
+        projector = QCheckBox()
+        projector.setChecked(item.projector)
+        projector.setStyleSheet("padding: 22; ")
+        projector.setFixedWidth(self.column_size[2])
+        computer = QLineEdit()
+        computer.setText(str(item.computers))
+        computer.setFixedWidth(self.column_size[3])
+        computer.setValidator(QIntValidator())
+        cancel_button = QPushButton("X")
+        cancel_button.setFixedWidth(self.column_size[4])
+
+        line_layout = QHBoxLayout()
+        line_layout.setAlignment(Qt.AlignLeft)
+        line_layout.addWidget(classroom)
+        line_layout.addWidget(size)
+        line_layout.addWidget(projector)
+        line_layout.addWidget(computer)
+        line_layout.addWidget(cancel_button)
+        line.setLayout(line_layout)
+        line.setFixedHeight(40)
+        self.data_masive.append(line)
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
     def addLine(self):
         line = QWidget()
         classroom = QLineEdit()

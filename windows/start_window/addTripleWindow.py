@@ -3,15 +3,16 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-from windows.other_windows.addclassroomwidget import AddingClassroomWidget
+from windows.other_windows.addteacherwidget import AddingTeacherWidget
+from  windows.other_windows.addgroupwidget import AddingGroupWidget
+from  windows.other_windows.addclassroomwidget import AddingClassroomWidget
 
-class AddClassroom(QMainWindow):
-    def __init__(self, pre_window):
+
+class AddTripleWindow(QMainWindow):
+    def __init__(self, pre_window, current_database = "test"):
         super().__init__()
-
-        # Создание объекта предыдущего окна
+        #Создание объекта предыдущего окна
         self.pre_window = pre_window
-
         # Настройка окна
         self.setMinimumSize(900, 800)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
@@ -23,23 +24,32 @@ class AddClassroom(QMainWindow):
 
         # label -> Виджет добавления -> Кнопки
         # 1)
-
         # Виджет нужен для того, чтобы поделить экран
         widget_label = QWidget()
 
         # Создаём layout
         widget_label_layout = QHBoxLayout()
 
-        # Запихиваем layout наверх
-        widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
-        label = QLabel("Заполните классы")
+        label = QLabel()
+        label_teacher = QLabel("Заполните учителей")
+        label_group = QLabel("Заполните группы")
+        label_classroom = QLabel("Заполните классы")
+
+        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        families = QFontDatabase.applicationFontFamilies(id)
+
+        label_teacher.setFont(QFont(families, 20))
+        label_group.setFont(QFont(families, 20))
+        label_classroom.setFont(QFont(families, 20))
+
+        # Запихиваем в layout label
+        widget_label_layout.addWidget(label_teacher)
+        widget_label_layout.addWidget(label_group)
+        widget_label_layout.addWidget(label_classroom)
 
         # Центрую label
         label.setAlignment(Qt.AlignCenter)
-
-        # Запихиваем в layout label
-        widget_label_layout.addWidget(label)
 
         # Задаём виджету layout
         widget_label.setLayout(widget_label_layout)
@@ -47,12 +57,18 @@ class AddClassroom(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern = AddingClassroomWidget()
+        pattern_teacher = AddingTeacherWidget(current_database)
+        pattern_group = AddingGroupWidget(current_database)
+        pattern_classroom = AddingClassroomWidget(current_database)
 
-        widget_add = pattern
+
+        widget_add = QWidget()
         widget_add_layout = QHBoxLayout()
-        widget_add_layout.setAlignment(Qt.AlignHCenter)
-
+        widget_add_layout.addWidget(pattern_teacher)
+        widget_add_layout.addWidget(pattern_group)
+        widget_add_layout.addWidget(pattern_classroom)
+        widget_add_layout.setAlignment(Qt.AlignCenter)
+        widget_add.setLayout(widget_add_layout)
 
         # 3)
         widget_button = QWidget()
@@ -89,8 +105,6 @@ class AddClassroom(QMainWindow):
         # Запихиваем вниз кнопки
         widget_button_layout.setAlignment(Qt.AlignBottom)
 
-
-
         # Добавляем виджеты в главный виджет
         main_layout.addWidget(widget_label)
         main_layout.addWidget(widget_add)
@@ -99,13 +113,20 @@ class AddClassroom(QMainWindow):
         # Добавляем layout
         main_widget.setLayout(main_layout)
 
+        main_layout.setAlignment(Qt.AlignHCenter)
+
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
 
         # Функционал кнопок
 
-        # При нажатии кнопки назад -> Возвращает на окно заполнения уроков и закрывает это окно
-        button_back.clicked.connect(self.open_add_lesson)
-    def open_add_lesson(self):
+        # При нажатии кнопки назад -> Открывает стартовое окно создания и закрывает это окно
+        button_back.clicked.connect(self.open_create_start_window)
+
+        # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
+        button_next.clicked.connect(self.open_add_group)
+
+    # Открытие предыдущего окна
+    def open_name_bd(self):
         self.pre_window.showMaximized()
         self.close()

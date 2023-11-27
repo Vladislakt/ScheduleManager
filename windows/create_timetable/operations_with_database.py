@@ -1,4 +1,4 @@
-from DataBase.get_list_from_db import getGroupNameList, getLessonsByGroup, getClassroomList, getGroupList
+from DataBase.get_list_from_db import getLessonsByGroup, getClassroomList, getGroupList
 from DataBase.select_queries import getTeacherName
 
 db = "test"
@@ -15,7 +15,6 @@ def get_group_names():
 
 
 group_names = get_group_names()
-len_group_names = len(group_names)
 
 
 def get_courses():
