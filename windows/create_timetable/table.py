@@ -3,10 +3,9 @@ from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QScrollArea, QVBoxLa
 
 from horizontal_line import QHLine
 from vertical_line import QVLine
-from windows.create_timetable.modified_combobox import ModifiedQComboBox
-from windows.create_timetable.operations_with_database import group_names, courses_with_teachers, len_group_names, \
-    courses, classrooms, groups
-from windows.create_timetable.table_check import check_teachers_in_row, check_classrooms_in_row, stylesheet
+from modified_combobox import ModifiedQComboBox
+from operations_with_database import group_names, courses_with_teachers, classrooms
+from table_check import check_teachers_in_row, check_classrooms_in_row, stylesheet
 
 
 class Table(QWidget):
@@ -14,7 +13,6 @@ class Table(QWidget):
         super().__init__()
         self.columns_width = 300
         self.days = days
-        self.len_days = len(self.days)
         self.number_of_classes_per_day = number_of_classes_per_day
         self.scroll_area_widget = QWidget()
         self.scroll_area_layout = QGridLayout()
@@ -30,8 +28,8 @@ class Table(QWidget):
         self.main_layout.addWidget(scroll_area)
 
     def create_table(self):
-        for i in range(len_group_names):
-            for j in range(self.len_days):
+        for i in range(len(group_names)):
+            for j in range(len(self.days)):
                 for k in range(self.number_of_classes_per_day):
                     self.add_days(j)
                     self.add_number_of_classes(j, k)
@@ -67,14 +65,13 @@ class Table(QWidget):
         course.addItems(courses_with_teachers[i])
         course.view().setMinimumWidth(415)
         course.setFixedWidth(self.columns_width - 50)
-        self.scroll_area_layout.addWidget(course, 2 + j * (self.number_of_classes_per_day + 1) + k,
-                                          3 + i * 3, 1, 1)
+        self.scroll_area_layout.addWidget(course, 2 + j * (self.number_of_classes_per_day + 1) + k, 3 + i * 3, 1, 1)
 
     def connect_to_courses_comboboxes(self, i, j, k):
         course_combobox = self.scroll_area_layout.itemAtPosition(2 + j * (self.number_of_classes_per_day + 1) + k,
                                                                  3 + i * 3).widget()
         course_combobox.currentTextChanged.connect(
-            lambda: check_teachers_in_row(self.scroll_area_layout, course_combobox.get_row(), len_group_names))
+            lambda: check_teachers_in_row(self.scroll_area_layout, course_combobox.get_row()))
 
     def add_classroom_choise(self, i, j, k):
         classroom = ModifiedQComboBox(
@@ -93,14 +90,14 @@ class Table(QWidget):
         classroom_combobox = self.scroll_area_layout.itemAtPosition(2 + j * (self.number_of_classes_per_day + 1) + k,
                                                                     4 + i * 3).widget()
         classroom_combobox.currentTextChanged.connect(
-            lambda: check_classrooms_in_row(self.scroll_area_layout, classroom_combobox.get_row(), len_group_names))
+            lambda: check_classrooms_in_row(self.scroll_area_layout, classroom_combobox.get_row()))
 
     def add_horizontal_lines(self, j):
         horizontal_line = QHLine()
         self.scroll_area_layout.addWidget(horizontal_line, 1 + j * (self.number_of_classes_per_day + 1), 0, 1,
-                                          3 + len_group_names * 3)
+                                          3 + len(group_names) * 3)
 
     def add_vertical_lines(self, i):
         vertical_line = QVLine()
         self.scroll_area_layout.addWidget(vertical_line, 0, 2 + i * 3,
-                                          self.len_days * (self.number_of_classes_per_day + 1) + 1, 1)
+                                          len(self.days) * (self.number_of_classes_per_day + 1) + 1, 1)
