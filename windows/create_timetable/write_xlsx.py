@@ -6,12 +6,13 @@ from PySide6.QtWidgets import QFileDialog
 def fill_xlsx(table, days, number_of_classes_per_day, groups):
     filename = QFileDialog.getSaveFileName(table, "Сохранить в...", str(QDir.currentPath()), "Microsoft Excel 2007 "
                                                                                              "files (*.xlsx)")
-    workbook = xlsxwriter.Workbook(filename[0])
-    worksheet = workbook.add_worksheet()
-    insert_days_and_class_numbers(worksheet, days, number_of_classes_per_day)
-    insert_groups(worksheet, groups)
-    insert_courses_and_classrooms(table, worksheet, days, groups, number_of_classes_per_day)
-    workbook.close()
+    if filename[0] != '':
+        workbook = xlsxwriter.Workbook(filename[0])
+        worksheet = workbook.add_worksheet()
+        insert_days_and_class_numbers(worksheet, days, number_of_classes_per_day)
+        insert_groups(worksheet, groups)
+        insert_courses_and_classrooms(table, worksheet, days, groups, number_of_classes_per_day)
+        workbook.close()
 
 
 def insert_days_and_class_numbers(worksheet, days, number_of_classes_per_day):
