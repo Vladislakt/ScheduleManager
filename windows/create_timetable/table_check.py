@@ -1,14 +1,14 @@
-from windows.create_timetable.operations_with_database import courses
+from operations_with_database import courses, group_names
 
 stylesheet = open("stylesheet.qss").read()
 
 
-def check_teachers_in_row(scroll_area_layout, row, len_groups):
+def check_teachers_in_row(scroll_area_layout, row):
     teacher_id_list = []
-    for i in range(len_groups):
+    for i in range(len(group_names)):
         scroll_area_layout.itemAtPosition(row, 3 + i * 3).widget().setObjectName("regular")
         scroll_area_layout.itemAtPosition(row, 3 + i * 3).widget().setStyleSheet(stylesheet)
-    for i in range(len_groups):
+    for i in range(len(group_names)):
         current_index = scroll_area_layout.itemAtPosition(row, 3 + i * 3).widget().currentIndex() - 1
         lessons_one_group = courses[i]
         if current_index >= 0:
@@ -28,12 +28,12 @@ def check_teachers_in_row(scroll_area_layout, row, len_groups):
             teacher_id_list.append(teacher_id)
 
 
-def check_classrooms_in_row(scroll_area_layout, row, len_groups):
+def check_classrooms_in_row(scroll_area_layout, row):
     classroom_list = []
-    for i in range(len_groups):
+    for i in range(len(group_names)):
         scroll_area_layout.itemAtPosition(row, 4 + i * 3).widget().setObjectName("regular")
         scroll_area_layout.itemAtPosition(row, 4 + i * 3).widget().setStyleSheet(stylesheet)
-    for i in range(len_groups):
+    for i in range(len(group_names)):
         classroom = scroll_area_layout.itemAtPosition(row, 4 + i * 3).widget().currentText()
         if classroom == "":
             classroom_list.append(classroom)

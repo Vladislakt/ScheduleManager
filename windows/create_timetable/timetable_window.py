@@ -5,12 +5,12 @@ from buttons import Buttons
 from table import Table
 
 
-class CreateTimetable(QWidget):
+class TimetableWindow(QWidget):
     def __init__(self, days, number_of_classes_per_day):
         super().__init__()
         self.setWindowTitle("Составление расписания")
         self.table = Table(days, number_of_classes_per_day)
-        self.buttons = Buttons()
+        self.buttons = Buttons(self.table, days, number_of_classes_per_day)
         layout = QVBoxLayout()
         layout.addWidget(self.table)
         layout.addWidget(self.buttons)
