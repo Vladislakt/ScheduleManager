@@ -4,6 +4,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 
+# Хуёво запушилось
 # Окно создания БД с выбором (создать своё бд / импортировать существующее)
 class NameBdWindow(QMainWindow):
     def __init__(self, pre_window):
@@ -48,9 +49,9 @@ class NameBdWindow(QMainWindow):
 
         widget_buttons.setLayout(button_layout)
 
-        # # Подключаю функции открытия окон
-        # button_back.clicked.connect(self.pre_window)
-        # button_next.clicked.connect(self.open_triple_window)
+        # Подключаю функции открытия окон
+        button_back.clicked.connect(self.pre_window)
+        button_next.clicked.connect(self.open_triple_window)
 
         # Создаю main widget
         mainWidget = QWidget()
@@ -65,14 +66,4 @@ class NameBdWindow(QMainWindow):
 
         self.setCentralWidget(mainWidget)
 
-    # Открытие стартового окна (предыдущее окно)
-    def open_start_window(self):
-        self.pre_window.showMaximized()
-        self.close()
 
-    # Открытие окна заполнения с тремя виджетами
-    def open_triple_window(self):
-        from addTripleWindow import AddTripleWindow
-        self.openTripleWindow = AddTripleWindow(self)
-        self.openTripleWindow.showMaximized()
-        self.close()
