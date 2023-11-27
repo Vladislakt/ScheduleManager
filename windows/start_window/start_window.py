@@ -54,10 +54,10 @@ class Start_window(QMainWindow):
         button_exit.clicked.connect(self.close)
 
         # При нажатии кнопки создать -> Скрывается это окно -> Переходит на окно создания
-        button_create.clicked.connect(self.open_create_start_window)
+        button_create.clicked.connect(self.openNameBd)
 
-    def open_create_start_window(self):
-        from create_start_window import Create_start_window
-        self.switch_create_start_window = Create_start_window(self)
-        self.switch_create_start_window.showMaximized()
+    def openNameBd(self):
+        from nameBdWindow import NameBdWindow
+        self.open_name_bd_window = NameBdWindow(self)
+        self.open_name_bd_window.showMaximized()
         self.close()
