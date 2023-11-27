@@ -8,7 +8,7 @@ from  windows.other_windows.addgroupwidget import AddingGroupWidget
 from  windows.other_windows.addclassroomwidget import AddingClassroomWidget
 
 
-class AddTeacher(QMainWindow):
+class AddTripleWindow(QMainWindow):
     def __init__(self, pre_window, current_database = "test"):
         super().__init__()
         #Создание объекта предыдущего окна
