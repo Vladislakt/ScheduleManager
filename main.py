@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication
 
-from windows.start_window.start_window import StartWindow
+from windows.pre_timetable_windows.start_window import StartWindow
 
 if __name__ == '__main__':
     app = QApplication([])

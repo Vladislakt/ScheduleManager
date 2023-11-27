@@ -1,13 +1,10 @@
-from pathlib import Path
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-import sys
-
 
 # Стартовое окно
-from windows.other_windows.old_bd_window import EditOldBDWindow
-from windows.start_window.new_bd_window import NewBDWindow
+from windows.pre_timetable_windows.old_bd_window import EditOldBDWindow
+from windows.pre_timetable_windows.new_bd_window import NewBDWindow
 
 
 class StartWindow(QMainWindow):

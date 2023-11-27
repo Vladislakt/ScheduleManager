@@ -2,7 +2,7 @@ import os
 import string
 import random
 
-from DataBase.database import create_db
+from database.database import create_db
 from models.teachers import Teachers
 from models.groups import Groups
 from models.lessons import Lessons

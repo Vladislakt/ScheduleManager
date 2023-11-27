@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt, QRegularExpression
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea
 
-from DataBase.get_list_from_db import getTeacherList
+from database.get_list_from_db import getTeacherList
 
 
 # Виджет для добавления преподователей

@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QIntValidator
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea, QCheckBox
 
-from DataBase.get_list_from_db import getGroupList
+from database.get_list_from_db import getGroupList
 
 
 # Виджет для добавления группы

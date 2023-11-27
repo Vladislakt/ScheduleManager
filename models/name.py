@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String
 
-from DataBase.database import Base
+from database.database import Base
 
 
 # Класс представления отношения lessons

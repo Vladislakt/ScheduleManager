@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 
-from DataBase.database import Base
+from database.database import Base
 
 
 # Класс представления отношения lessons

@@ -1,4 +1,4 @@
-from DataBase.create_session import create_session
+from database.create_session import create_session
 from models.classrooms import Classrooms
 from models.groups import Groups
 from models.lessons import Lessons

@@ -1,18 +1,19 @@
-from pathlib import Path
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-from windows.other_windows.add_teacher_widget import AddTeacherWidget
-from windows.other_windows.add_group_widget import AddGroupWidget
-from windows.other_windows.add_classroom_widget import AddClassroomWidget
+from windows.pre_timetable_windows.add_widgets.add_lesson_widget import AddLessonWidget
+from windows.pre_timetable_windows.add_information_window import AddInformationWindow
 
 
-class AddTripleWindow(QMainWindow):
+class AddLessonWindow(QMainWindow):
     def __init__(self, pre_window, current_database):
         super().__init__()
-        #Создание объекта предыдущего окна
+
+        # Создание объекта предыдущего окна
         self.pre_window = pre_window
+        self.current_database = current_database
+
         # Настройка окна
         self.setMinimumSize(900, 800)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
@@ -24,32 +25,23 @@ class AddTripleWindow(QMainWindow):
 
         # label -> Виджет добавления -> Кнопки
         # 1)
+
         # Виджет нужен для того, чтобы поделить экран
         widget_label = QWidget()
 
         # Создаём layout
         widget_label_layout = QHBoxLayout()
 
+        # Запихиваем layout наверх
+        widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
-        label = QLabel()
-        label_teacher = QLabel("Заполните учителей")
-        label_group = QLabel("Заполните группы")
-        label_classroom = QLabel("Заполните классы")
-
-        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
-        families = QFontDatabase.applicationFontFamilies(id)
-
-        label_teacher.setFont(QFont(families, 20))
-        label_group.setFont(QFont(families, 20))
-        label_classroom.setFont(QFont(families, 20))
-
-        # Запихиваем в layout label
-        widget_label_layout.addWidget(label_teacher)
-        widget_label_layout.addWidget(label_group)
-        widget_label_layout.addWidget(label_classroom)
+        label = QLabel("Сопоставьте преподавателей и группы")
 
         # Центрую label
         label.setAlignment(Qt.AlignCenter)
+
+        # Запихиваем в layout label
+        widget_label_layout.addWidget(label)
 
         # Задаём виджету layout
         widget_label.setLayout(widget_label_layout)
@@ -57,17 +49,11 @@ class AddTripleWindow(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern_teacher = AddTeacherWidget(current_database)
-        pattern_group = AddGroupWidget(current_database)
-        pattern_classroom = AddClassroomWidget(current_database)
+        pattern = AddLessonWidget()
 
-        widget_add = QWidget()
+        widget_add = pattern
         widget_add_layout = QHBoxLayout()
-        widget_add_layout.addWidget(pattern_teacher)
-        widget_add_layout.addWidget(pattern_group)
-        widget_add_layout.addWidget(pattern_classroom)
-        widget_add_layout.setAlignment(Qt.AlignCenter)
-        widget_add.setLayout(widget_add_layout)
+        widget_add_layout.setAlignment(Qt.AlignHCenter)
 
         # 3)
         widget_button = QWidget()
@@ -78,7 +64,7 @@ class AddTripleWindow(QMainWindow):
 
         # Создаю кнопки и задаю размер
         # Кнопка назад
-        button_back = QPushButton("На стартовую")
+        button_back = QPushButton("Назад")
         button_back.setObjectName("baseButton")
         button_back.setFixedSize(120, 50)
         # Кнопка далее
@@ -112,21 +98,23 @@ class AddTripleWindow(QMainWindow):
         # Добавляем layout
         main_widget.setLayout(main_layout)
 
-        main_layout.setAlignment(Qt.AlignHCenter)
-
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
 
         # Функционал кнопок
 
-        # При нажатии кнопки назад -> Открывает стартовое окно создания и закрывает это окно
+        # При нажатии кнопки назад -> Возвращает на окно заполнения учебных групп и закрывает это окно
         button_back.clicked.connect(self.openPreWindow)
 
-        # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
-        # button_next.clicked.connect(self.open_add_group)
+        # При нажатии кнопки создать -> Открывает окно заполнения классов и закрывает это окно
+        button_next.clicked.connect(self.openInformationWindow)
 
-    # Открытие предыдущего окна
+    # Открытие окна заполнения учебных групп (предыдущее окно)
     def openPreWindow(self):
-        self.pre_window.pre_window.showMaximized()
-        self.pre_window.destroy()
+        self.pre_window.showMaximized()
         self.destroy()
+
+    def openInformationWindow(self):
+        self.new_window = AddInformationWindow(self, self.current_database)
+        self.new_window.showMaximized()
+        self.close()

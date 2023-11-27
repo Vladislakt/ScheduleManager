@@ -1,9 +1,9 @@
-from DataBase.create_database import create_database
-from DataBase.insert_classrooms import insert_classrooms
-from DataBase.insert_groups import insert_groups
-from DataBase.insert_lessons import insert_lessons
-from DataBase.insert_name import insert_name
-from DataBase.insert_teachers import insert_teachers
+from database.create_database import create_database
+from database.insert_classrooms import insert_classrooms
+from database.insert_groups import insert_groups
+from database.insert_lessons import insert_lessons
+from database.insert_name import insert_name
+from database.insert_teachers import insert_teachers
 
 current_database = "test"
 

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from DataBase.database import Base
+from database.database import Base
 
 
 # Класс представления отношения groups

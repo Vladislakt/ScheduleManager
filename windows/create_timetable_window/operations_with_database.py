@@ -1,5 +1,5 @@
-from DataBase.get_list_from_db import getLessonsByGroup, getClassroomList, getGroupList
-from DataBase.select_queries import getTeacherName
+from database.get_list_from_db import getLessonsByGroup, getClassroomList, getGroupList
+from database.select_queries import getTeacherName
 
 db = "test"
 

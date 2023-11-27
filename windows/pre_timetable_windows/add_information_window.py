@@ -4,9 +4,14 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 
-class CheckSaturday(QMainWindow):
-    def __init__(self):
+
+class AddInformationWindow(QMainWindow):
+    def __init__(self, pre_window, current_database):
         super().__init__()
+
+        # Создание объекта предыдущего окна
+        self.pre_window = pre_window
+        self.current_database = current_database
 
         # Настройка окна
         self.setMinimumSize(900, 800)
@@ -22,10 +27,13 @@ class CheckSaturday(QMainWindow):
         # кнопки
         widget_button = QWidget()
 
-        button_back = QPushButton("назад")
+        button_back = QPushButton("Назад")
+
+        button_back.clicked.connect(self.openPreWindow)
+
         kostil1 = QLabel()
         kostil2 = QLabel()
-        button_next = QPushButton("далее")
+        button_next = QPushButton("Перейти к созданию расписания")
 
         buttonLayout = QGridLayout()
 
@@ -49,7 +57,6 @@ class CheckSaturday(QMainWindow):
         mainWidget.setLayout(mainLayout)
         self.setCentralWidget(mainWidget)
 
-app = QApplication([])
-window = CheckSaturday()
-window.showMaximized()
-app.exec()
+    def openPreWindow(self):
+        self.pre_window.showMaximized()
+        self.destroy()

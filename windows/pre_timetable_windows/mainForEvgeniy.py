@@ -6,7 +6,7 @@ import sys
 from start_window import StartWindow
 
 # Расположение окон в проекте:
-# main -> start_window -> create_start_window -> addTeacher -> addGroup -> addLeson -> addClassroom
+# main -> pre_timetable_windows -> create_start_window -> addTeacher -> addGroup -> addLeson -> addClassroom
 
 # Если будет не лень сделаю
 # # Шрифт

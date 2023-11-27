@@ -7,9 +7,9 @@ import sys
 
 # Хуёво запушилось
 # Окно создания БД с выбором (создать своё бд / импортировать существующее)
-from DataBase.create_database import create_database
-from DataBase.insert_name import insert_name
-from windows.start_window.add_triple_window import AddTripleWindow
+from database.create_database import create_database
+from database.insert_name import insert_name
+from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
 class NewBDWindow(QMainWindow):

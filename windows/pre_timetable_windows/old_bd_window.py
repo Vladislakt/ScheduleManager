@@ -4,8 +4,8 @@ from PySide6.QtGui import QFont, Qt
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QPushButton, QWidget, QVBoxLayout, QGridLayout, QLabel, \
     QMainWindow
 
-from DataBase.get_list_from_db import getDBName
-from windows.start_window.add_triple_window import AddTripleWindow
+from database.get_list_from_db import getDBName
+from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
 def getPathToFinaldata():
