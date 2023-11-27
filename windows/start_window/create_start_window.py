@@ -68,7 +68,7 @@ class Create_start_window(QMainWindow):
 
     # Открытие окна заполнение преподавателей (следующее окно)
     def open_add_teacher(self):
-        from addTeacher import AddTeacher
+        from addTripleWindow import AddTeacher
         self.addTeacher = AddTeacher(self)
         self.addTeacher.showMaximized()
         self.close()

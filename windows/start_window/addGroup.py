@@ -4,7 +4,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 from windows.other_windows.addgroupwidget import AddingGroupWidget
-
+from DataBase.get_list_from_db import getGroupList
 
 class AddGroup(QMainWindow):
     def __init__(self, pre_window):
