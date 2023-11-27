@@ -6,7 +6,7 @@ from DataBase.get_list_from_db import getClassroomList
 
 
 # Виджет для добавления аудитории
-class AddingClassroomWidget(QWidget):
+class AddClassroomWidget(QWidget):
     def __init__(self, current_database):
         super().__init__()
         self.data_masive = []

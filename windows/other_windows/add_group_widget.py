@@ -1,39 +1,28 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIntValidator
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QComboBox, QCheckBox, QLabel, QScrollArea
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea, QCheckBox
+
+from DataBase.get_list_from_db import getGroupList
 
 
-# Виджет для добавления предметов
-
-class AddingLessonWidget(QWidget):
-    def __init__(self):
+# Виджет для добавления группы
+class AddGroupWidget(QWidget):
+    def __init__(self, current_database):
         super().__init__()
         self.data_masive = []
-        title = QWidget()
-        self.column_size = [200, 70, 70, 70, 60, 75, 55]
+        title =QWidget()
+        self.column_size = [70,70,55]
         title_layout = QHBoxLayout()
         title_layout.setAlignment(Qt.AlignLeft)
-        t1 = QLabel("Преподователь")
-        t1.setFixedWidth(self.column_size[0])
-        t2 = QLabel("Группа")
+        t1 = QLabel("Группа")
+        t1.setFixedWidth(self.column_size [0])
+        t2 = QLabel("Кол-во\nстудентов")
         t2.setFixedWidth(self.column_size[1])
-        t3 = QLabel("Предмет")
+        t3 = QLabel("Удаление")
         t3.setFixedWidth(self.column_size[2])
-        t4 = QLabel("Кол-во в\nнеделю")
-        t4.setFixedWidth(self.column_size[3])
-        t5 = QLabel("Проектор")
-        t5.setFixedWidth(self.column_size[4])
-        t6 = QLabel("Компьютеры")
-        t6.setFixedWidth(self.column_size[5])
-        t7 = QLabel("Удаление")
-        t7.setFixedWidth(self.column_size[6])
         title_layout.addWidget(t1)
         title_layout.addWidget(t2)
         title_layout.addWidget(t3)
-        title_layout.addWidget(t4)
-        title_layout.addWidget(t5)
-        title_layout.addWidget(t6)
-        title_layout.addWidget(t7)
         title.setLayout(title_layout)
         self.data_masive.append(title)
         main_layout = QVBoxLayout()
@@ -41,7 +30,7 @@ class AddingLessonWidget(QWidget):
         self.plus_button.setFixedWidth(120)
         self.plus_button.clicked.connect(self.addLine)
         scroll_area = QScrollArea()
-        scroll_area.setFixedSize(695, 460)
+        scroll_area.setFixedSize(265,470)
         self.scroll_vidget = QWidget()
         scroll_area.setWidget(self.scroll_vidget)
         scroll_area.setWidgetResizable(True)
@@ -52,37 +41,50 @@ class AddingLessonWidget(QWidget):
         main_layout.addWidget(scroll_area)
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
-        self.addLine()
-        self.setFixedSize(705, 510)
-
-    def addLine(self):
+        #self.addLine()
+        self.setFixedSize(275,520)
+        list = getGroupList(current_database)
+        if len(list) > 0:
+            for item in list:
+                self.getFromItem(item)
+            self.updateLayout()
+        else:
+            self.addLine()
+    def getFromItem(self, item):
         line = QWidget()
-        teacher = QComboBox()
-        teacher.setFixedWidth(self.column_size[0])
-        group = QComboBox()
-        group.setFixedWidth(self.column_size[1])
-        lesson = QLineEdit()
-        lesson.setFixedWidth(self.column_size[2])
-        quantity = QLineEdit()
-        quantity.setFixedWidth(self.column_size[3])
-        quantity.setValidator(QIntValidator())
-        projector = QCheckBox()
-        projector.setStyleSheet("padding: 22; ")
-        projector.setFixedWidth(self.column_size[4])
-        computer = QCheckBox()
-        computer.setStyleSheet("padding: 22; ")
-        computer.setFixedWidth(self.column_size[5])
+        group = QLineEdit()
+        group.setText(item.group_name)
+        group.setFixedWidth(self.column_size[0])
+        size = QLineEdit()
+        size.setText(str(item.size))
+        size.setFixedWidth(self.column_size[1])
+        size.setValidator(QIntValidator())
         cancel_button = QPushButton("X")
-        cancel_button.setFixedWidth(self.column_size[6])
+        cancel_button.setFixedWidth(self.column_size[2])
 
         line_layout = QHBoxLayout()
         line_layout.setAlignment(Qt.AlignLeft)
-        line_layout.addWidget(teacher)
         line_layout.addWidget(group)
-        line_layout.addWidget(lesson)
-        line_layout.addWidget(quantity)
-        line_layout.addWidget(projector)
-        line_layout.addWidget(computer)
+        line_layout.addWidget(size)
+        line_layout.addWidget(cancel_button)
+        line.setLayout(line_layout)
+        line.setFixedHeight(40)
+        self.data_masive.append(line)
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
+    def addLine(self):
+        line = QWidget()
+        group = QLineEdit()
+        group.setFixedWidth(self.column_size[0])
+        size = QLineEdit()
+        size.setFixedWidth(self.column_size[1])
+        size.setValidator(QIntValidator())
+        cancel_button = QPushButton("X")
+        cancel_button.setFixedWidth(self.column_size[2])
+
+        line_layout = QHBoxLayout()
+        line_layout.setAlignment(Qt.AlignLeft)
+        line_layout.addWidget(group)
+        line_layout.addWidget(size)
         line_layout.addWidget(cancel_button)
         line.setLayout(line_layout)
         line.setFixedHeight(40)

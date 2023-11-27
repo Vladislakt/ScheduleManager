@@ -6,7 +6,11 @@ import sys
 
 
 # Стартовое окно
-class Start_window(QMainWindow):
+from windows.other_windows.old_bd_window import EditOldBDWindow
+from windows.start_window.new_bd_window import NewBDWindow
+
+
+class StartWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -54,10 +58,16 @@ class Start_window(QMainWindow):
         button_exit.clicked.connect(self.close)
 
         # При нажатии кнопки создать -> Скрывается это окно -> Переходит на окно создания
-        button_create.clicked.connect(self.openNameBd)
+        button_create.clicked.connect(self.createNewBD)
 
-    def openNameBd(self):
-        from nameBdWindow import NameBdWindow
-        self.open_name_bd_window = NameBdWindow(self)
-        self.open_name_bd_window.showMaximized()
+        button_edit.clicked.connect(self.editOldBD)
+
+    def createNewBD(self):
+        self.new_window = NewBDWindow(self)
+        self.new_window.showMaximized()
+        self.close()
+
+    def editOldBD(self):
+        self.new_window = EditOldBDWindow(self)
+        self.new_window.showMaximized()
         self.close()

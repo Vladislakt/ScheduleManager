@@ -1,28 +1,25 @@
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QIntValidator
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea, QCheckBox
+from PySide6.QtCore import Qt, QRegularExpression
+from PySide6.QtGui import QRegularExpressionValidator
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea
 
-from DataBase.get_list_from_db import getGroupList
+from DataBase.get_list_from_db import getTeacherList
 
 
-# Виджет для добавления группы
-class AddingGroupWidget(QWidget):
+# Виджет для добавления преподователей
+class AddTeacherWidget(QWidget):
     def __init__(self, current_database):
         super().__init__()
         self.data_masive = []
-        title =QWidget()
-        self.column_size = [70,70,55]
+        title = QWidget()
+        self.column_size = [200, 55]
         title_layout = QHBoxLayout()
         title_layout.setAlignment(Qt.AlignLeft)
-        t1 = QLabel("Группа")
-        t1.setFixedWidth(self.column_size [0])
-        t2 = QLabel("Кол-во\nстудентов")
+        t1 = QLabel("Преподователи")
+        t1.setFixedWidth(self.column_size[0])
+        t2 = QLabel("Удаление")
         t2.setFixedWidth(self.column_size[1])
-        t3 = QLabel("Удаление")
-        t3.setFixedWidth(self.column_size[2])
         title_layout.addWidget(t1)
         title_layout.addWidget(t2)
-        title_layout.addWidget(t3)
         title.setLayout(title_layout)
         self.data_masive.append(title)
         main_layout = QVBoxLayout()
@@ -30,7 +27,7 @@ class AddingGroupWidget(QWidget):
         self.plus_button.setFixedWidth(120)
         self.plus_button.clicked.connect(self.addLine)
         scroll_area = QScrollArea()
-        scroll_area.setFixedSize(265,470)
+        scroll_area.setFixedSize(320, 480)
         self.scroll_vidget = QWidget()
         scroll_area.setWidget(self.scroll_vidget)
         scroll_area.setWidgetResizable(True)
@@ -41,31 +38,28 @@ class AddingGroupWidget(QWidget):
         main_layout.addWidget(scroll_area)
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
-        #self.addLine()
-        self.setFixedSize(275,520)
-        list = getGroupList(current_database)
+        # self.addLine()
+        self.setFixedSize(350, 530)
+
+        list = getTeacherList(current_database)
         if len(list) > 0:
             for item in list:
                 self.getFromItem(item)
             self.updateLayout()
         else:
             self.addLine()
+
     def getFromItem(self, item):
         line = QWidget()
-        group = QLineEdit()
-        group.setText(item.group_name)
-        group.setFixedWidth(self.column_size[0])
-        size = QLineEdit()
-        size.setText(str(item.size))
-        size.setFixedWidth(self.column_size[1])
-        size.setValidator(QIntValidator())
+        teacher = QLineEdit()
+        teacher.setText(item.fullname)
+        teacher.setFixedWidth(self.column_size[0])
+        teacher.setValidator(QRegularExpressionValidator(QRegularExpression("[^0-9]*")))
         cancel_button = QPushButton("X")
-        cancel_button.setFixedWidth(self.column_size[2])
-
+        cancel_button.setFixedWidth(self.column_size[1])
         line_layout = QHBoxLayout()
         line_layout.setAlignment(Qt.AlignLeft)
-        line_layout.addWidget(group)
-        line_layout.addWidget(size)
+        line_layout.addWidget(teacher)
         line_layout.addWidget(cancel_button)
         line.setLayout(line_layout)
         line.setFixedHeight(40)
@@ -73,18 +67,14 @@ class AddingGroupWidget(QWidget):
         cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
     def addLine(self):
         line = QWidget()
-        group = QLineEdit()
-        group.setFixedWidth(self.column_size[0])
-        size = QLineEdit()
-        size.setFixedWidth(self.column_size[1])
-        size.setValidator(QIntValidator())
+        teacher = QLineEdit()
+        teacher.setFixedWidth(self.column_size[0])
+        teacher.setValidator(QRegularExpressionValidator(QRegularExpression("[^0-9]*")))
         cancel_button = QPushButton("X")
-        cancel_button.setFixedWidth(self.column_size[2])
-
+        cancel_button.setFixedWidth(self.column_size[1])
         line_layout = QHBoxLayout()
         line_layout.setAlignment(Qt.AlignLeft)
-        line_layout.addWidget(group)
-        line_layout.addWidget(size)
+        line_layout.addWidget(teacher)
         line_layout.addWidget(cancel_button)
         line.setLayout(line_layout)
         line.setFixedHeight(40)

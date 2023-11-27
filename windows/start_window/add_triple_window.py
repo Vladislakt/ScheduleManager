@@ -3,13 +3,13 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-from windows.other_windows.addteacherwidget import AddingTeacherWidget
-from  windows.other_windows.addgroupwidget import AddingGroupWidget
-from  windows.other_windows.addclassroomwidget import AddingClassroomWidget
+from windows.other_windows.add_teacher_widget import AddTeacherWidget
+from windows.other_windows.add_group_widget import AddGroupWidget
+from windows.other_windows.add_classroom_widget import AddClassroomWidget
 
 
 class AddTripleWindow(QMainWindow):
-    def __init__(self, pre_window, current_database = "test"):
+    def __init__(self, pre_window, current_database):
         super().__init__()
         #Создание объекта предыдущего окна
         self.pre_window = pre_window
@@ -57,10 +57,9 @@ class AddTripleWindow(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern_teacher = AddingTeacherWidget(current_database)
-        pattern_group = AddingGroupWidget(current_database)
-        pattern_classroom = AddingClassroomWidget(current_database)
-
+        pattern_teacher = AddTeacherWidget(current_database)
+        pattern_group = AddGroupWidget(current_database)
+        pattern_classroom = AddClassroomWidget(current_database)
 
         widget_add = QWidget()
         widget_add_layout = QHBoxLayout()
@@ -79,11 +78,11 @@ class AddTripleWindow(QMainWindow):
 
         # Создаю кнопки и задаю размер
         # Кнопка назад
-        button_back = QPushButton("Назад")
+        button_back = QPushButton("На стартовую")
         button_back.setObjectName("baseButton")
         button_back.setFixedSize(120, 50)
         # Кнопка далее
-        button_next = QPushButton("Далее")
+        button_next = QPushButton("Сохранить")
         button_next.setObjectName("baseButton")
         button_next.setFixedSize(120, 50)
 
@@ -121,12 +120,13 @@ class AddTripleWindow(QMainWindow):
         # Функционал кнопок
 
         # При нажатии кнопки назад -> Открывает стартовое окно создания и закрывает это окно
-        button_back.clicked.connect(self.open_create_start_window)
+        button_back.clicked.connect(self.openPreWindow)
 
         # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
-        button_next.clicked.connect(self.open_add_group)
+        # button_next.clicked.connect(self.open_add_group)
 
     # Открытие предыдущего окна
-    def open_name_bd(self):
-        self.pre_window.showMaximized()
-        self.close()
+    def openPreWindow(self):
+        self.pre_window.pre_window.showMaximized()
+        self.pre_window.destroy()
+        self.destroy()

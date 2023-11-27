@@ -3,7 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
-from start_window import Start_window
+from start_window import StartWindow
 
 # Расположение окон в проекте:
 # main -> start_window -> create_start_window -> addTeacher -> addGroup -> addLeson -> addClassroom
@@ -27,6 +27,6 @@ qss_file.open(QFile.ReadOnly | QFile.Text)
 stream = QTextStream(qss_file)
 app.setStyleSheet(stream.readAll())
 
-window = Start_window()
+window = StartWindow()
 window.showMaximized()
 app.exec()

@@ -3,7 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
-from windows.other_windows.addlessonwidget import AddingLessonWidget
+from windows.other_windows.add_lesson_widget import AddLessonWidget
 
 class AddLeson(QMainWindow):
     def __init__(self, pre_window):
@@ -47,7 +47,7 @@ class AddLeson(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern = AddingLessonWidget()
+        pattern = AddLessonWidget()
 
         widget_add = pattern
         widget_add_layout = QHBoxLayout()
