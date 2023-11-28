@@ -1,11 +1,11 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QScrollArea, QVBoxLayout
 
-from horizontal_line import QHLine
-from vertical_line import QVLine
-from modified_combobox import ModifiedQComboBox
-from operations_with_database import get_group_names, get_courses, get_courses_with_teachers, get_classrooms
-from table_check import check_teachers_in_row, check_classrooms_in_row, stylesheet
+from windows.create_timetable_window.horizontal_line import QHLine
+from windows.create_timetable_window.vertical_line import QVLine
+from windows.create_timetable_window.modified_combobox import ModifiedQComboBox
+from windows.create_timetable_window.operations_with_database import get_group_names, get_courses, get_courses_with_teachers, get_classrooms
+from windows.create_timetable_window.table_check import check_teachers_in_row, check_classrooms_in_row, stylesheet
 
 
 class Table(QWidget):

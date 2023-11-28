@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication
 
-from timetable_window import TimetableWindow
+from windows.create_timetable_window.timetable_window import TimetableWindow
 
 if __name__ == '__main__':
     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
