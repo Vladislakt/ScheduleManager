@@ -4,6 +4,8 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 
+# from windows.create_timetable_window.timetable_window import TimetableWindow
+
 
 class AddInformationWindow(QMainWindow):
     def __init__(self, pre_window, current_database):
@@ -18,11 +20,13 @@ class AddInformationWindow(QMainWindow):
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # "Сколько сгенерирова максимум возможно пар"
-        self.max_leson = QLineEdit("Сколько сгенерирова максимум возможно пар")
+        self.max_leson = QSlider(Qt.Orientation.Horizontal, self)
+        self.max_leson.setMaximum(10)
+        self.max_leson.setMinimum(1)
         self.max_leson.setFixedSize(500, 100)
 
         # Чекбокс для субботы
-        self.saturday = QCheckBox()
+        self.saturday = QCheckBox("Убрать субботу из расписания")
 
         # кнопки
         widget_button = QWidget()
@@ -67,9 +71,8 @@ class AddInformationWindow(QMainWindow):
         days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
         if self.saturday.isChecked():
             days.remove("Суббота")
-        number_of_classes_per_day = int(self.max_leson.text())
 
-        # number_of_classes_per_day = 4
+        # number_of_classes_per_day = int(self.max_leson.text())
         # self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
         # self.new_window.showMaximized()
         # self.close()
