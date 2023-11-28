@@ -1,4 +1,4 @@
-stylesheet = open("windows/create_timetable_window/stylesheet.qss").read()
+stylesheet = open("/windows/create_timetable_window/stylesheet.qss").read()
 
 
 def check_teachers_in_row(scroll_area_layout, row, group_names, courses):
