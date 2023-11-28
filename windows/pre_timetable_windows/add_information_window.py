@@ -4,7 +4,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 
-# from windows.create_timetable_window.timetable_window import TimetableWindow
+from windows.create_timetable_window.timetable_window import TimetableWindow
 
 
 class AddInformationWindow(QMainWindow):
@@ -71,8 +71,7 @@ class AddInformationWindow(QMainWindow):
         days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
         if self.saturday.isChecked():
             days.remove("Суббота")
-
-        # number_of_classes_per_day = int(self.max_leson.text())
-        # self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
-        # self.new_window.showMaximized()
-        # self.close()
+        number_of_classes_per_day = self.max_leson.value()
+        self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
+        self.new_window.showMaximized()
+        self.close()
