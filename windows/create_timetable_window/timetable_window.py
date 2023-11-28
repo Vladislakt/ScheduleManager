@@ -1,8 +1,8 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 
-from buttons import Buttons
-from table import Table
+from windows.create_timetable_window.buttons import Buttons
+from windows.create_timetable_window.table import Table
 
 
 class TimetableWindow(QWidget):
