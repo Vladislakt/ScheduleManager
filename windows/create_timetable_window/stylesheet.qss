@@ -8,7 +8,7 @@ ModifiedQComboBox#regular::drop-down {
 }
 
 ModifiedQComboBox#regular::down-arrow {
-  image: url("arrow.ico");
+  image: url("windows/create_timetable_window/arrow.ico");
   width: 12px;
   height: 12px;
 }
