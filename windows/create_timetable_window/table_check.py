@@ -1,9 +1,7 @@
-from operations_with_database import courses, group_names
-
 stylesheet = open("stylesheet.qss").read()
 
 
-def check_teachers_in_row(scroll_area_layout, row):
+def check_teachers_in_row(scroll_area_layout, row, group_names, courses):
     teacher_id_list = []
     for i in range(len(group_names)):
         scroll_area_layout.itemAtPosition(row, 3 + i * 3).widget().setObjectName("regular")
@@ -28,7 +26,7 @@ def check_teachers_in_row(scroll_area_layout, row):
             teacher_id_list.append(teacher_id)
 
 
-def check_classrooms_in_row(scroll_area_layout, row):
+def check_classrooms_in_row(scroll_area_layout, row, group_names):
     classroom_list = []
     for i in range(len(group_names)):
         scroll_area_layout.itemAtPosition(row, 4 + i * 3).widget().setObjectName("regular")

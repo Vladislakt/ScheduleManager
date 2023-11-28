@@ -1,7 +1,6 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QPushButton, QHBoxLayout
 
-from operations_with_database import group_names
 from write_xlsx import fill_xlsx
 
 
@@ -11,7 +10,7 @@ class Buttons(QWidget):
         layout = QHBoxLayout()
         layout.setAlignment(Qt.AlignRight)
         save = QPushButton("Сохранить")
-        save.clicked.connect(lambda: fill_xlsx(table, days, number_of_classes_per_day, group_names))
+        save.clicked.connect(lambda: fill_xlsx(table, days, number_of_classes_per_day))
         to_db = QPushButton("К БД")
         exit = QPushButton("Выход")
         layout.addWidget(save)

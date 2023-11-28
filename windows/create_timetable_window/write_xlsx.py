@@ -3,15 +3,15 @@ from PySide6.QtCore import QDir
 from PySide6.QtWidgets import QFileDialog
 
 
-def fill_xlsx(table, days, number_of_classes_per_day, groups):
+def fill_xlsx(table, days, number_of_classes_per_day):
     filename = QFileDialog.getSaveFileName(table, "Сохранить в...", str(QDir.currentPath()), "Microsoft Excel 2007 "
                                                                                              "files (*.xlsx)")
     if filename[0] != '':
         workbook = xlsxwriter.Workbook(filename[0])
         worksheet = workbook.add_worksheet()
         insert_days_and_class_numbers(worksheet, days, number_of_classes_per_day)
-        insert_groups(worksheet, groups)
-        insert_courses_and_classrooms(table, worksheet, days, groups, number_of_classes_per_day)
+        insert_groups(worksheet, table)
+        insert_courses_and_classrooms(worksheet, table, days, number_of_classes_per_day)
         workbook.close()
 
 
@@ -22,13 +22,13 @@ def insert_days_and_class_numbers(worksheet, days, number_of_classes_per_day):
             worksheet.write(i * number_of_classes_per_day + j + 1, 1, j + 1)
 
 
-def insert_groups(worksheet, groups):
-    for i in range(len(groups)):
-        worksheet.write(0, i * 2 + 2, groups[i])
+def insert_groups(worksheet, table):
+    for i in range(len(table.group_names)):
+        worksheet.write(0, i * 2 + 2, table.group_names[i])
 
 
-def insert_courses_and_classrooms(table, worksheet, days, groups, number_of_classes_per_day):
-    for i in range(len(groups)):
+def insert_courses_and_classrooms(worksheet, table, days, number_of_classes_per_day):
+    for i in range(len(table.group_names)):
         for j in range(len(days)):
             for k in range(number_of_classes_per_day):
                 worksheet.write(j * number_of_classes_per_day + k + 1, i * 2 + 2,
