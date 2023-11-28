@@ -4,7 +4,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 
-from windows.create_timetable_window.timetable_window import TimetableWindow
+# from windows.create_timetable_window.timetable_window import TimetableWindow
 
 
 class AddInformationWindow(QMainWindow):
@@ -33,13 +33,13 @@ class AddInformationWindow(QMainWindow):
 
         button_back = QPushButton("Назад")
 
-        button_back.clicked.connect(self.openPreWindow)
+        # button_back.clicked.connect(self.openPreWindow)
 
         kostil1 = QLabel()
         kostil2 = QLabel()
         button_next = QPushButton("Перейти к созданию расписания")
 
-        button_next.clicked.connect(self.openTimetableWindow)
+        # button_next.clicked.connect(self.openTimetableWindow)
 
         buttonLayout = QGridLayout()
 
@@ -63,15 +63,15 @@ class AddInformationWindow(QMainWindow):
         mainWidget.setLayout(mainLayout)
         self.setCentralWidget(mainWidget)
 
-    def openPreWindow(self):
-        self.pre_window.showMaximized()
-        self.destroy()
-
-    def openTimetableWindow(self):
-        days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
-        if self.saturday.isChecked():
-            days.remove("Суббота")
-        number_of_classes_per_day = self.max_leson.value()
-        self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
-        self.new_window.showMaximized()
-        self.close()
+    # def openPreWindow(self):
+    #     self.pre_window.showMaximized()
+    #     self.destroy()
+    #
+    # def openTimetableWindow(self):
+    #     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
+    #     if self.saturday.isChecked():
+    #         days.remove("Суббота")
+    #     number_of_classes_per_day = self.max_leson.value()
+    #     self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
+    #     self.new_window.showMaximized()
+    #     self.close()
