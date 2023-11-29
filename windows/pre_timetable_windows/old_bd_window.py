@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication, QHBoxLayout, QPushButton, QWidget, Q
     QMainWindow
 
 from database.get_list_from_db import getDBName
-from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
+# from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
 def getPathToFinaldata():
@@ -28,15 +28,15 @@ class OldBDButton(QWidget):
         self.pre_window = pre_window
         self.button = QPushButton(name)
         self.filename = filename
-        self.button.clicked.connect(self.openTripleWindow)
+        # self.button.clicked.connect(self.openTripleWindow)
         layout = QHBoxLayout()
         layout.addWidget(self.button)
         self.setLayout(layout)
 
-    def openTripleWindow(self):
-        self.new_window = AddTripleWindow(self.pre_window, self.filename)
-        self.new_window.showMaximized()
-        self.pre_window.close()
+    # def openTripleWindow(self):
+    #     self.new_window = AddTripleWindow(self.pre_window, self.filename)
+    #     self.new_window.showMaximized()
+    #     self.pre_window.close()
 
 
 class EditOldBDWindow(QMainWindow):
@@ -85,6 +85,6 @@ class EditOldBDWindow(QMainWindow):
 
         self.setCentralWidget(main_widget)
 
-    def openPreWindow(self):
-        self.pre_window.showMaximized()
-        self.destroy()
+    # def openPreWindow(self):
+    #     self.pre_window.showMaximized()
+    #     self.destroy()

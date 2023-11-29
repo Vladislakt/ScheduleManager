@@ -18,6 +18,7 @@ from start_window import StartWindow
 # if font_id != 1:
 #     # Получение имени шрифта
 #     font_name = QFontDatabase.applicationFontFamilies(font_id)[0]
+from windows.pre_timetable_windows.add_information_window import AddInformationWindow
 
 app = QApplication([])
 
@@ -27,6 +28,6 @@ qss_file.open(QFile.ReadOnly | QFile.Text)
 stream = QTextStream(qss_file)
 app.setStyleSheet(stream.readAll())
 
-window = StartWindow()
+window = AddInformationWindow(None, "test")
 window.showMaximized()
 app.exec()

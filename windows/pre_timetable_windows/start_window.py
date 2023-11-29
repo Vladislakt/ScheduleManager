@@ -3,8 +3,8 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 # Стартовое окно
-from windows.pre_timetable_windows.old_bd_window import EditOldBDWindow
-from windows.pre_timetable_windows.new_bd_window import NewBDWindow
+# from windows.pre_timetable_windows.old_bd_window import EditOldBDWindow
+# from windows.pre_timetable_windows.new_bd_window import NewBDWindow
 
 
 class StartWindow(QMainWindow):
@@ -52,19 +52,19 @@ class StartWindow(QMainWindow):
         self.setCentralWidget(widget)
 
         # При нажатии кнопки выход -> закрывается приложение
-        button_exit.clicked.connect(self.close)
-
+        # button_exit.clicked.connect(self.close)
+        #
         # При нажатии кнопки создать -> Скрывается это окно -> Переходит на окно создания
-        button_create.clicked.connect(self.createNewBD)
+        # button_create.clicked.connect(self.createNewBD)
+        #
+        # button_edit.clicked.connect(self.editOldBD)
 
-        button_edit.clicked.connect(self.editOldBD)
-
-    def createNewBD(self):
-        self.new_window = NewBDWindow(self)
-        self.new_window.showMaximized()
-        self.close()
-
-    def editOldBD(self):
-        self.new_window = EditOldBDWindow(self)
-        self.new_window.showMaximized()
-        self.close()
+    # def createNewBD(self):
+    #     self.new_window = NewBDWindow(self)
+    #     self.new_window.showMaximized()
+    #     self.close()
+    #
+    # def editOldBD(self):
+    #     self.new_window = EditOldBDWindow(self)
+    #     self.new_window.showMaximized()
+    #     self.close()

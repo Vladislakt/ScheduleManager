@@ -5,7 +5,7 @@ from PySide6.QtWidgets import *
 from windows.pre_timetable_windows.add_widgets.add_teacher_widget import AddTeacherWidget
 from windows.pre_timetable_windows.add_widgets.add_group_widget import AddGroupWidget
 from windows.pre_timetable_windows.add_widgets.add_classroom_widget import AddClassroomWidget
-from windows.pre_timetable_windows.add_lesson_window import AddLessonWindow
+# from windows.pre_timetable_windows.add_lesson_window import AddLessonWindow
 
 
 class AddTripleWindow(QMainWindow):
@@ -123,18 +123,18 @@ class AddTripleWindow(QMainWindow):
         # Функционал кнопок
 
         # При нажатии кнопки назад -> Открывает стартовое окно создания и закрывает это окно
-        button_back.clicked.connect(self.openPreWindow)
-
+        # button_back.clicked.connect(self.openPreWindow)
+        #
         # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
-        button_next.clicked.connect(self.openLessonWindow)
+        # button_next.clicked.connect(self.openLessonWindow)
 
     # Открытие предыдущего окна
-    def openPreWindow(self):
-        self.pre_window.pre_window.showMaximized()
-        self.pre_window.destroy()
-        self.destroy()
-
-    def openLessonWindow(self):
-        self.new_window = AddLessonWindow(self, self.current_database)
-        self.new_window.showMaximized()
-        self.close()
+    # def openPreWindow(self):
+    #     self.pre_window.pre_window.showMaximized()
+    #     self.pre_window.destroy()
+    #     self.destroy()
+    #
+    # def openLessonWindow(self):
+    #     self.new_window = AddLessonWindow(self, self.current_database)
+    #     self.new_window.showMaximized()
+    #     self.close()

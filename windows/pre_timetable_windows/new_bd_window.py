@@ -9,7 +9,7 @@ import sys
 # Окно создания БД с выбором (создать своё бд / импортировать существующее)
 from database.create_database import create_database
 from database.insert_name import insert_name
-from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
+# from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
 class NewBDWindow(QMainWindow):
@@ -56,8 +56,8 @@ class NewBDWindow(QMainWindow):
         widget_buttons.setLayout(button_layout)
 
         # Подключаю функции открытия окон
-        button_back.clicked.connect(self.openPreWindow)
-        button_next.clicked.connect(self.openTripleWindow)
+        # button_back.clicked.connect(self.openPreWindow)
+        # button_next.clicked.connect(self.openTripleWindow)
 
         # Создаю main widget
         mainWidget = QWidget()
@@ -72,15 +72,15 @@ class NewBDWindow(QMainWindow):
 
         self.setCentralWidget(mainWidget)
 
-    def openPreWindow(self):
-        self.pre_window.showMaximized()
-        self.destroy()
-
-    def openTripleWindow(self):
-        new_name = self.name_BD.text()
-        current_database = create_database()
-        insert_name(current_database, new_name)
-        self.pre_window.destroy()
-        self.new_window = AddTripleWindow(self, current_database)
-        self.new_window.showMaximized()
-        self.close()
+    # def openPreWindow(self):
+    #     self.pre_window.showMaximized()
+    #     self.destroy()
+    #
+    # def openTripleWindow(self):
+    #     new_name = self.name_BD.text()
+    #     current_database = create_database()
+    #     insert_name(current_database, new_name)
+    #     self.pre_window.destroy()
+    #     self.new_window = AddTripleWindow(self, current_database)
+    #     self.new_window.showMaximized()
+    #     self.close()
