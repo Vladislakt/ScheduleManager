@@ -5,9 +5,9 @@ from database.insert_lessons import insert_lessons
 from database.insert_name import insert_name
 from database.insert_teachers import insert_teachers
 
-current_database = "test"
+# current_database = "test"
 
-create_database(current_database)
+current_database = create_database()
 
 insert_name(current_database, "Тестовая")
 
