@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
+from database.new_insert_functions import save_teachers, save_groups, save_classrooms
 from windows.pre_timetable_windows.add_widgets.add_teacher_widget import AddTeacherWidget
 from windows.pre_timetable_windows.add_widgets.add_group_widget import AddGroupWidget
 from windows.pre_timetable_windows.add_widgets.add_classroom_widget import AddClassroomWidget
@@ -60,15 +61,15 @@ class AddTripleWindow(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern_teacher = AddTeacherWidget(current_database)
-        pattern_group = AddGroupWidget(current_database)
-        pattern_classroom = AddClassroomWidget(current_database)
+        self.pattern_teacher = AddTeacherWidget(current_database)
+        self.pattern_group = AddGroupWidget(current_database)
+        self.pattern_classroom = AddClassroomWidget(current_database)
 
         widget_add = QWidget()
         widget_add_layout = QHBoxLayout()
-        widget_add_layout.addWidget(pattern_teacher)
-        widget_add_layout.addWidget(pattern_group)
-        widget_add_layout.addWidget(pattern_classroom)
+        widget_add_layout.addWidget(self.pattern_teacher)
+        widget_add_layout.addWidget(self.pattern_group)
+        widget_add_layout.addWidget(self.pattern_classroom)
         widget_add_layout.setAlignment(Qt.AlignCenter)
         widget_add.setLayout(widget_add_layout)
 
@@ -135,6 +136,9 @@ class AddTripleWindow(QMainWindow):
     #     self.destroy()
     #
     # def openLessonWindow(self):
+    #     save_teachers(self.current_database, self.pattern_teacher.data_masive, self.pattern_teacher.id_massive)
+    #     save_groups(self.current_database, self.pattern_group.data_masive)
+    #     save_classrooms(self.current_database, self.pattern_classroom.data_masive)
     #     self.new_window = AddLessonWindow(self, self.current_database)
     #     self.new_window.showMaximized()
     #     self.close()
