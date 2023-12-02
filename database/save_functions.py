@@ -1,6 +1,7 @@
 from database.create_session import create_session
 from models.classrooms import Classrooms
 from models.groups import Groups
+from models.lessons import Lessons
 from models.teachers import Teachers
 
 
@@ -70,5 +71,35 @@ def save_classrooms(filename, classroom_list):
         classroom.projector = projector
         classroom.computers = computer
         session.add(classroom)
+    session.commit()
+    session.close()
+
+
+def save_lessons(filename, lesson_list, id_list):
+    session = create_session(filename)
+    list = session.query(Lessons).all()
+    # Удаление из бд тех записей, которые были убраны на виджете
+    for item in list:
+        if item.id not in id_list:
+            session.delete(item)
+    # Вставка/обновление в бд тех записей, которые есть на виджете
+    for index in range(1, len(lesson_list)):
+        id = id_list[index - 1]
+        teach_id = lesson_list[index].teacher.currentIndex()
+        group_name = lesson_list[index].group.currentText()
+        lesson_name = lesson_list[index].lesson.text()
+        quantity = int(lesson_list[index].quantity.text())
+        projector = lesson_list[index].projector.isChecked()
+        computer = lesson_list[index].computer.isChecked()
+        lesson = session.query(Lessons).filter(Lessons.id == id).first()
+        if lesson is None:
+            lesson = Lessons(id=id)
+        lesson.teach_id = teach_id
+        lesson.group_name = group_name
+        lesson.lesson_name = lesson_name
+        lesson.quantity = quantity
+        lesson.projector = projector
+        lesson.computers = computer
+        session.add(lesson)
     session.commit()
     session.close()

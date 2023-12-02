@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
+from database.save_functions import save_lessons
 from windows.pre_timetable_windows.add_widgets.add_lesson_widget import AddLessonWidget
 # from windows.pre_timetable_windows.add_information_window import AddInformationWindow
 
@@ -115,6 +116,7 @@ class AddLessonWindow(QMainWindow):
     #     self.destroy()
     #
     # def openInformationWindow(self):
+    #     save_lessons(self.current_database, self.pattern.data_masive, self.pattern.id_massive)
     #     self.new_window = AddInformationWindow(self, self.current_database)
     #     self.new_window.showMaximized()
     #     self.close()

@@ -86,7 +86,7 @@ class AddTeacherWidget(QWidget):
         line.setFixedHeight(40)
         self.data_masive.append(line)
         while True:
-            id = random.randint(1, 40)
+            id = random.randint(1, 1000)
             if id not in self.id_massive:
                 self.id_massive.append(id)
                 break
