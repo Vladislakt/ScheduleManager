@@ -49,9 +49,9 @@ class AddLessonWindow(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern = AddLessonWidget()
+        self.pattern = AddLessonWidget(current_database)
 
-        widget_add = pattern
+        widget_add = self.pattern
         widget_add_layout = QHBoxLayout()
         widget_add_layout.setAlignment(Qt.AlignHCenter)
 
