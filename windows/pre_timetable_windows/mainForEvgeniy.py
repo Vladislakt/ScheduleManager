@@ -4,7 +4,11 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 from start_window import StartWindow
-
+from add_information_window import AddInformationWindow
+from new_bd_window import NewBDWindow
+from old_bd_window import OldBDButton
+from add_triple_window import AddTripleWindow
+from add_lesson_window import AddLessonWindow
 # Расположение окон в проекте:
 # main -> pre_timetable_windows -> create_start_window -> addTeacher -> addGroup -> addLeson -> addClassroom
 
@@ -29,5 +33,6 @@ stream = QTextStream(qss_file)
 app.setStyleSheet(stream.readAll())
 
 window = AddInformationWindow(None, "test")
+#window = NewBDWindow(None, "test")
 window.showMaximized()
 app.exec()

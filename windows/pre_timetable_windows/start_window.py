@@ -12,44 +12,71 @@ class StartWindow(QMainWindow):
         super().__init__()
 
         # Настройка окна
-        self.setMinimumHeight(800)
-        self.setMinimumWidth(900)
+        self.setFixedSize(1366, 768)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
+        label_widget = QWidget()
+        label_name_proga = QLabel("ScheduleManager")
+        label_name_company = QLabel("   Directed by OOO Knopochnie Kabanchiki")
+
+        id1 = QFontDatabase.addApplicationFont("Fonts/NanumMyeongjo-Regular.ttf")
+        nanum = QFontDatabase.applicationFontFamilies(id1)
+
+        id2 = QFontDatabase.addApplicationFont("Fonts/Judson-Regular.ttf")
+        judson = QFontDatabase.applicationFontFamilies(id2)
+
+
+        label_name_proga.setFont(QFont(nanum, 41))
+        label_name_company.setFont(QFont(judson, 17))
+        label_name_proga.setObjectName("baseText")
+        label_name_company.setObjectName("baseText")
+        label_layout = QVBoxLayout()
+        label_layout.addWidget(label_name_proga)
+        label_layout.addWidget(label_name_company)
+        label_layout.setAlignment(Qt.AlignCenter)
+
+        label_widget.setLayout(label_layout)
+
+
         # Кнопки в окне
+        button_widget = QWidget()
         button_create = QPushButton("Создать")
         button_create.setObjectName("baseButton")
+        button_create.setFont(QFont('Times', 15))
         button_edit = QPushButton("Редактировать")
         button_edit.setObjectName("baseButton")
+        button_edit.setFont(QFont('Times', 15))
         button_exit = QPushButton("Выйти")
-        button_exit.setObjectName("baseButton")
+        button_exit.setObjectName("buttonExit")
+        button_exit.setFont(QFont('Times', 15))
 
-        # Стиль кнопок
-        button_create.setFont(QFont("Georgia", 40))
-
-        button_edit.setFont(QFont("Georgia", 40))
-
-        button_exit.setFont(QFont("Georgia", 40))
 
         # Размер кнопок
-        button_create.setMinimumSize(350, 100)
-        button_edit.setMinimumSize(350, 100)
-        button_exit.setMinimumSize(200, 100)
+        button_create.setFixedSize(250, 100)
+        button_edit.setFixedSize(250, 100)
+        button_exit.setFixedSize(250, 100)
 
-        layout = QGridLayout()
+        button_layout = QGridLayout()
+        kostil = QLabel("")
 
         # Устанавливаем кнопки с помощью сетки
-        layout.addWidget(button_create, 0, 0, 1, 2)
-        layout.addWidget(button_edit, 0, 2, 1, 2)
-        layout.addWidget(button_exit, 1, 1, 1, 2)
+        button_layout.addWidget(button_create, 0, 0)
+        button_layout.addWidget(kostil, 0, 1)
+        button_layout.addWidget(button_edit, 0, 2)
+        button_layout.addWidget(button_exit, 1, 1)
 
         # Центруем кнопки
-        layout.setAlignment(Qt.AlignCenter)
+        button_layout.setAlignment(Qt.AlignCenter)
 
-        widget = QWidget()
-        widget.setLayout(layout)
+        button_widget.setLayout(button_layout)
 
-        self.setCentralWidget(widget)
+        main_widget = QWidget()
+        main_layout = QVBoxLayout()
+        main_layout.addWidget(label_widget)
+        main_layout.addWidget(button_widget)
+        main_widget.setLayout(main_layout)
+
+        self.setCentralWidget(main_widget)
 
         # При нажатии кнопки выход -> закрывается приложение
         # button_exit.clicked.connect(self.close)

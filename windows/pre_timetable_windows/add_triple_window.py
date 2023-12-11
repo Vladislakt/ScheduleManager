@@ -17,7 +17,7 @@ class AddTripleWindow(QMainWindow):
         self.current_database = current_database
 
         # Настройка окна
-        self.setMinimumSize(900, 800)
+        self.setFixedSize(1366, 768)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Используемые виджеты
@@ -28,18 +28,21 @@ class AddTripleWindow(QMainWindow):
         # label -> Виджет добавления -> Кнопки
         # 1)
         # Виджет нужен для того, чтобы поделить экран
-        widget_label = QWidget()
+        widget_label_add = QWidget()
+        widget_label_add_layout = QGridLayout()
 
-        # Создаём layout
-        widget_label_layout = QHBoxLayout()
+
 
         # Создаём label
-        label = QLabel()
-        label_teacher = QLabel("Заполните учителей")
-        label_group = QLabel("Заполните группы")
-        label_classroom = QLabel("Заполните классы")
 
-        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        label_teacher = QLabel("          Заполните учителей")
+        label_teacher.setObjectName("baseText")
+        label_group = QLabel("      Заполните группы")
+        label_group.setObjectName("baseText")
+        label_classroom = QLabel("                               Заполните классы")
+        label_classroom.setObjectName("baseText")
+
+        id = QFontDatabase.addApplicationFont("Fonts/UrbanJungleDEMO.otf")
         families = QFontDatabase.applicationFontFamilies(id)
 
         label_teacher.setFont(QFont(families, 20))
@@ -47,15 +50,9 @@ class AddTripleWindow(QMainWindow):
         label_classroom.setFont(QFont(families, 20))
 
         # Запихиваем в layout label
-        widget_label_layout.addWidget(label_teacher)
-        widget_label_layout.addWidget(label_group)
-        widget_label_layout.addWidget(label_classroom)
-
-        # Центрую label
-        label.setAlignment(Qt.AlignCenter)
-
-        # Задаём виджету layout
-        widget_label.setLayout(widget_label_layout)
+        widget_label_add_layout.addWidget(label_teacher, 0, 0)
+        widget_label_add_layout.addWidget(label_group, 0, 1)
+        widget_label_add_layout.addWidget(label_classroom, 0, 2)
 
         # 2)
 
@@ -64,13 +61,12 @@ class AddTripleWindow(QMainWindow):
         pattern_group = AddGroupWidget(current_database)
         pattern_classroom = AddClassroomWidget(current_database)
 
-        widget_add = QWidget()
-        widget_add_layout = QHBoxLayout()
-        widget_add_layout.addWidget(pattern_teacher)
-        widget_add_layout.addWidget(pattern_group)
-        widget_add_layout.addWidget(pattern_classroom)
-        widget_add_layout.setAlignment(Qt.AlignCenter)
-        widget_add.setLayout(widget_add_layout)
+        widget_label_add_layout.addWidget(pattern_teacher, 1, 0)
+        widget_label_add_layout.addWidget(pattern_group, 1, 1)
+        widget_label_add_layout.addWidget(pattern_classroom, 1, 2)
+
+        widget_label_add.setLayout(widget_label_add_layout)
+        # widget_label_add_layout.setAlignment(Qt.AlignCenter)
 
         # 3)
         widget_button = QWidget()
@@ -82,12 +78,12 @@ class AddTripleWindow(QMainWindow):
         # Создаю кнопки и задаю размер
         # Кнопка назад
         button_back = QPushButton("На стартовую")
-        button_back.setObjectName("baseButton")
-        button_back.setFixedSize(120, 50)
+        button_back.setObjectName("switching")
+        button_back.setFixedSize(150, 40)
         # Кнопка далее
         button_next = QPushButton("Сохранить")
-        button_next.setObjectName("baseButton")
-        button_next.setFixedSize(120, 50)
+        button_next.setObjectName("switching")
+        button_next.setFixedSize(150, 40)
 
         # Создаю layout для кнопок
 
@@ -105,17 +101,16 @@ class AddTripleWindow(QMainWindow):
 
         widget_button.setLayout(widget_button_layout)
         # Запихиваем вниз кнопки
-        widget_button_layout.setAlignment(Qt.AlignBottom)
+        #widget_button_layout.setAlignment(Qt.AlignBottom)
 
         # Добавляем виджеты в главный виджет
-        main_layout.addWidget(widget_label)
-        main_layout.addWidget(widget_add)
+        main_layout.addWidget(widget_label_add)
         main_layout.addWidget(widget_button)
 
         # Добавляем layout
         main_widget.setLayout(main_layout)
 
-        main_layout.setAlignment(Qt.AlignHCenter)
+        #main_layout.setAlignment(Qt.AlignCenter)
 
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)

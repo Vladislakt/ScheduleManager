@@ -1,13 +1,37 @@
 QPushButton#baseButton{
-  background-color: #543964;
-  color: #f7f7c1;
+  background-color: #FFFFFF;
+  color: #171B2F;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 40px;
+  border: 1px solid #46394B;
+  padding: 5px 15px;
+  margin-top: 10px;
+  outline: 0px;
+}
+QPushButton#switching{
+  background-color: #FFFFFF;
+  color: #171B2F;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid #46394B;
+}
+QPushButton#buttonExit{
+  background-color: #515B8F;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 40px;
   border: 1px solid #46394B;
   padding: 5px 15px;
   margin-top: 10px;
   outline: 0px;
 }
 QMainWindow{
-background-color: #876C99;
+background-color: #171B2F;
+}
+QLabel#baseText{
+color: #ffffff;
+font-weight: bold;
+}
+QLineEdit{
+border-radius: 10px;
 }

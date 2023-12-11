@@ -20,13 +20,24 @@ class AddInformationWindow(QMainWindow):
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # "Сколько сгенерирова максимум возможно пар"
-        self.max_leson = QSlider(Qt.Orientation.Horizontal, self)
-        self.max_leson.setMaximum(10)
-        self.max_leson.setMinimum(1)
-        self.max_leson.setFixedSize(500, 100)
+        widget_slider = QWidget()
+        layout_slider = QVBoxLayout()
+        max_leson = QSlider(Qt.Orientation.Horizontal, self)
+        max_leson.setRange(1, 10)
+        max_leson.setTickPosition(QSlider.TicksBelow)
+        max_leson.setFixedSize(500, 100)
+
+        label_slider = QLabel()
+        max_leson.valueChanged.connect(lambda value:
+                                            label_slider.setText(f"Максимум пар в день: {value}"))
+
+        layout_slider.addWidget(max_leson)
+        layout_slider.addWidget(label_slider)
+
+        widget_slider.setLayout(layout_slider)
 
         # Чекбокс для субботы
-        self.saturday = QCheckBox("Убрать субботу из расписания")
+        saturday = QCheckBox("Убрать субботу из расписания")
 
         # кнопки
         widget_button = QWidget()
@@ -48,16 +59,17 @@ class AddInformationWindow(QMainWindow):
         buttonLayout.addWidget(kostil2, 0, 2)
         buttonLayout.addWidget(button_next, 0, 3)
 
+        buttonLayout.setAlignment(Qt.AlignBottom)
         widget_button.setLayout(buttonLayout)
 
         # Создаю main widget
         mainWidget = QWidget()
 
         # Создаю main layout
-        mainLayout = QVBoxLayout()
+        mainLayout = QGridLayout()
 
-        mainLayout.addWidget(self.max_leson)
-        mainLayout.addWidget(self.saturday)
+        mainLayout.addWidget(widget_slider, 0, 0)
+        mainLayout.addWidget(saturday, 0, 1)
         mainLayout.addWidget(widget_button)
 
         mainWidget.setLayout(mainLayout)

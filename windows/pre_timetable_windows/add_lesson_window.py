@@ -15,7 +15,7 @@ class AddLessonWindow(QMainWindow):
         self.current_database = current_database
 
         # Настройка окна
-        self.setMinimumSize(900, 800)
+        self.setFixedSize(1366, 768)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Используемые виджеты
@@ -36,7 +36,8 @@ class AddLessonWindow(QMainWindow):
         widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
         label = QLabel("Сопоставьте преподавателей и группы")
-
+        label.setObjectName("baseText")
+        label.setFont(QFont("Times", 20))
         # Центрую label
         label.setAlignment(Qt.AlignCenter)
 
@@ -51,9 +52,11 @@ class AddLessonWindow(QMainWindow):
         # В патерн записываем функция добавления
         pattern = AddLessonWidget()
 
-        widget_add = pattern
-        widget_add_layout = QHBoxLayout()
-        widget_add_layout.setAlignment(Qt.AlignHCenter)
+        widget_add = QWidget()
+        widget_add_layout = QVBoxLayout()
+        widget_add_layout.addWidget(pattern)
+        widget_add.setLayout(widget_add_layout)
+        widget_add_layout.setAlignment(Qt.AlignCenter)
 
         # 3)
         widget_button = QWidget()
@@ -65,11 +68,11 @@ class AddLessonWindow(QMainWindow):
         # Создаю кнопки и задаю размер
         # Кнопка назад
         button_back = QPushButton("Назад")
-        button_back.setObjectName("baseButton")
+        button_back.setObjectName("switching")
         button_back.setFixedSize(120, 50)
         # Кнопка далее
         button_next = QPushButton("Сохранить")
-        button_next.setObjectName("baseButton")
+        button_next.setObjectName("switching")
         button_next.setFixedSize(120, 50)
 
         # Создаю layout для кнопок
@@ -94,6 +97,7 @@ class AddLessonWindow(QMainWindow):
         main_layout.addWidget(widget_label)
         main_layout.addWidget(widget_add)
         main_layout.addWidget(widget_button)
+
 
         # Добавляем layout
         main_widget.setLayout(main_layout)

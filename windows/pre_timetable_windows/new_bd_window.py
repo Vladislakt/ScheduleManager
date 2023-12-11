@@ -20,18 +20,17 @@ class NewBDWindow(QMainWindow):
         self.pre_window = pre_window
 
         # Настройка окна
-        self.setMinimumHeight(800)
-        self.setMinimumWidth(900)
+        self.setFixedSize(1366, 768)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Создаю окно для ввода названия бд
         widget_name_bd = QWidget()
         self.name_BD = QLineEdit()
+        self.name_BD.setPlaceholderText("Введите название таблицы")
         self.name_BD.setFixedSize(500, 50)
         layout_nameBd = QHBoxLayout()
         layout_nameBd.addWidget(self.name_BD)
-        layout_nameBd.setAlignment(Qt.AlignVCenter)
-        layout_nameBd.setAlignment(Qt.AlignHCenter)
+        layout_nameBd.setAlignment(Qt.AlignCenter)
         widget_name_bd.setLayout(layout_nameBd)
 
         # Создаю кнопки Далее и назад
@@ -39,11 +38,16 @@ class NewBDWindow(QMainWindow):
         widget_buttons = QWidget()
 
         button_back = QPushButton("Назад")
-        button_back.setObjectName("baseButton")
-        kostil1 = QLabel()
-        kostil2 = QLabel()
+        button_back.setObjectName("switching")
+        button_back.setFont(QFont('Times', 10))
+        kostil1 = QLabel("")
+        kostil2 = QLabel("")
         button_next = QPushButton("Далее")
-        button_next.setObjectName("baseButton")
+        button_next.setObjectName("switching")
+        button_next.setFont(QFont('Times', 10))
+
+        button_back.setFixedSize(200, 40)
+        button_next.setFixedSize(200, 40)
 
         button_layout = QGridLayout()
         button_layout.addWidget(button_back, 0, 0)
@@ -63,6 +67,7 @@ class NewBDWindow(QMainWindow):
         mainWidget = QWidget()
         # Создаю main layout
         mainLayot = QVBoxLayout()
+        mainLayot.addWidget(QLabel())
         mainLayot.addWidget(widget_name_bd)
         mainLayot.addWidget(widget_buttons)
         mainWidget.setLayout(mainLayot)
