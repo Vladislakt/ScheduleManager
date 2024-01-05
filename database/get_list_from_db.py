@@ -1,10 +1,11 @@
 from database.create_session import create_session
 from models.classrooms import Classrooms
 from models.groups import Groups
+from models.information import Information
 from models.lessons import Lessons
 from models.name import Name
 from models.teachers import Teachers
-from models.finaldata import FinalData
+from models.cell import Cell
 
 
 def getTeacherList(filename):
@@ -44,6 +45,23 @@ def getGroupNameList(filename):
         list.append(group.group_name)
     return list
 
+
 def getDBName(filename):
     session = create_session(filename)
     return session.query(Name).first().name
+
+
+def getIsSaturday(filename):
+    session = create_session(filename)
+    return session.query(Information).first().isSaturday
+
+
+def getMaxLesson(filename):
+    session = create_session(filename)
+    return session.query(Information).first().maxLesson
+
+
+def getCellList(filename):
+    session = create_session(filename)
+    list = session.query(Cell).all()
+    return list

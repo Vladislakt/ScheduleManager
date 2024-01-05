@@ -1,4 +1,5 @@
 from database.create_session import create_session
+from models.cell import Cell
 from models.classrooms import Classrooms
 from models.groups import Groups
 from models.lessons import Lessons
@@ -101,5 +102,33 @@ def save_lessons(filename, lesson_list, id_list):
         lesson.projector = projector
         lesson.computers = computer
         session.add(lesson)
+    session.commit()
+    session.close()
+
+
+def save_finaldata(filename, cell_list):
+    session = create_session(filename)
+    list = session.query(Cell).all()
+    # Удаление из бд тех записей, которые были убраны
+    for item in list:
+        if item not in cell_list:
+            session.delete(item)
+    # Вставка/обновление в бд тех записей, которые есть
+    for cell in cell_list:
+        day = cell.day
+        group = cell.group
+        number_of_class = cell.number_of_class
+        lesson_id = cell.lesson_id
+        classroom = cell.classroom
+        new_cell = session.query(Cell).filter(Cell.day == day,
+                                              Cell.group == group,
+                                              Cell.number_of_class == number_of_class
+                                              ).first()
+        if new_cell is None:
+            new_cell = Cell(day, group, number_of_class, lesson_id, classroom)
+        else:
+            new_cell.lesson_id = lesson_id
+            new_cell.classroom = classroom
+        session.add(new_cell)
     session.commit()
     session.close()

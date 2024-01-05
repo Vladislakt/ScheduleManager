@@ -20,10 +20,10 @@ class Lessons(Base):
     # Создание зависимости
     teachers = relationship("Teachers", back_populates="lesson")
     groups = relationship("Groups", back_populates="lesson")
-    finaldata = relationship('FinalData',
-                             back_populates="lesson",
-                             cascade="all, delete",
-                             passive_deletes=True, )
+    cell = relationship('Cell',
+                        back_populates="lesson",
+                        cascade="all, delete",
+                        passive_deletes=True, )
 
     def __repr__(self):
         return f'Lessons [ID: {self.id}, Препод: {self.teach_id}, Группа: {self.group_name}, Предмет: {self.lesson_name}, Проектор: {self.projector}, Компьютеры: {self.computers}]'
