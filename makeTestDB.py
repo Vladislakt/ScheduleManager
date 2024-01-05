@@ -1,6 +1,7 @@
 from database.create_database import create_database
 from database.insert_classrooms import insert_classrooms
 from database.insert_groups import insert_groups
+from database.insert_information import insert_information
 from database.insert_lessons import insert_lessons
 from database.insert_name import insert_name
 from database.insert_teachers import insert_teachers
@@ -10,6 +11,8 @@ from database.insert_teachers import insert_teachers
 current_database = create_database()
 
 insert_name(current_database, "Тестовая")
+
+insert_information(current_database, True, 5)
 
 teachers = ["Васильчиков В", "Васильев А", "Сажин С", "Бондаренко В", "Николаев А", "Шовгенов Д", "Мусин М",
             "Волчёнков В",

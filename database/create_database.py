@@ -9,6 +9,7 @@ from models.lessons import Lessons
 from models.classrooms import Classrooms
 from models.finaldata import FinalData
 from models.name import Name
+from models.information import Information
 
 
 # Функция для создания бд из окружения
