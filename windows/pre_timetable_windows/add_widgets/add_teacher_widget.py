@@ -1,3 +1,5 @@
+import random
+
 from PySide6.QtCore import Qt, QRegularExpression
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLineEdit, QHBoxLayout, QLabel, QScrollArea
@@ -10,6 +12,7 @@ class AddTeacherWidget(QWidget):
     def __init__(self, current_database):
         super().__init__()
         self.data_masive = []
+        self.id_massive = []
         title = QWidget()
         self.column_size = [200, 55]
         title_layout = QHBoxLayout()
@@ -51,39 +54,48 @@ class AddTeacherWidget(QWidget):
 
     def getFromItem(self, item):
         line = QWidget()
-        teacher = QLineEdit()
-        teacher.setText(item.fullname)
-        teacher.setFixedWidth(self.column_size[0])
-        teacher.setValidator(QRegularExpressionValidator(QRegularExpression("[^0-9]*")))
+        line.teacher = QLineEdit()
+        line.teacher.setText(item.fullname)
+        line.teacher.setFixedWidth(self.column_size[0])
+        line.teacher.setValidator(QRegularExpressionValidator(QRegularExpression("[^0-9]*")))
         cancel_button = QPushButton("X")
         cancel_button.setFixedWidth(self.column_size[1])
         line_layout = QHBoxLayout()
         line_layout.setAlignment(Qt.AlignLeft)
-        line_layout.addWidget(teacher)
+        line_layout.addWidget(line.teacher)
         line_layout.addWidget(cancel_button)
         line.setLayout(line_layout)
         line.setFixedHeight(40)
         self.data_masive.append(line)
-        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
+        id = item.teach_id
+        self.id_massive.append(id)
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line), id))
+
     def addLine(self):
         line = QWidget()
-        teacher = QLineEdit()
-        teacher.setFixedWidth(self.column_size[0])
-        teacher.setValidator(QRegularExpressionValidator(QRegularExpression("[^0-9]*")))
+        line.teacher = QLineEdit()
+        line.teacher.setFixedWidth(self.column_size[0])
+        line.teacher.setValidator(QRegularExpressionValidator(QRegularExpression("[^0-9]*")))
         cancel_button = QPushButton("X")
         cancel_button.setFixedWidth(self.column_size[1])
         line_layout = QHBoxLayout()
         line_layout.setAlignment(Qt.AlignLeft)
-        line_layout.addWidget(teacher)
+        line_layout.addWidget(line.teacher)
         line_layout.addWidget(cancel_button)
         line.setLayout(line_layout)
         line.setFixedHeight(40)
         self.data_masive.append(line)
-        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
+        while True:
+            id = random.randint(1, 1000)
+            if id not in self.id_massive:
+                self.id_massive.append(id)
+                break
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line), id))
         self.updateLayout()
 
-    def delLine(self, num_in_list):
+    def delLine(self, num_in_list, id):
         self.data_masive.pop(num_in_list)
+        self.id_massive.remove(id)
         self.updateLayout()
 
     def clearLayout(self):

@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
+from database.save_functions import save_lessons
 from windows.pre_timetable_windows.add_widgets.add_lesson_widget import AddLessonWidget
 # from windows.pre_timetable_windows.add_information_window import AddInformationWindow
 
@@ -15,7 +16,7 @@ class AddLessonWindow(QMainWindow):
         self.current_database = current_database
 
         # Настройка окна
-        self.setFixedSize(1366, 768)
+        self.setMinimumSize(900, 800)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Используемые виджеты
@@ -36,8 +37,7 @@ class AddLessonWindow(QMainWindow):
         widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
         label = QLabel("Сопоставьте преподавателей и группы")
-        label.setObjectName("baseText")
-        label.setFont(QFont("Times", 20))
+
         # Центрую label
         label.setAlignment(Qt.AlignCenter)
 
@@ -50,13 +50,11 @@ class AddLessonWindow(QMainWindow):
         # 2)
 
         # В патерн записываем функция добавления
-        pattern = AddLessonWidget()
+        self.pattern = AddLessonWidget(current_database)
 
-        widget_add = QWidget()
-        widget_add_layout = QVBoxLayout()
-        widget_add_layout.addWidget(pattern)
-        widget_add.setLayout(widget_add_layout)
-        widget_add_layout.setAlignment(Qt.AlignCenter)
+        widget_add = self.pattern
+        widget_add_layout = QHBoxLayout()
+        widget_add_layout.setAlignment(Qt.AlignHCenter)
 
         # 3)
         widget_button = QWidget()
@@ -68,11 +66,11 @@ class AddLessonWindow(QMainWindow):
         # Создаю кнопки и задаю размер
         # Кнопка назад
         button_back = QPushButton("Назад")
-        button_back.setObjectName("switching")
+        button_back.setObjectName("baseButton")
         button_back.setFixedSize(120, 50)
         # Кнопка далее
         button_next = QPushButton("Сохранить")
-        button_next.setObjectName("switching")
+        button_next.setObjectName("baseButton")
         button_next.setFixedSize(120, 50)
 
         # Создаю layout для кнопок
@@ -98,7 +96,6 @@ class AddLessonWindow(QMainWindow):
         main_layout.addWidget(widget_add)
         main_layout.addWidget(widget_button)
 
-
         # Добавляем layout
         main_widget.setLayout(main_layout)
 
@@ -119,6 +116,7 @@ class AddLessonWindow(QMainWindow):
     #     self.destroy()
     #
     # def openInformationWindow(self):
+    #     save_lessons(self.current_database, self.pattern.data_masive, self.pattern.id_massive)
     #     self.new_window = AddInformationWindow(self, self.current_database)
     #     self.new_window.showMaximized()
     #     self.close()

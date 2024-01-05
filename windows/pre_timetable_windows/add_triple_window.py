@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
+from database.save_functions import save_teachers, save_groups, save_classrooms
 from windows.pre_timetable_windows.add_widgets.add_teacher_widget import AddTeacherWidget
 from windows.pre_timetable_windows.add_widgets.add_group_widget import AddGroupWidget
 from windows.pre_timetable_windows.add_widgets.add_classroom_widget import AddClassroomWidget
@@ -17,7 +18,7 @@ class AddTripleWindow(QMainWindow):
         self.current_database = current_database
 
         # Настройка окна
-        self.setFixedSize(1366, 768)
+        self.setMinimumSize(900, 800)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Используемые виджеты
@@ -28,21 +29,18 @@ class AddTripleWindow(QMainWindow):
         # label -> Виджет добавления -> Кнопки
         # 1)
         # Виджет нужен для того, чтобы поделить экран
-        widget_label_add = QWidget()
-        widget_label_add_layout = QGridLayout()
+        widget_label = QWidget()
 
-
+        # Создаём layout
+        widget_label_layout = QHBoxLayout()
 
         # Создаём label
+        label = QLabel()
+        label_teacher = QLabel("Заполните учителей")
+        label_group = QLabel("Заполните группы")
+        label_classroom = QLabel("Заполните классы")
 
-        label_teacher = QLabel("          Заполните учителей")
-        label_teacher.setObjectName("baseText")
-        label_group = QLabel("      Заполните группы")
-        label_group.setObjectName("baseText")
-        label_classroom = QLabel("                               Заполните классы")
-        label_classroom.setObjectName("baseText")
-
-        id = QFontDatabase.addApplicationFont("Fonts/UrbanJungleDEMO.otf")
+        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
         families = QFontDatabase.applicationFontFamilies(id)
 
         label_teacher.setFont(QFont(families, 20))
@@ -50,23 +48,30 @@ class AddTripleWindow(QMainWindow):
         label_classroom.setFont(QFont(families, 20))
 
         # Запихиваем в layout label
-        widget_label_add_layout.addWidget(label_teacher, 0, 0)
-        widget_label_add_layout.addWidget(label_group, 0, 1)
-        widget_label_add_layout.addWidget(label_classroom, 0, 2)
+        widget_label_layout.addWidget(label_teacher)
+        widget_label_layout.addWidget(label_group)
+        widget_label_layout.addWidget(label_classroom)
+
+        # Центрую label
+        label.setAlignment(Qt.AlignCenter)
+
+        # Задаём виджету layout
+        widget_label.setLayout(widget_label_layout)
 
         # 2)
 
         # В патерн записываем функция добавления
-        pattern_teacher = AddTeacherWidget(current_database)
-        pattern_group = AddGroupWidget(current_database)
-        pattern_classroom = AddClassroomWidget(current_database)
+        self.pattern_teacher = AddTeacherWidget(current_database)
+        self.pattern_group = AddGroupWidget(current_database)
+        self.pattern_classroom = AddClassroomWidget(current_database)
 
-        widget_label_add_layout.addWidget(pattern_teacher, 1, 0)
-        widget_label_add_layout.addWidget(pattern_group, 1, 1)
-        widget_label_add_layout.addWidget(pattern_classroom, 1, 2)
-
-        widget_label_add.setLayout(widget_label_add_layout)
-        # widget_label_add_layout.setAlignment(Qt.AlignCenter)
+        widget_add = QWidget()
+        widget_add_layout = QHBoxLayout()
+        widget_add_layout.addWidget(self.pattern_teacher)
+        widget_add_layout.addWidget(self.pattern_group)
+        widget_add_layout.addWidget(self.pattern_classroom)
+        widget_add_layout.setAlignment(Qt.AlignCenter)
+        widget_add.setLayout(widget_add_layout)
 
         # 3)
         widget_button = QWidget()
@@ -78,12 +83,12 @@ class AddTripleWindow(QMainWindow):
         # Создаю кнопки и задаю размер
         # Кнопка назад
         button_back = QPushButton("На стартовую")
-        button_back.setObjectName("switching")
-        button_back.setFixedSize(150, 40)
+        button_back.setObjectName("baseButton")
+        button_back.setFixedSize(120, 50)
         # Кнопка далее
         button_next = QPushButton("Сохранить")
-        button_next.setObjectName("switching")
-        button_next.setFixedSize(150, 40)
+        button_next.setObjectName("baseButton")
+        button_next.setFixedSize(120, 50)
 
         # Создаю layout для кнопок
 
@@ -101,16 +106,17 @@ class AddTripleWindow(QMainWindow):
 
         widget_button.setLayout(widget_button_layout)
         # Запихиваем вниз кнопки
-        #widget_button_layout.setAlignment(Qt.AlignBottom)
+        widget_button_layout.setAlignment(Qt.AlignBottom)
 
         # Добавляем виджеты в главный виджет
-        main_layout.addWidget(widget_label_add)
+        main_layout.addWidget(widget_label)
+        main_layout.addWidget(widget_add)
         main_layout.addWidget(widget_button)
 
         # Добавляем layout
         main_widget.setLayout(main_layout)
 
-        #main_layout.setAlignment(Qt.AlignCenter)
+        main_layout.setAlignment(Qt.AlignHCenter)
 
         # Отображаем главный виджет
         self.setCentralWidget(main_widget)
@@ -130,6 +136,9 @@ class AddTripleWindow(QMainWindow):
     #     self.destroy()
     #
     # def openLessonWindow(self):
+    #     save_teachers(self.current_database, self.pattern_teacher.data_masive, self.pattern_teacher.id_massive)
+    #     save_groups(self.current_database, self.pattern_group.data_masive)
+    #     save_classrooms(self.current_database, self.pattern_classroom.data_masive)
     #     self.new_window = AddLessonWindow(self, self.current_database)
     #     self.new_window.showMaximized()
     #     self.close()
