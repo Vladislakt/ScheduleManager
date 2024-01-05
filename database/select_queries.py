@@ -10,3 +10,8 @@ def getTeacherName(filename, teach_id):
     session = create_session(filename)
     name = session.query(Teachers).filter(Teachers.teach_id == teach_id).first().fullname
     return name
+
+
+def getLesson(filename, lesson_id):
+    session = create_session(filename)
+    return session.query(Lessons).filter(Lessons.id == lesson_id).first()

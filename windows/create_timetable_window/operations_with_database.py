@@ -1,5 +1,7 @@
-from database.get_list_from_db import getLessonsByGroup, getClassroomList, getGroupList
+from database.get_list_from_db import getLessonsByGroup, getClassroomList, getGroupList, getCellList
+from database.save_functions import save_finaldata
 from database.select_queries import getTeacherName
+from models.cell import Cell
 
 
 def get_groups(db):
@@ -38,21 +40,10 @@ def get_courses_with_teachers(db):
 
 
 def get_cells(db):
-    cells = []
-    return cells
+    return getCellList(db)
 
 
-class Cell:
-    def __init__(self, group, day, number_of_class, lesson_id, classroom):
-        super().__init__()
-        self.classroom = classroom
-        self.lesson_id = lesson_id
-        self.number_of_class = number_of_class
-        self.day = day
-        self.group = group
-
-
-def make_data_array(table, days, number_of_classes_per_day):
+def write_table_data_to_db(db, table, days, number_of_classes_per_day):
     data_array = []
     for i in range(len(table.group_names)):
         for j in range(len(days)):
@@ -76,4 +67,4 @@ def make_data_array(table, days, number_of_classes_per_day):
                 data_array.append(cell)
                 print(table.courses[i][selected_course_index - 1])
                 print(cell.group, cell.day, cell.number_of_class, cell.lesson_id, cell.classroom, "\n")
-    return data_array
+    save_finaldata(db, data_array)

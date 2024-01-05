@@ -10,7 +10,7 @@ class TimetableWindow(QWidget):
         super().__init__()
         self.setWindowTitle("Составление расписания")
         self.table = Table(db, days, number_of_classes_per_day)
-        self.buttons = Buttons(self.table, days, number_of_classes_per_day)
+        self.buttons = Buttons(db, self.table, days, number_of_classes_per_day)
         layout = QVBoxLayout()
         layout.addWidget(self.table)
         layout.addWidget(self.buttons)
