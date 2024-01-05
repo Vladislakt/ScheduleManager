@@ -4,6 +4,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 
+
 # from windows.create_timetable_window.timetable_window import TimetableWindow
 
 
@@ -16,8 +17,19 @@ class AddInformationWindow(QMainWindow):
         self.current_database = current_database
 
         # Настройка окна
-        self.setMinimumSize(900, 800)
+        self.setFixedSize(1280, 720)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
+
+        label = QLabel("Добавьте дополнительную информацию")
+
+        label.setStyleSheet("color: white")
+
+        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        families = QFontDatabase.applicationFontFamilies(id)
+
+        label.setFont(QFont(families, 20))
+
+        label.setAlignment(Qt.AlignCenter)
 
         # "Сколько сгенерирова максимум возможно пар"
         widget_slider = QWidget()
@@ -27,9 +39,10 @@ class AddInformationWindow(QMainWindow):
         max_leson.setTickPosition(QSlider.TicksBelow)
         max_leson.setFixedSize(500, 100)
 
-        label_slider = QLabel()
+        label_slider = QLabel("Максимум пар в день: 1")
+        label_slider.setObjectName("baseText")
         max_leson.valueChanged.connect(lambda value:
-                                            label_slider.setText(f"Максимум пар в день: {value}"))
+                                       label_slider.setText(f"Максимум пар в день: {value}"))
 
         layout_slider.addWidget(max_leson)
         layout_slider.addWidget(label_slider)
@@ -38,17 +51,26 @@ class AddInformationWindow(QMainWindow):
 
         # Чекбокс для субботы
         saturday = QCheckBox("Убрать субботу из расписания")
+        saturday.setObjectName("saturday")
+        layout_slider.addWidget(saturday)
+        layout_slider.setAlignment(Qt.AlignCenter)
 
         # кнопки
         widget_button = QWidget()
 
         button_back = QPushButton("Назад")
+        button_back.setObjectName("switching")
+        button_back.setFont(QFont('Times', 10))
+        button_back.setFixedSize(120, 45)
 
         # button_back.clicked.connect(self.openPreWindow)
 
         kostil1 = QLabel()
         kostil2 = QLabel()
-        button_next = QPushButton("Перейти к созданию расписания")
+        button_next = QPushButton("Далее")
+        button_next.setObjectName("switching")
+        button_next.setFont(QFont('Times', 10))
+        button_next.setFixedSize(120, 45)
 
         # button_next.clicked.connect(self.openTimetableWindow)
 
@@ -66,10 +88,11 @@ class AddInformationWindow(QMainWindow):
         mainWidget = QWidget()
 
         # Создаю main layout
-        mainLayout = QGridLayout()
+        mainLayout = QVBoxLayout()
 
-        mainLayout.addWidget(widget_slider, 0, 0)
-        mainLayout.addWidget(saturday, 0, 1)
+        mainLayout.addWidget(label)
+        mainLayout.addWidget(widget_slider)
+        # mainLayout.addWidget(saturday)
         mainLayout.addWidget(widget_button)
 
         mainWidget.setLayout(mainLayout)

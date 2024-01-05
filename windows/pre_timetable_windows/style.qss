@@ -10,9 +10,24 @@ QPushButton#baseButton{
 }
 QPushButton#switching{
   background-color: #FFFFFF;
-  color: #171B2F;
+  color: black;
   font-weight: 600;
   border-radius: 10px;
+  border: 1px solid #46394B;
+}
+QPushButton#back_oldbd_long{
+  background-color: #FFFFFF;
+  color: black;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid #46394B;
+}
+QPushButton#old_button_namebd{
+  background-color: #FFFFFF;
+  color: black;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 5px;
   border: 1px solid #46394B;
 }
 QPushButton#buttonExit{
@@ -34,4 +49,9 @@ font-weight: bold;
 }
 QLineEdit{
 border-radius: 10px;
+}
+QCheckBox#saturday{
+color: #ffffff;
+font-size: 20px;
+font-family: Times;
 }

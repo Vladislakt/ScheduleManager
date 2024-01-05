@@ -20,15 +20,27 @@ class NewBDWindow(QMainWindow):
         self.pre_window = pre_window
 
         # Настройка окна
-        self.setFixedSize(1366, 768)
+        self.setFixedSize(1280, 720)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
+
+        # Вступительный лэйбл
+
+        label = QLabel('Введите название нового расписания')
+
+        label.setStyleSheet("color: white")
+
+        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        families = QFontDatabase.applicationFontFamilies(id)
+
+        label.setFont(QFont(families, 40))
+        label.setAlignment(Qt.AlignCenter)
 
         # Создаю окно для ввода названия бд
         widget_name_bd = QWidget()
         self.name_BD = QLineEdit()
         self.name_BD.setPlaceholderText("Введите название таблицы")
         self.name_BD.setFixedSize(500, 50)
-        layout_nameBd = QHBoxLayout()
+        layout_nameBd = QVBoxLayout()
         layout_nameBd.addWidget(self.name_BD)
         layout_nameBd.setAlignment(Qt.AlignCenter)
         widget_name_bd.setLayout(layout_nameBd)
@@ -46,8 +58,8 @@ class NewBDWindow(QMainWindow):
         button_next.setObjectName("switching")
         button_next.setFont(QFont('Times', 10))
 
-        button_back.setFixedSize(200, 40)
-        button_next.setFixedSize(200, 40)
+        button_back.setFixedSize(120, 45)
+        button_next.setFixedSize(120, 45)
 
         button_layout = QGridLayout()
         button_layout.addWidget(button_back, 0, 0)
@@ -67,10 +79,11 @@ class NewBDWindow(QMainWindow):
         mainWidget = QWidget()
         # Создаю main layout
         mainLayot = QVBoxLayout()
-        mainLayot.addWidget(QLabel())
+        mainLayot.addWidget(label)
         mainLayot.addWidget(widget_name_bd)
         mainLayot.addWidget(widget_buttons)
         mainWidget.setLayout(mainLayot)
+
 
         # button_back.clicked.connect(self.open_start_window)
         # button_next.clicked.connect(self.open_triple_window)

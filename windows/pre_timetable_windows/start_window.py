@@ -12,12 +12,12 @@ class StartWindow(QMainWindow):
         super().__init__()
 
         # Настройка окна
-        self.setFixedSize(1366, 768)
+        self.setFixedSize(1280, 720)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         label_widget = QWidget()
         label_name_proga = QLabel("ScheduleManager")
-        label_name_company = QLabel("   Directed by OOO Knopochnie Kabanchiki")
+        label_name_company = QLabel("Directed by OOO Knopochnie Kabanchiki")
 
         id1 = QFontDatabase.addApplicationFont("Fonts/NanumMyeongjo-Regular.ttf")
         nanum = QFontDatabase.applicationFontFamilies(id1)
