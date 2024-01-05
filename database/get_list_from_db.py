@@ -5,7 +5,7 @@ from models.information import Information
 from models.lessons import Lessons
 from models.name import Name
 from models.teachers import Teachers
-from models.finaldata import FinalData
+from models.cell import Cell
 
 
 def getTeacherList(filename):
@@ -59,3 +59,9 @@ def getIsSaturday(filename):
 def getMaxLesson(filename):
     session = create_session(filename)
     return session.query(Information).first().maxLesson
+
+
+def getCellList(filename):
+    session = create_session(filename)
+    list = session.query(Cell).all()
+    return list
