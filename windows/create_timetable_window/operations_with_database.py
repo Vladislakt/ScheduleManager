@@ -35,3 +35,45 @@ def get_courses_with_teachers(db):
             one_group.append(f"{courses[i][j].lesson_name} ({getTeacherName(db, courses[i][j].teach_id)})")
         courses_teachers.append(one_group)
     return courses_teachers
+
+
+def get_cells(db):
+    cells = []
+    return cells
+
+
+class Cell:
+    def __init__(self, group, day, number_of_class, lesson_id, classroom):
+        super().__init__()
+        self.classroom = classroom
+        self.lesson_id = lesson_id
+        self.number_of_class = number_of_class
+        self.day = day
+        self.group = group
+
+
+def make_data_array(table, days, number_of_classes_per_day):
+    data_array = []
+    for i in range(len(table.group_names)):
+        for j in range(len(days)):
+            for k in range(number_of_classes_per_day):
+                selected_course_index = table.scroll_area_layout.itemAtPosition(
+                    j * (number_of_classes_per_day + 1) + k + 2,
+                    3 + i * 3).widget().currentIndex()
+                classroom_value = table.scroll_area_layout.itemAtPosition(
+                    j * (number_of_classes_per_day + 1) + k + 2,
+                    4 + i * 3).widget().currentText()
+                if selected_course_index == -1:
+                    if classroom_value == "":
+                        continue
+                    else:
+                        course_id = None
+                else:
+                    if classroom_value == "":
+                        classroom_value = None
+                    course_id = table.courses[i][selected_course_index - 1].id
+                cell = Cell(table.group_names[i], days[j], k + 1, course_id, classroom_value)
+                data_array.append(cell)
+                print(table.courses[i][selected_course_index - 1])
+                print(cell.group, cell.day, cell.number_of_class, cell.lesson_id, cell.classroom, "\n")
+    return data_array

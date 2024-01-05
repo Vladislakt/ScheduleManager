@@ -1,10 +1,9 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QScrollArea, QVBoxLayout
+from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QScrollArea, QVBoxLayout, QFrame
 
-from windows.create_timetable_window.horizontal_line import QHLine
-from windows.create_timetable_window.vertical_line import QVLine
 from windows.create_timetable_window.modified_combobox import ModifiedQComboBox
-from windows.create_timetable_window.operations_with_database import get_group_names, get_courses, get_courses_with_teachers, get_classrooms
+from windows.create_timetable_window.operations_with_database import get_group_names, get_courses, \
+    get_courses_with_teachers, get_classrooms, get_cells
 from windows.create_timetable_window.table_check import check_teachers_in_row, check_classrooms_in_row, stylesheet
 
 
@@ -17,6 +16,7 @@ class Table(QWidget):
         self.courses_with_teachers = get_courses_with_teachers(db)
         self.classrooms = get_classrooms(db)
         self.courses = get_courses(db)
+        self.cells = get_cells(db)
 
         self.days = days
         self.number_of_classes_per_day = number_of_classes_per_day
@@ -46,6 +46,7 @@ class Table(QWidget):
                     self.add_vertical_lines(i)
                     self.connect_to_courses_comboboxes(i, j, k)
                     self.connect_to_classroom_comboboxes(i, j, k)
+                    #self.fill_cells(i, j, k)
 
     def add_days(self, j):
         day = QLabel(self.days[j])
@@ -100,11 +101,21 @@ class Table(QWidget):
             lambda: check_classrooms_in_row(self.scroll_area_layout, classroom_combobox.get_row(), self.group_names))
 
     def add_horizontal_lines(self, j):
-        horizontal_line = QHLine()
+        horizontal_line = QFrame()
+        horizontal_line.setFrameShape(QFrame.HLine)
+        horizontal_line.setFrameShadow(QFrame.Plain)
         self.scroll_area_layout.addWidget(horizontal_line, 1 + j * (self.number_of_classes_per_day + 1), 0, 1,
                                           3 + len(self.group_names) * 3)
 
     def add_vertical_lines(self, i):
-        vertical_line = QVLine()
+        vertical_line = QFrame()
+        vertical_line.setFrameShape(QFrame.VLine)
+        vertical_line.setFrameShadow(QFrame.Plain)
         self.scroll_area_layout.addWidget(vertical_line, 0, 2 + i * 3,
                                           len(self.days) * (self.number_of_classes_per_day + 1) + 1, 1)
+
+    # def fill_cells(self, i, j, k):
+    #     for m in range(len(self.cells)):
+    #         if self.cells[m].group == self.group_names[i] and self.cells[m].day == self.days[j] and self.cells[m].number_of_class == k:
+
+
