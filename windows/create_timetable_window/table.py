@@ -130,4 +130,3 @@ class Table(QWidget):
                 self.scroll_area_layout.itemAtPosition(
                     j * (self.number_of_classes_per_day + 1) + k + 1, 4 + i * 3).widget() \
                     .setCurrentText(self.cells[m].classroom)
-                print(self.cells[m])
