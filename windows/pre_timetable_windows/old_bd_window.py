@@ -4,11 +4,11 @@ from PySide6.QtGui import QFont, Qt
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QPushButton, QWidget, QVBoxLayout, QGridLayout, QLabel, \
     QMainWindow
 
-from database.get_list_from_db import getDBName
+from database.select_queries import getDBName
 # from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
-def getPathToFinaldata():
+def getFilenamesToFinaldata():
     path = "finaldata"
     while True:
         if os.path.isdir(path):
@@ -50,7 +50,7 @@ class EditOldBDWindow(QMainWindow):
         main_layout = QVBoxLayout()
         main_layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
         main_layout.addWidget(QLabel("Выберите расписание из ранее созданных вами:"))
-        rsp_list = getPathToFinaldata()
+        rsp_list = getFilenamesToFinaldata()
         count = 3
         row = 0
         column = 0

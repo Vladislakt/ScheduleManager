@@ -46,21 +46,6 @@ def getGroupNameList(filename):
     return list
 
 
-def getDBName(filename):
-    session = create_session(filename)
-    return session.query(Name).first().name
-
-
-def getIsSaturday(filename):
-    session = create_session(filename)
-    return session.query(Information).first().isSaturday
-
-
-def getMaxLesson(filename):
-    session = create_session(filename)
-    return session.query(Information).first().maxLesson
-
-
 def getCellList(filename):
     session = create_session(filename)
     list = session.query(Cell).all()
