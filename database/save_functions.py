@@ -125,7 +125,7 @@ def save_finaldata(filename, cell_list):
                                               Cell.number_of_class == number_of_class
                                               ).first()
         if new_cell is None:
-            new_cell = Cell(day, group, number_of_class, lesson_id, classroom)
+            new_cell = Cell(group, day, number_of_class, lesson_id, classroom)
         else:
             new_cell.lesson_id = lesson_id
             new_cell.classroom = classroom

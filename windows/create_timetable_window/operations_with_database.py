@@ -65,6 +65,4 @@ def write_table_data_to_db(db, table, days, number_of_classes_per_day):
                     course_id = table.courses[i][selected_course_index - 1].id
                 cell = Cell(table.group_names[i], days[j], k + 1, course_id, classroom_value)
                 data_array.append(cell)
-                print(table.courses[i][selected_course_index - 1])
-                print(cell.group, cell.day, cell.number_of_class, cell.lesson_id, cell.classroom, "\n")
     save_finaldata(db, data_array)
