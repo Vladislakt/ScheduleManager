@@ -9,6 +9,7 @@ import sys
 # Окно создания БД с выбором (создать своё бд / импортировать существующее)
 from database.create_database import create_database
 from database.insert_name import insert_name
+from database.save_functions import save_information
 from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
@@ -94,6 +95,7 @@ class NewBDWindow(QMainWindow):
         new_name = self.name_BD.text()
         current_database = create_database()
         insert_name(current_database, new_name)
+        save_information(current_database, False, 1)
         self.pre_window.destroy()
         self.new_window = AddTripleWindow(self, current_database)
         self.new_window.showMaximized()

@@ -4,7 +4,8 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 
-
+from database.save_functions import save_information
+from database.select_queries import getIsSaturday, getMaxLesson
 from windows.create_timetable_window.timetable_window import TimetableWindow
 
 
@@ -38,11 +39,13 @@ class AddInformationWindow(QMainWindow):
         self.max_leson.setRange(1, 10)
         self.max_leson.setTickPosition(QSlider.TicksBelow)
         self.max_leson.setFixedSize(500, 100)
-
         label_slider = QLabel("Максимум пар в день: 1")
         label_slider.setObjectName("baseText")
         self.max_leson.valueChanged.connect(lambda value:
                                        label_slider.setText(f"Максимум пар в день: {value}"))
+
+        self.max_leson.setValue(getMaxLesson(self.current_database))
+        label_slider.setText(f"Максимум пар в день: {getMaxLesson(self.current_database)}")
 
         layout_slider.addWidget(self.max_leson)
         layout_slider.addWidget(label_slider)
@@ -52,6 +55,9 @@ class AddInformationWindow(QMainWindow):
         # Чекбокс для субботы
         self.saturday = QCheckBox("Убрать субботу из расписания")
         self.saturday.setObjectName("saturday")
+
+        self.saturday.setChecked(getIsSaturday(self.current_database))
+
         layout_slider.addWidget(self.saturday)
         layout_slider.setAlignment(Qt.AlignCenter)
 
@@ -107,6 +113,9 @@ class AddInformationWindow(QMainWindow):
         if self.saturday.isChecked():
             days.remove("Суббота")
         number_of_classes_per_day = self.max_leson.value()
+
+        save_information(self.current_database, self.saturday.isChecked(), number_of_classes_per_day)
+
         self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
         self.new_window.showMaximized()
         self.close()
