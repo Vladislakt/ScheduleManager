@@ -6,12 +6,11 @@ from windows.create_timetable_window.table import Table
 
 
 class TimetableWindow(QWidget):
-    def __init__(self, app, db, days, number_of_classes_per_day, pre_window):
+    def __init__(self, db, days, number_of_classes_per_day, pre_window):
         super().__init__()
-        self.pre_window = pre_window
         self.setWindowTitle("Составление расписания")
         self.table = Table(db, days, number_of_classes_per_day)
-        self.buttons = Buttons(app, db, self.table, days, number_of_classes_per_day, self.pre_window, self)
+        self.buttons = Buttons(db, self.table, days, number_of_classes_per_day, pre_window, self)
         layout = QVBoxLayout()
         layout.addWidget(self.table)
         layout.addWidget(self.buttons)
