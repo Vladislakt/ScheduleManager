@@ -6,7 +6,7 @@ from database.save_functions import save_teachers, save_groups, save_classrooms
 from windows.pre_timetable_windows.add_widgets.add_teacher_widget import AddTeacherWidget
 from windows.pre_timetable_windows.add_widgets.add_group_widget import AddGroupWidget
 from windows.pre_timetable_windows.add_widgets.add_classroom_widget import AddClassroomWidget
-# from windows.pre_timetable_windows.add_lesson_window import AddLessonWindow
+from windows.pre_timetable_windows.add_lesson_window import AddLessonWindow
 
 
 class AddTripleWindow(QMainWindow):
@@ -18,7 +18,7 @@ class AddTripleWindow(QMainWindow):
         self.current_database = current_database
 
         # Настройка окна
-        self.setMinimumSize(900, 800)
+        self.setFixedSize(1280, 720)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Используемые виджеты
@@ -32,13 +32,15 @@ class AddTripleWindow(QMainWindow):
         widget_label = QWidget()
 
         # Создаём layout
-        widget_label_layout = QHBoxLayout()
+        widget_label_layout = QGridLayout()
 
         # Создаём label
-        label = QLabel()
         label_teacher = QLabel("Заполните учителей")
+        label_teacher.setStyleSheet("color: white")
         label_group = QLabel("Заполните группы")
+        label_group.setStyleSheet("color: white")
         label_classroom = QLabel("Заполните классы")
+        label_classroom.setStyleSheet("color: white")
 
         id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
         families = QFontDatabase.applicationFontFamilies(id)
@@ -48,12 +50,15 @@ class AddTripleWindow(QMainWindow):
         label_classroom.setFont(QFont(families, 20))
 
         # Запихиваем в layout label
-        widget_label_layout.addWidget(label_teacher)
-        widget_label_layout.addWidget(label_group)
-        widget_label_layout.addWidget(label_classroom)
+        widget_label_layout.addWidget(label_teacher, 0, 0)
+        widget_label_layout.addWidget(label_group, 0, 1)
+        widget_label_layout.addWidget(label_classroom, 0, 2)
 
         # Центрую label
-        label.setAlignment(Qt.AlignCenter)
+        widget_label_layout.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+        label_teacher.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
+        label_group.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
+        label_classroom.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
 
         # Задаём виджету layout
         widget_label.setLayout(widget_label_layout)
@@ -65,13 +70,9 @@ class AddTripleWindow(QMainWindow):
         self.pattern_group = AddGroupWidget(current_database)
         self.pattern_classroom = AddClassroomWidget(current_database)
 
-        widget_add = QWidget()
-        widget_add_layout = QHBoxLayout()
-        widget_add_layout.addWidget(self.pattern_teacher)
-        widget_add_layout.addWidget(self.pattern_group)
-        widget_add_layout.addWidget(self.pattern_classroom)
-        widget_add_layout.setAlignment(Qt.AlignCenter)
-        widget_add.setLayout(widget_add_layout)
+        widget_label_layout.addWidget(self.pattern_teacher, 1, 0)
+        widget_label_layout.addWidget(self.pattern_group, 1, 1)
+        widget_label_layout.addWidget(self.pattern_classroom, 1, 2)
 
         # 3)
         widget_button = QWidget()
@@ -82,13 +83,15 @@ class AddTripleWindow(QMainWindow):
 
         # Создаю кнопки и задаю размер
         # Кнопка назад
-        button_back = QPushButton("На стартовую")
-        button_back.setObjectName("baseButton")
-        button_back.setFixedSize(120, 50)
+        button_back = QPushButton("Назад")
+        button_back.setObjectName("switching")
+        button_back.setFixedSize(120, 45)
+        button_back.setFont(QFont('Times', 10))
         # Кнопка далее
-        button_next = QPushButton("Сохранить")
-        button_next.setObjectName("baseButton")
-        button_next.setFixedSize(120, 50)
+        button_next = QPushButton("Далее")
+        button_next.setObjectName("switching")
+        button_next.setFixedSize(120, 45)
+        button_next.setFont(QFont('Times', 10))
 
         # Создаю layout для кнопок
 
@@ -110,7 +113,7 @@ class AddTripleWindow(QMainWindow):
 
         # Добавляем виджеты в главный виджет
         main_layout.addWidget(widget_label)
-        main_layout.addWidget(widget_add)
+        # main_layout.addWidget(widget_add)
         main_layout.addWidget(widget_button)
 
         # Добавляем layout
@@ -124,21 +127,21 @@ class AddTripleWindow(QMainWindow):
         # Функционал кнопок
 
         # При нажатии кнопки назад -> Открывает стартовое окно создания и закрывает это окно
-        # button_back.clicked.connect(self.openPreWindow)
-        #
+        button_back.clicked.connect(self.openPreWindow)
+
         # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
-        # button_next.clicked.connect(self.openLessonWindow)
+        button_next.clicked.connect(self.openLessonWindow)
 
     # Открытие предыдущего окна
-    # def openPreWindow(self):
-    #     self.pre_window.pre_window.showMaximized()
-    #     self.pre_window.destroy()
-    #     self.destroy()
-    #
-    # def openLessonWindow(self):
-    #     save_teachers(self.current_database, self.pattern_teacher.data_masive, self.pattern_teacher.id_massive)
-    #     save_groups(self.current_database, self.pattern_group.data_masive)
-    #     save_classrooms(self.current_database, self.pattern_classroom.data_masive)
-    #     self.new_window = AddLessonWindow(self, self.current_database)
-    #     self.new_window.showMaximized()
-    #     self.close()
+    def openPreWindow(self):
+        self.pre_window.pre_window.showMaximized()
+        self.pre_window.destroy()
+        self.destroy()
+
+    def openLessonWindow(self):
+        save_teachers(self.current_database, self.pattern_teacher.data_masive, self.pattern_teacher.id_massive)
+        save_groups(self.current_database, self.pattern_group.data_masive)
+        save_classrooms(self.current_database, self.pattern_classroom.data_masive)
+        self.new_window = AddLessonWindow(self, self.current_database)
+        self.new_window.showMaximized()
+        self.close()

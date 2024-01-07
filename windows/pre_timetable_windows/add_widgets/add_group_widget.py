@@ -30,7 +30,7 @@ class AddGroupWidget(QWidget):
         self.plus_button.setFixedWidth(120)
         self.plus_button.clicked.connect(self.addLine)
         scroll_area = QScrollArea()
-        scroll_area.setFixedSize(265, 470)
+        scroll_area.setFixedSize(265, 480)
         self.scroll_vidget = QWidget()
         scroll_area.setWidget(self.scroll_vidget)
         scroll_area.setWidgetResizable(True)
@@ -42,7 +42,7 @@ class AddGroupWidget(QWidget):
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
         # self.addLine()
-        self.setFixedSize(275, 520)
+        self.setFixedSize(275, 530)
         list = getGroupList(current_database)
         if len(list) > 0:
             for item in list:

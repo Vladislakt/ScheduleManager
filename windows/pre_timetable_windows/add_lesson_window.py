@@ -4,7 +4,7 @@ from PySide6.QtWidgets import *
 
 from database.save_functions import save_lessons
 from windows.pre_timetable_windows.add_widgets.add_lesson_widget import AddLessonWidget
-# from windows.pre_timetable_windows.add_information_window import AddInformationWindow
+from windows.pre_timetable_windows.add_information_window import AddInformationWindow
 
 
 class AddLessonWindow(QMainWindow):
@@ -16,7 +16,7 @@ class AddLessonWindow(QMainWindow):
         self.current_database = current_database
 
         # Настройка окна
-        self.setMinimumSize(900, 800)
+        self.setFixedSize(1280, 720)
         self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
 
         # Используемые виджеты
@@ -31,15 +31,20 @@ class AddLessonWindow(QMainWindow):
         widget_label = QWidget()
 
         # Создаём layout
-        widget_label_layout = QHBoxLayout()
+        widget_label_layout = QVBoxLayout()
 
         # Запихиваем layout наверх
-        widget_label_layout.setAlignment(Qt.AlignTop)
+        # widget_label_layout.setAlignment(Qt.AlignTop)
         # Создаём label
         label = QLabel("Сопоставьте преподавателей и группы")
+        label.setStyleSheet("color: white")
 
+        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        families = QFontDatabase.applicationFontFamilies(id)
+
+        label.setFont(QFont(families, 20))
         # Центрую label
-        label.setAlignment(Qt.AlignCenter)
+        label.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
 
         # Запихиваем в layout label
         widget_label_layout.addWidget(label)
@@ -52,10 +57,11 @@ class AddLessonWindow(QMainWindow):
         # В патерн записываем функция добавления
         self.pattern = AddLessonWidget(current_database)
 
-        widget_add = self.pattern
-        widget_add_layout = QHBoxLayout()
-        widget_add_layout.setAlignment(Qt.AlignHCenter)
-
+        # widget_add = self.pattern
+        # widget_add_layout = QHBoxLayout()
+        # widget_add_layout.setAlignment(Qt.AlignHCenter)
+        widget_label_layout.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+        widget_label_layout.addWidget(self.pattern)
         # 3)
         widget_button = QWidget()
 
@@ -66,12 +72,14 @@ class AddLessonWindow(QMainWindow):
         # Создаю кнопки и задаю размер
         # Кнопка назад
         button_back = QPushButton("Назад")
-        button_back.setObjectName("baseButton")
-        button_back.setFixedSize(120, 50)
+        button_back.setObjectName("switching")
+        button_back.setFixedSize(120, 45)
+        button_back.setFont(QFont('Times', 10))
         # Кнопка далее
-        button_next = QPushButton("Сохранить")
-        button_next.setObjectName("baseButton")
-        button_next.setFixedSize(120, 50)
+        button_next = QPushButton("Далее")
+        button_next.setObjectName("switching")
+        button_next.setFixedSize(120, 45)
+        button_next.setFont(QFont('Times', 10))
 
         # Создаю layout для кнопок
 
@@ -93,7 +101,7 @@ class AddLessonWindow(QMainWindow):
 
         # Добавляем виджеты в главный виджет
         main_layout.addWidget(widget_label)
-        main_layout.addWidget(widget_add)
+        # main_layout.addWidget(widget_add)
         main_layout.addWidget(widget_button)
 
         # Добавляем layout
@@ -105,18 +113,18 @@ class AddLessonWindow(QMainWindow):
         # Функционал кнопок
 
         # При нажатии кнопки назад -> Возвращает на окно заполнения учебных групп и закрывает это окно
-        # button_back.clicked.connect(self.openPreWindow)
+        button_back.clicked.connect(self.openPreWindow)
 
         # При нажатии кнопки создать -> Открывает окно заполнения классов и закрывает это окно
-        # button_next.clicked.connect(self.openInformationWindow)
+        button_next.clicked.connect(self.openInformationWindow)
 
     # Открытие окна заполнения учебных групп (предыдущее окно)
-    # def openPreWindow(self):
-    #     self.pre_window.showMaximized()
-    #     self.destroy()
-    #
-    # def openInformationWindow(self):
-    #     save_lessons(self.current_database, self.pattern.data_masive, self.pattern.id_massive)
-    #     self.new_window = AddInformationWindow(self, self.current_database)
-    #     self.new_window.showMaximized()
-    #     self.close()
+    def openPreWindow(self):
+        self.pre_window.showMaximized()
+        self.destroy()
+
+    def openInformationWindow(self):
+        save_lessons(self.current_database, self.pattern.data_masive, self.pattern.id_massive)
+        self.new_window = AddInformationWindow(self, self.current_database)
+        self.new_window.showMaximized()
+        self.close()

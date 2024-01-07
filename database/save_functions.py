@@ -2,6 +2,7 @@ from database.create_session import create_session
 from models.cell import Cell
 from models.classrooms import Classrooms
 from models.groups import Groups
+from models.information import Information
 from models.lessons import Lessons
 from models.teachers import Teachers
 
@@ -130,5 +131,18 @@ def save_finaldata(filename, cell_list):
             new_cell.lesson_id = lesson_id
             new_cell.classroom = classroom
         session.add(new_cell)
+    session.commit()
+    session.close()
+
+
+def save_information(filename, isSaturday, maxLesson):
+    session = create_session(filename)
+    information = session.query(Information).first()
+    if information is None:
+        information = Information(isSaturday=isSaturday, maxLesson=maxLesson)
+    else:
+        information.isSaturday = isSaturday
+        information.maxLesson = maxLesson
+    session.add(information)
     session.commit()
     session.close()

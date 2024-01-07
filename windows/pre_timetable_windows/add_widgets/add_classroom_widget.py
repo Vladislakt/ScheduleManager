@@ -36,7 +36,7 @@ class AddClassroomWidget(QWidget):
         self.plus_button.setFixedWidth(120)
         self.plus_button.clicked.connect(self.addLine)
         scroll_area = QScrollArea()
-        scroll_area.setFixedSize(416, 460)
+        scroll_area.setFixedSize(416, 480)
         self.scroll_vidget = QWidget()
         scroll_area.setWidget(self.scroll_vidget)
         scroll_area.setWidgetResizable(True)
@@ -48,7 +48,7 @@ class AddClassroomWidget(QWidget):
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
         # self.addLine()
-        self.setFixedSize(436, 510)
+        self.setFixedSize(436, 530)
         list = getClassroomList(current_database)
         if len(list) > 0:
             for item in list:
