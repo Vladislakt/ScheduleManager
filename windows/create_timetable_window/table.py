@@ -118,15 +118,21 @@ class Table(QWidget):
     def fill_cells(self, db, i, j, k):
         for m in range(len(self.cells)):
             if self.cells[m].group == self.group_names[i] and self.cells[m].day == self.days[j] \
-                    and self.cells[m].number_of_class == k:
-                course = getLesson(db, self.cells[m].lesson_id).lesson_name
-                teacher = getTeacherName(db, getLesson(db, self.cells[m].lesson_id).teach_id)
-                course_with_teacher = course + " (" + teacher + ")"
-
+                    and self.cells[m].number_of_class == k + 1:
+                course_id = self.cells[m].lesson_id
+                if course_id is None:
+                    course_with_teacher = ""
+                else:
+                    course = getLesson(db, course_id)
+                    course_name = course.lesson_name
+                    teacher = getTeacherName(db, course.teach_id)
+                    course_with_teacher = course_name + " (" + teacher + ")"
+                classroom = self.cells[m].classroom
+                if classroom is None:
+                    classroom = ""
                 self.scroll_area_layout.itemAtPosition(
-                    j * (self.number_of_classes_per_day + 1) + k + 1, 3 + i * 3).widget() \
+                    j * (self.number_of_classes_per_day + 1) + k + 2, 3 + i * 3).widget() \
                     .setCurrentText(course_with_teacher)
-
                 self.scroll_area_layout.itemAtPosition(
-                    j * (self.number_of_classes_per_day + 1) + k + 1, 4 + i * 3).widget() \
-                    .setCurrentText(self.cells[m].classroom)
+                    j * (self.number_of_classes_per_day + 1) + k + 2, 4 + i * 3).widget() \
+                    .setCurrentText(classroom)
