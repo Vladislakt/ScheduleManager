@@ -116,6 +116,6 @@ class AddInformationWindow(QMainWindow):
 
         save_information(self.current_database, self.saturday.isChecked(), number_of_classes_per_day)
 
-        self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
+        self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day, self)
         self.new_window.showMaximized()
         self.close()
