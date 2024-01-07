@@ -76,7 +76,7 @@ class AddLessonWidget(QWidget):
         line.teacher.setFixedWidth(self.column_size[0])
         line.teacher.insertItem(0, "<выберите>")
         for element in self.teacher_list:
-            line.teacher.insertItem(element.teach_id + 1, element.fullname)
+            line.teacher.addItem(element.fullname)
         line.teacher.setCurrentIndex(item.teach_id)
         line.group = QComboBox()
         line.group.setFixedWidth(self.column_size[1])
@@ -123,7 +123,7 @@ class AddLessonWidget(QWidget):
         line.teacher.setFixedWidth(self.column_size[0])
         line.teacher.insertItem(0, "<выберите>")
         for item in self.teacher_list:
-            line.teacher.insertItem(item.teach_id + 1, item.fullname)
+            line.teacher.addItem(item.fullname)
         line.group = QComboBox()
         line.group.setFixedWidth(self.column_size[1])
         line.group.addItem("<выберите>")
