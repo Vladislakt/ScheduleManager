@@ -1,11 +1,11 @@
 import os
 
 from PySide6.QtGui import QFont, Qt, QFontDatabase
-from PySide6.QtWidgets import QApplication, QHBoxLayout, QPushButton, QWidget, QVBoxLayout, QGridLayout, QLabel, \
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QWidget, QVBoxLayout, QGridLayout, QLabel, \
     QMainWindow
 
-from database.get_list_from_db import getDBName
-# from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
+from database.select_queries import getDBName
+from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
 def getPathToFinaldata():
@@ -30,15 +30,15 @@ class OldBDButton(QWidget):
         self.button.setObjectName("old_button_namebd")
         self.button.setFont(QFont('Times', 10))
         self.filename = filename
-        # self.button.clicked.connect(self.openTripleWindow)
+        self.button.clicked.connect(self.openTripleWindow)
         layout = QHBoxLayout()
         layout.addWidget(self.button)
         self.setLayout(layout)
 
-    # def openTripleWindow(self):
-    #     self.new_window = AddTripleWindow(self.pre_window, self.filename)
-    #     self.new_window.showMaximized()
-    #     self.pre_window.close()
+    def openTripleWindow(self):
+        self.new_window = AddTripleWindow(self.pre_window, self.filename)
+        self.new_window.showMaximized()
+        self.pre_window.close()
 
 
 class EditOldBDWindow(QMainWindow):
@@ -85,7 +85,7 @@ class EditOldBDWindow(QMainWindow):
         button_back.setFixedSize(670, 25)
         button_back.setFont(QFont('Times', 10))
 
-        # button_back.clicked.connect(self.openPreWindow)
+        button_back.clicked.connect(self.openPreWindow)
 
         # scroll_area = QScrollArea()
         # scroll_widget = QWidget()
@@ -103,6 +103,6 @@ class EditOldBDWindow(QMainWindow):
 
         self.setCentralWidget(main_widget)
 
-    # def openPreWindow(self):
-    #     self.pre_window.showMaximized()
-    #     self.destroy()
+    def openPreWindow(self):
+        self.pre_window.showMaximized()
+        self.destroy()

@@ -5,7 +5,7 @@ from PySide6.QtWidgets import *
 import sys
 
 
-# from windows.create_timetable_window.timetable_window import TimetableWindow
+from windows.create_timetable_window.timetable_window import TimetableWindow
 
 
 class AddInformationWindow(QMainWindow):
@@ -34,25 +34,25 @@ class AddInformationWindow(QMainWindow):
         # "Сколько сгенерирова максимум возможно пар"
         widget_slider = QWidget()
         layout_slider = QVBoxLayout()
-        max_leson = QSlider(Qt.Orientation.Horizontal, self)
-        max_leson.setRange(1, 10)
-        max_leson.setTickPosition(QSlider.TicksBelow)
-        max_leson.setFixedSize(500, 100)
+        self.max_leson = QSlider(Qt.Orientation.Horizontal, self)
+        self.max_leson.setRange(1, 10)
+        self.max_leson.setTickPosition(QSlider.TicksBelow)
+        self.max_leson.setFixedSize(500, 100)
 
         label_slider = QLabel("Максимум пар в день: 1")
         label_slider.setObjectName("baseText")
-        max_leson.valueChanged.connect(lambda value:
+        self.max_leson.valueChanged.connect(lambda value:
                                        label_slider.setText(f"Максимум пар в день: {value}"))
 
-        layout_slider.addWidget(max_leson)
+        layout_slider.addWidget(self.max_leson)
         layout_slider.addWidget(label_slider)
 
         widget_slider.setLayout(layout_slider)
 
         # Чекбокс для субботы
-        saturday = QCheckBox("Убрать субботу из расписания")
-        saturday.setObjectName("saturday")
-        layout_slider.addWidget(saturday)
+        self.saturday = QCheckBox("Убрать субботу из расписания")
+        self.saturday.setObjectName("saturday")
+        layout_slider.addWidget(self.saturday)
         layout_slider.setAlignment(Qt.AlignCenter)
 
         # кнопки
@@ -63,7 +63,7 @@ class AddInformationWindow(QMainWindow):
         button_back.setFont(QFont('Times', 10))
         button_back.setFixedSize(120, 45)
 
-        # button_back.clicked.connect(self.openPreWindow)
+        button_back.clicked.connect(self.openPreWindow)
 
         kostil1 = QLabel()
         kostil2 = QLabel()
@@ -72,7 +72,7 @@ class AddInformationWindow(QMainWindow):
         button_next.setFont(QFont('Times', 10))
         button_next.setFixedSize(120, 45)
 
-        # button_next.clicked.connect(self.openTimetableWindow)
+        button_next.clicked.connect(self.openTimetableWindow)
 
         buttonLayout = QGridLayout()
 
@@ -98,15 +98,15 @@ class AddInformationWindow(QMainWindow):
         mainWidget.setLayout(mainLayout)
         self.setCentralWidget(mainWidget)
 
-    # def openPreWindow(self):
-    #     self.pre_window.showMaximized()
-    #     self.destroy()
-    #
-    # def openTimetableWindow(self):
-    #     days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
-    #     if self.saturday.isChecked():
-    #         days.remove("Суббота")
-    #     number_of_classes_per_day = self.max_leson.value()
-    #     self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
-    #     self.new_window.showMaximized()
-    #     self.close()
+    def openPreWindow(self):
+        self.pre_window.showMaximized()
+        self.destroy()
+
+    def openTimetableWindow(self):
+        days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
+        if self.saturday.isChecked():
+            days.remove("Суббота")
+        number_of_classes_per_day = self.max_leson.value()
+        self.new_window = TimetableWindow(self.current_database, days, number_of_classes_per_day)
+        self.new_window.showMaximized()
+        self.close()

@@ -6,7 +6,7 @@ from database.save_functions import save_teachers, save_groups, save_classrooms
 from windows.pre_timetable_windows.add_widgets.add_teacher_widget import AddTeacherWidget
 from windows.pre_timetable_windows.add_widgets.add_group_widget import AddGroupWidget
 from windows.pre_timetable_windows.add_widgets.add_classroom_widget import AddClassroomWidget
-# from windows.pre_timetable_windows.add_lesson_window import AddLessonWindow
+from windows.pre_timetable_windows.add_lesson_window import AddLessonWindow
 
 
 class AddTripleWindow(QMainWindow):
@@ -127,21 +127,21 @@ class AddTripleWindow(QMainWindow):
         # Функционал кнопок
 
         # При нажатии кнопки назад -> Открывает стартовое окно создания и закрывает это окно
-        # button_back.clicked.connect(self.openPreWindow)
-        #
+        button_back.clicked.connect(self.openPreWindow)
+
         # При нажатии кнопки далее -> Открывает окно заполнения учебных групп и закрывает это окно
-        # button_next.clicked.connect(self.openLessonWindow)
+        button_next.clicked.connect(self.openLessonWindow)
 
     # Открытие предыдущего окна
-    # def openPreWindow(self):
-    #     self.pre_window.pre_window.showMaximized()
-    #     self.pre_window.destroy()
-    #     self.destroy()
-    #
-    # def openLessonWindow(self):
-    #     save_teachers(self.current_database, self.pattern_teacher.data_masive, self.pattern_teacher.id_massive)
-    #     save_groups(self.current_database, self.pattern_group.data_masive)
-    #     save_classrooms(self.current_database, self.pattern_classroom.data_masive)
-    #     self.new_window = AddLessonWindow(self, self.current_database)
-    #     self.new_window.showMaximized()
-    #     self.close()
+    def openPreWindow(self):
+        self.pre_window.pre_window.showMaximized()
+        self.pre_window.destroy()
+        self.destroy()
+
+    def openLessonWindow(self):
+        save_teachers(self.current_database, self.pattern_teacher.data_masive, self.pattern_teacher.id_massive)
+        save_groups(self.current_database, self.pattern_group.data_masive)
+        save_classrooms(self.current_database, self.pattern_classroom.data_masive)
+        self.new_window = AddLessonWindow(self, self.current_database)
+        self.new_window.showMaximized()
+        self.close()
