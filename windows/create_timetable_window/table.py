@@ -13,6 +13,8 @@ class Table(QWidget):
         super().__init__()
         self.columns_width = 300
 
+        self.were_changes = False
+
         self.group_names = get_group_names(db)
         self.courses_with_teachers = get_courses_with_teachers(db)
         self.classrooms = get_classrooms(db)
@@ -30,6 +32,7 @@ class Table(QWidget):
     def add_scroll_area(self, db):
         scroll_area = QScrollArea()
         self.create_table(db)
+        self.initial_table_check()
         self.scroll_area_widget.setLayout(self.scroll_area_layout)
         scroll_area.setWidget(self.scroll_area_widget)
         self.main_layout.addWidget(scroll_area)
@@ -45,9 +48,9 @@ class Table(QWidget):
                     self.add_classroom_choise(i, j, k)
                     self.add_horizontal_lines(j)
                     self.add_vertical_lines(i)
+                    self.fill_cells(db, i, j, k)
                     self.connect_to_courses_comboboxes(i, j, k)
                     self.connect_to_classroom_comboboxes(i, j, k)
-                    self.fill_cells(db, i, j, k)
 
     def add_days(self, j):
         day = QLabel(self.days[j])
@@ -81,6 +84,7 @@ class Table(QWidget):
         course_combobox.currentTextChanged.connect(
             lambda: check_teachers_in_row(self.scroll_area_layout, course_combobox.get_row(), self.group_names,
                                           self.courses))
+        course_combobox.currentTextChanged.connect(lambda: self.set_changes_flag_true())
 
     def add_classroom_choise(self, i, j, k):
         classroom = ModifiedQComboBox(
@@ -100,6 +104,7 @@ class Table(QWidget):
                                                                     4 + i * 3).widget()
         classroom_combobox.currentTextChanged.connect(
             lambda: check_classrooms_in_row(self.scroll_area_layout, classroom_combobox.get_row(), self.group_names))
+        classroom_combobox.currentTextChanged.connect(lambda: self.set_changes_flag_true())
 
     def add_horizontal_lines(self, j):
         horizontal_line = QFrame()
@@ -136,3 +141,14 @@ class Table(QWidget):
                 self.scroll_area_layout.itemAtPosition(
                     j * (self.number_of_classes_per_day + 1) + k + 2, 4 + i * 3).widget() \
                     .setCurrentText(classroom)
+
+    def set_changes_flag_true(self):
+        self.were_changes = True
+
+    def initial_table_check(self):
+        for j in range(len(self.days)):
+            for k in range(self.number_of_classes_per_day):
+                check_teachers_in_row(self.scroll_area_layout, 2 + j * (self.number_of_classes_per_day + 1) + k,
+                                      self.group_names, self.courses)
+                check_classrooms_in_row(self.scroll_area_layout, 2 + j * (self.number_of_classes_per_day + 1) + k,
+                                        self.group_names)

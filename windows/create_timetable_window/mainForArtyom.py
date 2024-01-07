@@ -7,7 +7,7 @@ if __name__ == '__main__':
     number_of_classes_per_day = 4
     db = "test"
     app = QApplication([])
-    window = TimetableWindow(db, days, number_of_classes_per_day)
+    window = TimetableWindow(app, db, days, number_of_classes_per_day)
     window.showMaximized()
     window.show()
     app.exec()
