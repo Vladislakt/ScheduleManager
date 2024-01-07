@@ -13,5 +13,5 @@ if __name__ == '__main__':
     app.setStyleSheet(stream.readAll())
 
     window = StartWindow()
-    window.showMaximized()
+    window.show()
     app.exec()

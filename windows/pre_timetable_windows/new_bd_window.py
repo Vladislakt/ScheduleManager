@@ -88,7 +88,7 @@ class NewBDWindow(QMainWindow):
         self.setCentralWidget(mainWidget)
 
     def openPreWindow(self):
-        self.pre_window.showMaximized()
+        self.pre_window.show()
         self.destroy()
 
     def openTripleWindow(self):
@@ -98,5 +98,5 @@ class NewBDWindow(QMainWindow):
         save_information(current_database, False, 1)
         self.pre_window.destroy()
         self.new_window = AddTripleWindow(self, current_database)
-        self.new_window.showMaximized()
+        self.new_window.show()
         self.close()

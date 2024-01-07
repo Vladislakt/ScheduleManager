@@ -37,7 +37,7 @@ class OldBDButton(QWidget):
 
     def openTripleWindow(self):
         self.new_window = AddTripleWindow(self.pre_window, self.filename)
-        self.new_window.showMaximized()
+        self.new_window.show()
         self.pre_window.close()
 
 
@@ -104,5 +104,5 @@ class EditOldBDWindow(QMainWindow):
         self.setCentralWidget(main_widget)
 
     def openPreWindow(self):
-        self.pre_window.showMaximized()
+        self.pre_window.show()
         self.destroy()

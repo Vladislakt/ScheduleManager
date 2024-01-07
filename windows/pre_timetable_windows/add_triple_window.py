@@ -134,7 +134,7 @@ class AddTripleWindow(QMainWindow):
 
     # Открытие предыдущего окна
     def openPreWindow(self):
-        self.pre_window.pre_window.showMaximized()
+        self.pre_window.pre_window.show()
         self.pre_window.destroy()
         self.destroy()
 
@@ -143,5 +143,5 @@ class AddTripleWindow(QMainWindow):
         save_groups(self.current_database, self.pattern_group.data_masive)
         save_classrooms(self.current_database, self.pattern_classroom.data_masive)
         self.new_window = AddLessonWindow(self, self.current_database)
-        self.new_window.showMaximized()
+        self.new_window.show()
         self.close()

@@ -88,10 +88,10 @@ class StartWindow(QMainWindow):
 
     def createNewBD(self):
         self.new_window = NewBDWindow(self)
-        self.new_window.showMaximized()
+        self.new_window.show()
         self.close()
 
     def editOldBD(self):
         self.new_window = EditOldBDWindow(self)
-        self.new_window.showMaximized()
+        self.new_window.show()
         self.close()

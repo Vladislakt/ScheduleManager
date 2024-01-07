@@ -105,7 +105,7 @@ class AddInformationWindow(QMainWindow):
         self.setCentralWidget(mainWidget)
 
     def openPreWindow(self):
-        self.pre_window.showMaximized()
+        self.pre_window.show()
         self.destroy()
 
     def openTimetableWindow(self):

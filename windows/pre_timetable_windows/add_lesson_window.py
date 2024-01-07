@@ -120,11 +120,11 @@ class AddLessonWindow(QMainWindow):
 
     # Открытие окна заполнения учебных групп (предыдущее окно)
     def openPreWindow(self):
-        self.pre_window.showMaximized()
+        self.pre_window.show()
         self.destroy()
 
     def openInformationWindow(self):
         save_lessons(self.current_database, self.pattern.data_masive, self.pattern.id_massive)
         self.new_window = AddInformationWindow(self, self.current_database)
-        self.new_window.showMaximized()
+        self.new_window.show()
         self.close()

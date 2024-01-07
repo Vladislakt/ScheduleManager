@@ -44,7 +44,7 @@ def leave_app(this_window, db, table, days, number_of_classes_per_day):
 
 def open_start_window(db, table, days, number_of_classes_per_day, pre_window, this_window):
     write_table_data_to_db(db, table, days, number_of_classes_per_day)
-    pre_window.pre_window.pre_window.pre_window.pre_window.showMaximized()
+    pre_window.pre_window.pre_window.pre_window.pre_window.show()
     pre_window.pre_window.pre_window.pre_window.destroy()
     pre_window.pre_window.pre_window.destroy()
     pre_window.pre_window.destroy()
