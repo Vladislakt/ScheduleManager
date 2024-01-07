@@ -80,6 +80,7 @@ def save_classrooms(filename, classroom_list):
 def save_lessons(filename, lesson_list, id_list):
     session = create_session(filename)
     list = session.query(Lessons).all()
+    teacher_list = session.query(Teachers).all()
     # Удаление из бд тех записей, которые были убраны на виджете
     for item in list:
         if item.id not in id_list:
@@ -87,7 +88,7 @@ def save_lessons(filename, lesson_list, id_list):
     # Вставка/обновление в бд тех записей, которые есть на виджете
     for index in range(1, len(lesson_list)):
         id = id_list[index - 1]
-        teach_id = lesson_list[index].teacher.currentIndex()
+        teach_id = teacher_list[lesson_list[index].teacher.currentIndex() - 1].teach_id
         group_name = lesson_list[index].group.currentText()
         lesson_name = lesson_list[index].lesson.text()
         quantity = int(lesson_list[index].quantity.text())
