@@ -92,11 +92,18 @@ class NewBDWindow(QMainWindow):
         self.destroy()
 
     def openTripleWindow(self):
-        new_name = self.name_BD.text()
-        current_database = create_database()
-        insert_name(current_database, new_name)
-        save_information(current_database, False, 1)
-        self.pre_window.destroy()
-        self.new_window = AddTripleWindow(self, current_database)
-        self.new_window.show()
-        self.close()
+        if self.name_BD.text() == "":
+            warning = QMessageBox()
+            warning.setWindowTitle("Ошибка!")
+            warning.setText("Название не должно быть пустым!")
+            warning.setStandardButtons(QMessageBox.Ok)
+            warning.exec()
+        else:
+            new_name = self.name_BD.text()
+            current_database = create_database()
+            insert_name(current_database, new_name)
+            save_information(current_database, False, 1)
+            self.pre_window.destroy()
+            self.new_window = AddTripleWindow(self, current_database)
+            self.new_window.show()
+            self.close()
