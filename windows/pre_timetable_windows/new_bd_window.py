@@ -11,6 +11,7 @@ from database.create_database import create_database
 from database.insert_name import insert_name
 from database.save_functions import save_information
 from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
+from windows.pre_timetable_windows.window_data_check import check_new_bd_name
 
 
 class NewBDWindow(QMainWindow):
@@ -92,13 +93,7 @@ class NewBDWindow(QMainWindow):
         self.destroy()
 
     def openTripleWindow(self):
-        if self.name_BD.text() == "":
-            warning = QMessageBox()
-            warning.setWindowTitle("Ошибка!")
-            warning.setText("Название не должно быть пустым!")
-            warning.setStandardButtons(QMessageBox.Ok)
-            warning.exec()
-        else:
+        if check_new_bd_name(self.name_BD.text()):
             new_name = self.name_BD.text()
             current_database = create_database()
             insert_name(current_database, new_name)
@@ -107,3 +102,9 @@ class NewBDWindow(QMainWindow):
             self.new_window = AddTripleWindow(self, current_database)
             self.new_window.show()
             self.close()
+        else:
+            warning = QMessageBox()
+            warning.setWindowTitle("Ошибка!")
+            warning.setText("Название не должно быть пустым!")
+            warning.setStandardButtons(QMessageBox.Ok)
+            warning.exec()
