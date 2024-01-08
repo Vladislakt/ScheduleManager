@@ -77,7 +77,12 @@ class AddLessonWidget(QWidget):
         line.teacher.insertItem(0, "<выберите>")
         for element in self.teacher_list:
             line.teacher.addItem(element.fullname)
-        line.teacher.setCurrentIndex(item.teach_id)
+        teach_index = 0
+        for index in range(len(self.teacher_list)):
+            if self.teacher_list[index].teach_id == item.teach_id:
+                teach_index = index
+                break
+        line.teacher.setCurrentIndex(teach_index + 1)
         line.group = QComboBox()
         line.group.setFixedWidth(self.column_size[1])
         line.group.addItem("<выберите>")
