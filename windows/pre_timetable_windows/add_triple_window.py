@@ -7,13 +7,15 @@ from windows.pre_timetable_windows.add_widgets.add_teacher_widget import AddTeac
 from windows.pre_timetable_windows.add_widgets.add_group_widget import AddGroupWidget
 from windows.pre_timetable_windows.add_widgets.add_classroom_widget import AddClassroomWidget
 from windows.pre_timetable_windows.add_lesson_window import AddLessonWindow
+from windows.pre_timetable_windows.window_data_check import check_teachers_data, check_groups_data, \
+    check_classrooms_data
 
 
 class AddTripleWindow(QMainWindow):
     def __init__(self, pre_window, current_database):
         super().__init__()
 
-        #Создание объекта предыдущего окна
+        # Создание объекта предыдущего окна
         self.pre_window = pre_window
         self.current_database = current_database
 
@@ -139,9 +141,27 @@ class AddTripleWindow(QMainWindow):
         self.destroy()
 
     def openLessonWindow(self):
-        save_teachers(self.current_database, self.pattern_teacher.data_masive, self.pattern_teacher.id_massive)
-        save_groups(self.current_database, self.pattern_group.data_masive)
-        save_classrooms(self.current_database, self.pattern_classroom.data_masive)
-        self.new_window = AddLessonWindow(self, self.current_database)
-        self.new_window.show()
-        self.close()
+        if check_teachers_data(self.pattern_teacher.data_masive):
+            if check_groups_data(self.pattern_group.data_masive):
+                if check_classrooms_data(self.pattern_classroom.data_masive):
+                    save_teachers(self.current_database, self.pattern_teacher.data_masive,
+                                  self.pattern_teacher.id_massive)
+                    save_groups(self.current_database, self.pattern_group.data_masive)
+                    save_classrooms(self.current_database, self.pattern_classroom.data_masive)
+                    self.new_window = AddLessonWindow(self, self.current_database)
+                    self.new_window.show()
+                    self.close()
+                else:
+                    self.warning(
+                        "Проверьте, что заполнили все поля\nтаблицы кабинетов!\n(№ кабинета, Вместимость, Кол-во компьютеров)\nНе забудьте, что в таблице должна быть хотя бы одна строка!")
+            else:
+                self.warning("Проверьте, что заполнили все поля\nтаблицы групп!\n(Группа, Кол-во студентов)\nНе забудьте, что в таблице должна быть хотя бы одна строка!")
+        else:
+            self.warning("Проверьте, что заполнили все поля\nтаблицы преподавателей!\n(Преподователи)\nНе забудьте, что в таблице должна быть хотя бы одна строка!")
+
+    def warning(self, text):
+        warning = QMessageBox()
+        warning.setWindowTitle("Ошибка!")
+        warning.setText(text)
+        warning.setStandardButtons(QMessageBox.Ok)
+        warning.exec()
