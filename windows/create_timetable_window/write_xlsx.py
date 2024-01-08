@@ -13,6 +13,7 @@ def fill_xlsx(table, days, number_of_classes_per_day):
         insert_groups(worksheet, table)
         insert_courses_and_classrooms(worksheet, table, days, number_of_classes_per_day)
         workbook.close()
+        table.were_changes = False
 
 
 def insert_days_and_class_numbers(worksheet, days, number_of_classes_per_day):

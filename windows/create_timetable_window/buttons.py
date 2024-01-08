@@ -27,7 +27,8 @@ class Buttons(QWidget):
 def leave_app(this_window, db, table, days, number_of_classes_per_day):
     if table.were_changes:
         warning = QMessageBox()
-        warning.setText("Сохранить изменения в файл?")
+        warning.setWindowTitle("Сохранение изменений")
+        warning.setText("У вас есть несохранённые изменения. Сохранить файл?")
         warning.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
         warning.setDefaultButton(QMessageBox.Save)
         ret = warning.exec()
