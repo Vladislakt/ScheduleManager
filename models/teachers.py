@@ -13,7 +13,10 @@ class Teachers(Base):
     fullname = Column(String, nullable=False)
 
     # Создание зависимости
-    lesson = relationship('Lessons')
+    lesson = relationship('Lessons',
+                          back_populates="teachers",
+                          cascade="all, delete",
+                          passive_deletes=True)
 
     def __repr__(self):
         return f'Teachers [ID: {self.teach_id}, ФИО: {self.fullname}]'

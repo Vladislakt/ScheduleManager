@@ -1,11 +1,11 @@
 import os
 
-from PySide6.QtGui import QFont, Qt
-from PySide6.QtWidgets import QApplication, QHBoxLayout, QPushButton, QWidget, QVBoxLayout, QGridLayout, QLabel, \
+from PySide6.QtGui import QFont, Qt, QFontDatabase
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QWidget, QVBoxLayout, QGridLayout, QLabel, \
     QMainWindow
 
-from database.get_list_from_db import getDBName
-# from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
+from database.select_queries import getDBName
+from windows.pre_timetable_windows.add_triple_window import AddTripleWindow
 
 
 def getPathToFinaldata():
@@ -27,16 +27,18 @@ class OldBDButton(QWidget):
         super().__init__()
         self.pre_window = pre_window
         self.button = QPushButton(name)
+        self.button.setObjectName("old_button_namebd")
+        self.button.setFont(QFont('Times', 10))
         self.filename = filename
-        # self.button.clicked.connect(self.openTripleWindow)
+        self.button.clicked.connect(self.openTripleWindow)
         layout = QHBoxLayout()
         layout.addWidget(self.button)
         self.setLayout(layout)
 
-    # def openTripleWindow(self):
-    #     self.new_window = AddTripleWindow(self.pre_window, self.filename)
-    #     self.new_window.showMaximized()
-    #     self.pre_window.close()
+    def openTripleWindow(self):
+        self.new_window = AddTripleWindow(self.pre_window, self.filename)
+        self.new_window.show()
+        self.pre_window.close()
 
 
 class EditOldBDWindow(QMainWindow):
@@ -45,11 +47,24 @@ class EditOldBDWindow(QMainWindow):
 
         # Создание объекта предыдущего окна
         self.pre_window = pre_window
-
+        self.setFixedSize(1280, 720)
+        self.setWindowTitle("OOO Knopocnie Kabanchiki 3C++")
         self.setFont(QFont("Georgia", 20))
+
+        label = QLabel("Выберите расписание из ранее созданных вами:")
+
+        label.setStyleSheet("color: white")
+
+        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        families = QFontDatabase.applicationFontFamilies(id)
+
+        label.setFont(QFont(families, 20))
+
+        label.setAlignment(Qt.AlignCenter)
+
         main_layout = QVBoxLayout()
-        main_layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
-        main_layout.addWidget(QLabel("Выберите расписание из ранее созданных вами:"))
+        main_layout.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(label)
         rsp_list = getPathToFinaldata()
         count = 3
         row = 0
@@ -66,6 +81,9 @@ class EditOldBDWindow(QMainWindow):
         widget = QWidget()
         widget.setLayout(layout)
         button_back = QPushButton("Назад")
+        button_back.setObjectName("back_oldbd_long")
+        button_back.setFixedSize(670, 25)
+        button_back.setFont(QFont('Times', 10))
 
         button_back.clicked.connect(self.openPreWindow)
 
@@ -85,6 +103,6 @@ class EditOldBDWindow(QMainWindow):
 
         self.setCentralWidget(main_widget)
 
-    # def openPreWindow(self):
-    #     self.pre_window.showMaximized()
-    #     self.destroy()
+    def openPreWindow(self):
+        self.pre_window.show()
+        self.destroy()

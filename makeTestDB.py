@@ -1,15 +1,19 @@
 from database.create_database import create_database
 from database.insert_classrooms import insert_classrooms
 from database.insert_groups import insert_groups
+from database.insert_information import insert_information
 from database.insert_lessons import insert_lessons
 from database.insert_name import insert_name
 from database.insert_teachers import insert_teachers
 
-current_database = "test"
+from database.save_functions import save_finaldata
+from models.cell import Cell
 
-create_database(current_database)
+current_database = create_database()
 
 insert_name(current_database, "Тестовая")
+
+insert_information(current_database, True, 6)
 
 teachers = ["Васильчиков В", "Васильев А", "Сажин С", "Бондаренко В", "Николаев А", "Шовгенов Д", "Мусин М",
             "Волчёнков В",
@@ -133,3 +137,10 @@ lessons = [
     [15, "ПИЭ-12БО", 1, "Математические основы вычислительной техники", True, False]
 ]
 insert_lessons(current_database, lessons)
+
+cell_list = [Cell("Понедельник", "ИВТ-11БО", 1, 1, "201"),
+        Cell("Вторник", "ИВТ-11БО", 2, 2, "203"),
+        Cell("Понедельник", "ИВТ-11БО", 3, 3, "207"),
+        Cell("Понедельник", "ИВТ-11БО", 4, 4, "209"),
+        ]
+save_finaldata(current_database, cell_list)

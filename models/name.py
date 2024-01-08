@@ -3,7 +3,7 @@ from sqlalchemy import Column, String
 from database.database import Base
 
 
-# Класс представления отношения lessons
+# Класс представления отношения name
 class Name(Base):
     __tablename__ = 'name'
 

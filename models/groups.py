@@ -13,7 +13,10 @@ class Groups(Base):
     size = Column(Integer, nullable=False)
 
     # Создание зависимости
-    lessons = relationship('Lessons')
+    lesson = relationship('Lessons',
+                          back_populates="groups",
+                          cascade="all, delete",
+                          passive_deletes=True)
 
     def __repr__(self):
         return f'Groups [Группа: {self.group_name}, Размер: {self.size}]'
