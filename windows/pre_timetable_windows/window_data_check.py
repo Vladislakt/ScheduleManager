@@ -27,3 +27,12 @@ def check_classrooms_data(classroom_list):
         if classroom_list[index].classroom.text() == "" or classroom_list[index].size.text() == "" or classroom_list[index].computer.text() == "":
             return False
     return True
+
+
+def check_lesson_data(lesson_list):
+    if len(lesson_list) == 1:
+        return False
+    for index in range(1, len(lesson_list)):
+        if lesson_list[index].teacher.currentIndex() == 1 or lesson_list.group.currentIndex() == 1 or lesson_list[index].lesson.text() == "" or lesson_list[index].quantity.text() == "":
+            return False
+    return True
