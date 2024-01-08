@@ -33,6 +33,6 @@ def check_lesson_data(lesson_list):
     if len(lesson_list) == 1:
         return False
     for index in range(1, len(lesson_list)):
-        if lesson_list[index].teacher.currentIndex() == 1 or lesson_list.group.currentIndex() == 1 or lesson_list[index].lesson.text() == "" or lesson_list[index].quantity.text() == "":
+        if lesson_list[index].teacher.currentIndex() == 0 or lesson_list[index].group.currentIndex() == 0 or lesson_list[index].lesson.text() == "" or lesson_list[index].quantity.text() == "":
             return False
     return True

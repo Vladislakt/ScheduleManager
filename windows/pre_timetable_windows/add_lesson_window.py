@@ -5,6 +5,7 @@ from PySide6.QtWidgets import *
 from database.save_functions import save_lessons
 from windows.pre_timetable_windows.add_widgets.add_lesson_widget import AddLessonWidget
 from windows.pre_timetable_windows.add_information_window import AddInformationWindow
+from windows.pre_timetable_windows.window_data_check import check_lesson_data
 
 
 class AddLessonWindow(QMainWindow):
@@ -124,7 +125,14 @@ class AddLessonWindow(QMainWindow):
         self.destroy()
 
     def openInformationWindow(self):
-        save_lessons(self.current_database, self.pattern.data_masive, self.pattern.id_massive)
-        self.new_window = AddInformationWindow(self, self.current_database)
-        self.new_window.show()
-        self.close()
+        if check_lesson_data(self.pattern.data_masive):
+            save_lessons(self.current_database, self.pattern.data_masive, self.pattern.id_massive)
+            self.new_window = AddInformationWindow(self, self.current_database)
+            self.new_window.show()
+            self.close()
+        else:
+            warning = QMessageBox()
+            warning.setWindowTitle("Ошибка!")
+            warning.setText("Проверьте, что заполнили все поля!\n(Преподаватель, Группа, Предмет, Кол-во в неделю)\nНе забудьте, что в таблице должна быть хотя бы одна строка!")
+            warning.setStandardButtons(QMessageBox.Ok)
+            warning.exec()
