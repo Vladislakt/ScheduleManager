@@ -88,7 +88,7 @@ class AddLessonWidget(QWidget):
         line.group.addItem("<выберите>")
         for element in self.group_list:
             line.group.addItem(element)
-        line.group.setCurrentText(item.group_name)
+        line.group.setCurrentText(str(item.group_name))
         line.lesson = QLineEdit()
         line.lesson.setFixedWidth(self.column_size[2])
         line.lesson.setText(item.lesson_name)
