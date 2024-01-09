@@ -10,6 +10,7 @@ class AddClassroomWidget(QWidget):
     def __init__(self, current_database):
         super().__init__()
         self.data_masive = []
+
         title = QWidget()
         self.column_size = [70, 74, 60, 77, 55]
         title_layout = QHBoxLayout()
@@ -31,10 +32,12 @@ class AddClassroomWidget(QWidget):
         title_layout.addWidget(t5)
         title.setLayout(title_layout)
         self.data_masive.append(title)
+
         main_layout = QVBoxLayout()
         self.plus_button = QPushButton("Добавить строчку")
         self.plus_button.setFixedWidth(120)
         self.plus_button.clicked.connect(self.addLine)
+
         scroll_area = QScrollArea()
         scroll_area.setFixedSize(416, 480)
         self.scroll_vidget = QWidget()
@@ -44,11 +47,12 @@ class AddClassroomWidget(QWidget):
         self.scroll_layout.setAlignment(Qt.AlignTop)
         self.scroll_layout.setSpacing(0)
         self.scroll_vidget.setLayout(self.scroll_layout)
+
         main_layout.addWidget(scroll_area)
         main_layout.addWidget(self.plus_button)
         self.setLayout(main_layout)
-        # self.addLine()
         self.setFixedSize(436, 530)
+
         list = getClassroomList(current_database)
         if len(list) > 0:
             for item in list:
@@ -59,23 +63,29 @@ class AddClassroomWidget(QWidget):
 
     def getFromItem(self, item):
         line = QWidget()
+
         line.classroom = QLineEdit()
         line.classroom.setText(item.class_number)
         line.classroom.setFixedWidth(self.column_size[0])
+
         line.size = QLineEdit()
         line.size.setText(str(item.max_size))
         line.size.setFixedWidth(self.column_size[1])
         line.size.setValidator(QIntValidator())
+
         line.projector = QCheckBox()
         line.projector.setChecked(item.projector)
         line.projector.setStyleSheet("padding: 22; ")
         line.projector.setFixedWidth(self.column_size[2])
+
         line.computer = QLineEdit()
         line.computer.setText(str(item.computers))
         line.computer.setFixedWidth(self.column_size[3])
         line.computer.setValidator(QIntValidator())
+
         cancel_button = QPushButton("X")
         cancel_button.setFixedWidth(self.column_size[4])
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
 
         line_layout = QHBoxLayout()
         line_layout.setAlignment(Qt.AlignLeft)
@@ -84,26 +94,32 @@ class AddClassroomWidget(QWidget):
         line_layout.addWidget(line.projector)
         line_layout.addWidget(line.computer)
         line_layout.addWidget(cancel_button)
+
         line.setLayout(line_layout)
         line.setFixedHeight(40)
         self.data_masive.append(line)
-        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
 
     def addLine(self):
         line = QWidget()
+
         line.classroom = QLineEdit()
         line.classroom.setFixedWidth(self.column_size[0])
+
         line.size = QLineEdit()
         line.size.setFixedWidth(self.column_size[1])
         line.size.setValidator(QIntValidator())
+
         line.projector = QCheckBox()
         line.projector.setStyleSheet("padding: 22; ")
         line.projector.setFixedWidth(self.column_size[2])
+
         line.computer = QLineEdit()
         line.computer.setFixedWidth(self.column_size[3])
         line.computer.setValidator(QIntValidator())
+
         cancel_button = QPushButton("X")
         cancel_button.setFixedWidth(self.column_size[4])
+        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
 
         line_layout = QHBoxLayout()
         line_layout.setAlignment(Qt.AlignLeft)
@@ -112,10 +128,10 @@ class AddClassroomWidget(QWidget):
         line_layout.addWidget(line.projector)
         line_layout.addWidget(line.computer)
         line_layout.addWidget(cancel_button)
+
         line.setLayout(line_layout)
         line.setFixedHeight(40)
         self.data_masive.append(line)
-        cancel_button.clicked.connect(lambda: self.delLine(self.data_masive.index(line)))
         self.updateLayout()
 
     def delLine(self, num_in_list):
