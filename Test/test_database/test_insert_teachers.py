@@ -1,10 +1,10 @@
 import unittest
-from database.insert_teachers import insert_teachers, create_session  # replace 'your_module' with the actual module name
+from database.insert_teachers import insert_teachers, create_session
 from models.teachers import Teachers
 
 class TestInsertTeachers(unittest.TestCase):
     def setUp(self):
-        self.filename = "example_filename"
+        self.filename = "test.rsp"
         self.teacher_list = ["Teacher1", "Teacher2", "Teacher3"]
 
     def test_insert_teachers(self):

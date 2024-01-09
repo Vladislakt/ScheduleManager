@@ -1,12 +1,12 @@
 import unittest
-from database.select_queries import getTeacherName, create_session  # Replace 'your_module' with the actual module name
+from database.select_queries import getTeacherName, create_session
 from models.teachers import Teachers
 
 class TestGetTeacherName(unittest.TestCase):
     def setUp(self):
-        self.filename = "example_filename"  # replace with the actual filename
+        self.filename = "test.rsp"
         self.teach_id = 1
-        self.fullname = "John Doe"
+        self.fullname = "Васильчиков В"
         with create_session(self.filename) as session:
             teacher = Teachers(teach_id=self.teach_id, fullname=self.fullname)
             session.add(teacher)

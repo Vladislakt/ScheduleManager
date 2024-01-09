@@ -1,45 +1,41 @@
 import unittest
-from database.get_list_from_db import (
-    getTeacherList, getGroupList, getLessonList, getClassroomList,
-    getLessonsByGroup, getGroupNameList, getDBName
-)  # replace 'yourmodule' with the actual module name
-from database.create_session import create_session
+from database.get_list_from_db import (getTeacherList, getGroupList, getLessonList, getClassroomList,
+                                       getLessonsByGroup, getGroupNameList, getCellList)
 from models.classrooms import Classrooms
 from models.groups import Groups
 from models.lessons import Lessons
-from models.name import Name
 from models.teachers import Teachers
-from models.finaldata import FinalData
+
 
 class TestDBFunctions(unittest.TestCase):
     def setUp(self):
-        self.filename = "examplefilename"  # replace with the actual filename
+        self.filename = "test.rsp"
 
-    def testteacherlist(self):
+    def test_teacher_list(self):
         result = getTeacherList(self.filename)
         self.assertIsInstance(result, list)
         for item in result:
             self.assertIsInstance(item, Teachers)
 
-    def testgrouplist(self):
+    def test_group_list(self):
         result = getGroupList(self.filename)
         self.assertIsInstance(result, list)
         for item in result:
             self.assertIsInstance(item, Groups)
 
-    def testlessonlist(self):
+    def test_lesson_list(self):
         result = getLessonList(self.filename)
         self.assertIsInstance(result, list)
         for item in result:
             self.assertIsInstance(item, Lessons)
 
-    def testclassroomlist(self):
+    def test_classroom_list(self):
         result = getClassroomList(self.filename)
         self.assertIsInstance(result, list)
         for item in result:
             self.assertIsInstance(item, Classrooms)
 
-    def testlessonsbygroup(self):
+    def test_lessons_by_group(self):
         groupname = "somegroupname"
         result = getLessonsByGroup(self.filename, groupname)
         self.assertIsInstance(result, list)
@@ -47,16 +43,16 @@ class TestDBFunctions(unittest.TestCase):
             self.assertIsInstance(item, Lessons)
             self.assertEqual(item.groupname, groupname)
 
-    def testgroupnamelist(self):
+    def test_group_name_list(self):
         result = getGroupNameList(self.filename)
         self.assertIsInstance(result, list)
         for item in result:
             self.assertIsInstance(item, str)
 
-    def testdbname(self):
-        result = getDBName(self.filename)
+    def test_dbname(self):
+        result = getCellList(self.filename)
         self.assertIsInstance(result, str)
-        self.assertEqual(result, "somedbname")  # replace with the expected name
+        self.assertEqual(result, "test3.rsp")  # replace with the expected name
 
 if __name__ == '__main__':
     unittest.main()

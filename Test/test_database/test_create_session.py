@@ -1,15 +1,13 @@
 import unittest
-import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database.create_session import create_session  # replace `your_module` with the actual module name
+from database.create_session import create_session
 
 
 class TestCreateSession(unittest.TestCase):
     def test_create_session_existing_file(self):
-        filename = "example_filename"
+        filename = "test2"
         with open(f"finaldata/{filename}.rsp", "w") as f:
-            # Create an empty file to simulate the database file
             pass
 
         session = create_session(filename)
@@ -17,12 +15,12 @@ class TestCreateSession(unittest.TestCase):
         self.assertIsInstance(session, sessionmaker)
 
     def test_create_session_non_existing_file(self):
-        filename = "example_non_existing_filename"
+        filename = "test"
         with self.assertRaises(FileNotFoundError):
             create_session(filename)
 
     def test_create_session_with_proper_engine(self):
-        filename = "example_filename"
+        filename = "test3"
         database_name = f"finaldata/{filename}.rsp"
         engine = create_engine(f'sqlite:///{database_name}')
         Session = sessionmaker(bind=engine)
