@@ -55,7 +55,7 @@ class EditOldBDWindow(QMainWindow):
 
         label.setStyleSheet("color: white")
 
-        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        id = QFontDatabase.addApplicationFont("windows/pre_timetable_windows/Fonts/RobotoSlab.ttf")
         families = QFontDatabase.applicationFontFamilies(id)
 
         label.setFont(QFont(families, 20))

@@ -7,7 +7,7 @@ if __name__ == '__main__':
     app = QApplication([])
 
     # Подключение QSS
-    qss_file = QtCore.QFile(r"style.qss")
+    qss_file = QtCore.QFile(r"windows/pre_timetable_windows/style.qss")
     qss_file.open(QtCore.QFile.ReadOnly | QtCore.QFile.Text)
     stream = QtCore.QTextStream(qss_file)
     app.setStyleSheet(stream.readAll())

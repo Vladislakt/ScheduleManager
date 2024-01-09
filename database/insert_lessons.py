@@ -1,5 +1,4 @@
 from database.create_session import create_session
-from models.cell import Cell
 from models.lessons import Lessons
 
 

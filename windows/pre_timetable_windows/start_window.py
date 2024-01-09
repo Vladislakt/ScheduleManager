@@ -19,12 +19,11 @@ class StartWindow(QMainWindow):
         label_name_proga = QLabel("ScheduleManager")
         label_name_company = QLabel("Directed by OOO Knopochnie Kabanchiki")
 
-        id1 = QFontDatabase.addApplicationFont("Fonts/NanumMyeongjo-Regular.ttf")
+        id1 = QFontDatabase.addApplicationFont("windows/pre_timetable_windows/Fonts/NanumMyeongjo-Regular.ttf")
         nanum = QFontDatabase.applicationFontFamilies(id1)
 
-        id2 = QFontDatabase.addApplicationFont("Fonts/Judson-Regular.ttf")
+        id2 = QFontDatabase.addApplicationFont("windows/pre_timetable_windows/Fonts/Judson-Regular.ttf")
         judson = QFontDatabase.applicationFontFamilies(id2)
-
 
         label_name_proga.setFont(QFont(nanum, 41))
         label_name_company.setFont(QFont(judson, 17))
@@ -37,7 +36,6 @@ class StartWindow(QMainWindow):
 
         label_widget.setLayout(label_layout)
 
-
         # Кнопки в окне
         button_widget = QWidget()
         button_create = QPushButton("Создать")
@@ -49,7 +47,6 @@ class StartWindow(QMainWindow):
         button_exit = QPushButton("Выйти")
         button_exit.setObjectName("buttonExit")
         button_exit.setFont(QFont('Times', 15))
-
 
         # Размер кнопок
         button_create.setFixedSize(250, 100)

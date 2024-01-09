@@ -44,7 +44,7 @@ class AddTripleWindow(QMainWindow):
         label_classroom = QLabel("Заполните классы")
         label_classroom.setStyleSheet("color: white")
 
-        id = QFontDatabase.addApplicationFont("Fonts/RobotoSlab.ttf")
+        id = QFontDatabase.addApplicationFont("windows/pre_timetable_windows/Fonts/RobotoSlab.ttf")
         families = QFontDatabase.applicationFontFamilies(id)
 
         label_teacher.setFont(QFont(families, 20))
