@@ -17,7 +17,4 @@ class ModifiedQComboBox(QComboBox):
         return self.column
 
     def wheelEvent(self, *args, **kwargs):
-        if self.hasFocus():
-            return QComboBox.wheelEvent(self, *args, **kwargs)
-        else:
-            return self.scrollWidget.wheelEvent(*args, **kwargs)
+        return self.scrollWidget.wheelEvent(*args, **kwargs)
