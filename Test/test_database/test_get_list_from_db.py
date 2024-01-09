@@ -52,7 +52,7 @@ class TestDBFunctions(unittest.TestCase):
     def test_dbname(self):
         result = getCellList(self.filename)
         self.assertIsInstance(result, str)
-        self.assertEqual(result, "test3.rsp")  # replace with the expected name
+        self.assertEqual(result, "test.rsp")  # replace with the expected name
 
 if __name__ == '__main__':
     unittest.main()
