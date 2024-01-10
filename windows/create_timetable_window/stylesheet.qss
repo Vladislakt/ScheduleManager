@@ -47,7 +47,7 @@ ModifiedQComboBox#highlighted-course::drop-down {
 }
 
 ModifiedQComboBox#highlighted-course::down-arrow {
-  image: url("arrow.ico");
+  image: url("windows/create_timetable_window/arrow.ico");
   width: 12px;
   height: 12px;
 }
@@ -86,7 +86,7 @@ ModifiedQComboBox#highlighted-classroom::drop-down {
 }
 
 ModifiedQComboBox#highlighted-classroom::down-arrow {
-  image: url("arrow.ico");
+  image: url("windows/create_timetable_window/arrow.ico");
   width: 12px;
   height: 12px;
 }
